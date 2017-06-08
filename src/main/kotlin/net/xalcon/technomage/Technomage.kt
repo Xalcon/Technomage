@@ -6,7 +6,10 @@ import net.minecraftforge.fml.common.event.FMLConstructionEvent
 import net.minecraftforge.fml.common.event.FMLInitializationEvent
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent
+import net.minecraftforge.fml.common.network.NetworkRegistry
 import net.xalcon.technomage.common.CommonProxy
+import net.xalcon.technomage.common.TechnomageGuiHandler
+import org.apache.logging.log4j.LogManager
 
 @Mod
 (
@@ -23,10 +26,12 @@ object Technomage
     const val GROUP = "net.xalcon." + MOD_ID
     const val VERSION = "@VERSION@"
     const val MC_VERSION = "1.11.2"
-    const val DEPENDENCIES = "required-after:forge;required-after:forgelin@[1.4.0,)"
+    const val DEPENDENCIES = "required-after:forge@[13.20.0.2304,);required-after:forgelin@[1.4.0,)"
 
     @SidedProxy(clientSide = GROUP + ".client.ClientProxy", serverSide = GROUP + ".server.ServerProxy")
     lateinit var Proxy : CommonProxy
+
+    val Log = LogManager.getLogger(MOD_ID)
 
     @Mod.EventHandler
     fun onConstruction(event:FMLConstructionEvent)
@@ -37,6 +42,10 @@ object Technomage
     fun onPreInit(event:FMLPreInitializationEvent)
     {
         Proxy.preInit(event)
+        TMBlocks.init()
+        TMItems.init()
+
+        NetworkRegistry.INSTANCE.registerGuiHandler(this, TechnomageGuiHandler)
     }
 
     @Mod.EventHandler
