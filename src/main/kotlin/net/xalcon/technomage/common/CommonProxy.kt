@@ -6,6 +6,7 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent
 import net.minecraftforge.fml.common.registry.GameRegistry
 import net.xalcon.technolib.item.IItemBlockProvider
+import net.xalcon.technomage.common.blocks.BlockTMTileProvider
 
 abstract class CommonProxy
 {
@@ -24,11 +25,17 @@ abstract class CommonProxy
     open fun <T : Block> register(block:T):T
     {
         GameRegistry.register(block)
-        if(block is IItemBlockProvider)
+        if(block is IItemBlockProvider && block.hasItemBlock())
         {
             val itemBlock = block.createItemBlock()
             itemBlock.registryName = block.registryName
             register(itemBlock)
+        }
+
+        if(block is BlockTMTileProvider)
+        {
+            block.getTileEntityClasses()
+                    .forEach { (name, tileClass) -> GameRegistry.registerTileEntity(tileClass, name) }
         }
         return block
     }

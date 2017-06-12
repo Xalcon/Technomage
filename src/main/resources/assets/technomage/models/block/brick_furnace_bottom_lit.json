@@ -1,0 +1,12 @@
+{
+    "parent": "technomage:block/orientable",
+    "textures":
+    {
+        "top": "minecraft:blocks/brick",
+        "bottom": "minecraft:blocks/brick",
+        "front": "technomage:blocks/multiblocks/brick_furnace_lower_lit",
+        "back": "technomage:blocks/multiblocks/brick_furnace_lower_side",
+        "left": "technomage:blocks/multiblocks/brick_furnace_lower_side",
+        "right": "technomage:blocks/multiblocks/brick_furnace_lower_side"
+    }
+}

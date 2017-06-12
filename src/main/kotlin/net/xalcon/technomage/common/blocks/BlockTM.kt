@@ -25,4 +25,6 @@ open class BlockTM(internalName:String, materialIn: Material?)
         ModelLoader.setCustomModelResourceLocation(item, 0, ModelResourceLocation(item.registryName, "inventory"))
 
     override fun createItemBlock() = ItemBlockTM(this)
+
+    override fun hasItemBlock() = true
 }

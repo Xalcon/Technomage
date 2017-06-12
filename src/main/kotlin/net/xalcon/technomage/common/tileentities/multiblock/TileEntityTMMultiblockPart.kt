@@ -7,13 +7,13 @@ import net.minecraft.util.math.BlockPos
 import net.xalcon.technomage.common.tileentities.EnumSyncType
 import net.xalcon.technomage.common.tileentities.TileEntityTMBase
 
-class TileEntityTMMultiblockPart<T> : TileEntityTMBase() where T : TileEntityTMMultiblockPart<T>
+open class TileEntityTMMultiblockPart<T> : TileEntityTMBase() where T : TileEntityTMMultiblockPart<T>
 {
-    private var formed:Boolean = false
-    private var isMaster:Boolean = false
-    private var masterPos:BlockPos = BlockPos.ORIGIN
-    private var index:Int = -1
-    private var facing:EnumFacing = EnumFacing.NORTH
+    var formed:Boolean = false
+    var isMaster:Boolean = false
+    var masterPos:BlockPos = BlockPos.ORIGIN
+    var index:Int = -1
+    var facing:EnumFacing = EnumFacing.NORTH
 
     override fun readNbt(nbt: NBTTagCompound, type: EnumSyncType)
     {

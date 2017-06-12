@@ -7,7 +7,7 @@ import net.xalcon.technolib.item.IItemModelRegisterHandler
 
 class ItemBlockTM<T>(block: T) : ItemBlock(block), IItemModelRegisterHandler where T : Block, T : IItemModelRegisterHandler
 {
-    private val registerHandler: IItemModelRegisterHandler;
+    private val registerHandler: IItemModelRegisterHandler
 
     init
     {

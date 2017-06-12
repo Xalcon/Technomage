@@ -1,5 +1,6 @@
 package net.xalcon.technomage.common.blocks.multiblocks
 
+import jdk.nashorn.internal.ir.Block
 import net.minecraft.block.state.IBlockState
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.init.Blocks
@@ -10,8 +11,10 @@ import net.minecraft.util.ResourceLocation
 import net.minecraft.util.SoundCategory
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
+import net.xalcon.technomage.TMBlocks
 import net.xalcon.technomage.Technomage
 import net.xalcon.technomage.api.multiblocks.IMultiblock
+import net.xalcon.technomage.common.tileentities.multiblock.TileEntityBrickFurnace
 
 class MultiblockBrickFurnace : IMultiblock
 {
@@ -20,10 +23,20 @@ class MultiblockBrickFurnace : IMultiblock
     override fun createStructure(world: World, pos: BlockPos, facing: EnumFacing, player: EntityPlayer): Boolean
     {
         if(!isStructureValid(world, pos, facing, player)) return false
-        world.setBlockState(pos, Blocks.FURNACE.getStateForPlacement(world, pos, facing, 0.5f, 0.5f, 0.5f, 0, player, EnumHand.MAIN_HAND))
-        world.setBlockState(pos.up(), Blocks.FURNACE.getStateForPlacement(world, pos, facing, 0.5f, 0.5f, 0.5f, 0, player, EnumHand.MAIN_HAND))
+        setAndUpdate(world, pos, TMBlocks.brickFurnace.getPlacementState(facing, true))
+        setAndUpdate(world, pos.up(), TMBlocks.brickFurnace.getPlacementState(facing, false))
         world.playSound(null, pos, SoundEvents.BLOCK_METAL_PLACE, SoundCategory.BLOCKS, 1.0f, 1.0f)
         return true
+    }
+
+    private fun setAndUpdate(world: World, pos: BlockPos, state: IBlockState)
+    {
+        world.setBlockState(pos, state)
+        val tile = world.getTileEntity(pos) as? TileEntityBrickFurnace ?: return
+        tile.isLower = state.getValue(BlockBrickFurnace.IS_LOWER)
+        tile.facing = state.getValue(BlockBrickFurnace.FACING)
+        tile.isMaster = tile.isLower
+        tile.formed = true
     }
 
     @Suppress("UNUSED_PARAMETER")

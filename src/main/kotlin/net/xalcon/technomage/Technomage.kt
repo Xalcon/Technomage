@@ -10,6 +10,7 @@ import net.minecraftforge.fml.common.network.NetworkRegistry
 import net.xalcon.technomage.common.CommonProxy
 import net.xalcon.technomage.common.TechnomageGuiHandler
 import org.apache.logging.log4j.LogManager
+import kotlin.experimental.and
 
 @Mod
 (
@@ -33,9 +34,13 @@ object Technomage
 
     val Log = LogManager.getLogger(MOD_ID)
 
+    val x:Byte = -1
+    var y:Int = 0
+
     @Mod.EventHandler
     fun onConstruction(event:FMLConstructionEvent)
     {
+        y = (x and 0xFF.toByte()).toInt()
     }
 
     @Mod.EventHandler

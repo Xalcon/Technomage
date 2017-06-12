@@ -1,0 +1,29 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+        "textures": {
+            "particle": "technomage:blocks/test"
+        },
+        "model": "technomage:orientable",
+        "uvlock": true
+    },
+    "variants": {
+        "active=false,facing=north,lower=false": [{ "model": "technomage:brick_furnace_top", "y": 0 }],
+        "active=true,facing=north,lower=false":  [{ "model": "technomage:brick_furnace_top", "y": 0 }],
+        "active=false,facing=south,lower=false": [{ "model": "technomage:brick_furnace_top", "y": 180 }],
+        "active=true,facing=south,lower=false":  [{ "model": "technomage:brick_furnace_top", "y": 180 }],
+        "active=false,facing=west,lower=false":  [{ "model": "technomage:brick_furnace_top", "y": 270 }],
+        "active=true,facing=west,lower=false":   [{ "model": "technomage:brick_furnace_top", "y": 270 }],
+        "active=false,facing=east,lower=false":  [{ "model": "technomage:brick_furnace_top", "y": 90 }],
+        "active=true,facing=east,lower=false":   [{ "model": "technomage:brick_furnace_top", "y": 90 }],
+
+        "active=false,facing=north,lower=true": [{ "model": "technomage:brick_furnace_bottom",     "y": 0 }],
+        "active=true,facing=north,lower=true":  [{ "model": "technomage:brick_furnace_bottom_lit", "y": 0 }],
+        "active=false,facing=south,lower=true": [{ "model": "technomage:brick_furnace_bottom",     "y": 180 }],
+        "active=true,facing=south,lower=true":  [{ "model": "technomage:brick_furnace_bottom_lit", "y": 180 }],
+        "active=false,facing=west,lower=true":  [{ "model": "technomage:brick_furnace_bottom",     "y": 270 }],
+        "active=true,facing=west,lower=true":   [{ "model": "technomage:brick_furnace_bottom_lit", "y": 270 }],
+        "active=false,facing=east,lower=true":  [{ "model": "technomage:brick_furnace_bottom",     "y": 90 }],
+        "active=true,facing=east,lower=true":   [{ "model": "technomage:brick_furnace_bottom_lit", "y": 90 }]
+    }
+}
