@@ -1,11 +1,16 @@
 package net.xalcon.technomage
 
+import net.minecraftforge.client.event.ModelRegistryEvent
+import net.minecraftforge.client.model.ModelLoaderRegistry
+import net.minecraftforge.common.MinecraftForge
+import net.minecraftforge.fml.common.FMLCommonHandler
 import net.minecraftforge.fml.common.Mod
 import net.minecraftforge.fml.common.SidedProxy
 import net.minecraftforge.fml.common.event.FMLConstructionEvent
 import net.minecraftforge.fml.common.event.FMLInitializationEvent
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import net.minecraftforge.fml.common.network.NetworkRegistry
 import net.xalcon.technomage.common.CommonProxy
 import net.xalcon.technomage.common.TechnomageGuiHandler
@@ -34,13 +39,9 @@ object Technomage
 
     val Log = LogManager.getLogger(MOD_ID)
 
-    val x:Byte = -1
-    var y:Int = 0
-
     @Mod.EventHandler
     fun onConstruction(event:FMLConstructionEvent)
     {
-        y = (x and 0xFF.toByte()).toInt()
     }
 
     @Mod.EventHandler

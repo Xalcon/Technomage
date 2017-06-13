@@ -10,15 +10,12 @@ import net.minecraft.util.ResourceLocation
 import net.minecraft.util.math.MathHelper
 import net.minecraft.util.math.Vec2f
 import net.xalcon.technomage.Technomage
-import net.xalcon.technomage.api.technonomicon.IResearchPage
-import net.xalcon.technomage.api.technonomicon.ResearchItem
-import net.xalcon.technomage.api.technonomicon.ResearchPage
 import org.lwjgl.input.Mouse
 import org.lwjgl.opengl.GL11
 import org.lwjgl.util.Point
 import org.lwjgl.util.Rectangle
 
-class GuiTechnonomiconResearchViewer : GuiScreen()
+class GuiTechnonomiconResearchViewerOld : GuiScreen()
 {
     private val RESEARCH_TEX = ResourceLocation(Technomage.MOD_ID, "textures/gui/technonomicon/research.png")
 
@@ -90,7 +87,7 @@ class GuiTechnonomiconResearchViewer : GuiScreen()
         GL11.glScissor((left + INSET) * this.winScaleFactor, (top + INSET) * this.winScaleFactor, (viewWidth - INSET * 2) * this.winScaleFactor, (viewHeight - INSET * 2) * this.winScaleFactor)
         GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f)
         GlStateManager.translate(this.x.toDouble(), this.y.toDouble(), 0.0)
-        this.pageList[0].renderView(viewport, zoom, relMousePos)
+        this.pageList[0].renderView(viewport, relMousePos, zoom)
         GL11.glDisable(GL11.GL_SCISSOR_TEST)
         GlStateManager.popMatrix()
 
@@ -99,7 +96,7 @@ class GuiTechnonomiconResearchViewer : GuiScreen()
         //GlStateManager.color(1.0f, 1.0f, 1.0f, 0.3f)
         this.drawBorder()
         //GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f)
-        this.pageList[0].handleMouseOver(viewport, zoom, relMousePos)
+        //this.pageList[0].handleMouseOver(viewport, zoom, relMousePos)
         GlStateManager.enableDepth()
         GlStateManager.popMatrix()
         super.drawScreen(mouseX, mouseY, partialTicks)
@@ -170,5 +167,10 @@ class GuiTechnonomiconResearchViewer : GuiScreen()
         this.drawTexturedModalRect(-16, this.guiHeight - 32, 0, 0, 48, 48)
         // BOTTOM RIGHT
         this.drawTexturedModalRect(this.guiWidth - 32, this.guiHeight - 32, 0, 0, 48, 48)
+    }
+
+    override fun mouseClicked(mouseX: Int, mouseY: Int, mouseButton: Int)
+    {
+        super.mouseClicked(mouseX, mouseY, mouseButton)
     }
 }
