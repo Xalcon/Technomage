@@ -1,19 +1,18 @@
-package net.xalcon.technomage.api.technonomicon;
+package net.xalcon.technomage.api.gui.technonomicon;
 
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.util.ResourceLocation;
+import net.xalcon.technomage.api.gui.IGuiComponent;
 import org.lwjgl.util.Point;
 import org.lwjgl.util.Rectangle;
 
-public interface IResearchView
+public interface IResearchView extends IGuiComponent
 {
+    void setBounds(Rectangle bounds);
     String getUnlocalizedName();
     ResourceLocation getRegistryName();
     IGuiIcon getIcon();
-    boolean isVisible();
+    boolean isTabVisible();
     int getSortingIndex();
-    void renderBackgroundLayer(Rectangle viewport, Point mousePos);
-    void renderForegroundLayer(Rectangle viewport, Point mousePos);
-    void renderTooltipLayer(Rectangle viewport, Point mousePos);
     void onShow(GuiScreen parent);
 }

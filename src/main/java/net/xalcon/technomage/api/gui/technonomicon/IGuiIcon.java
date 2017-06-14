@@ -1,4 +1,4 @@
-package net.xalcon.technomage.api.technonomicon;
+package net.xalcon.technomage.api.gui.technonomicon;
 
 public interface IGuiIcon
 {

@@ -1,4 +1,4 @@
-package net.xalcon.technomage.api.technonomicon;
+package net.xalcon.technomage.api.gui.technonomicon;
 
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.GlStateManager;
@@ -20,18 +20,36 @@ public class ResearchView implements IResearchView
     private String unlocalizedName;
     private ResourceLocation registryName;
     private IGuiIcon icon;
+
+    private int x;
+    private int y;
+    private float zoom;
+    private boolean scrolling;
+
     protected int sortingIndex;
     protected boolean isVisible = true;
     protected ResourceLocation background = RESEARCH_BACKGROUND_DEFAULT;
 
-    private GuiScreen parent;
     private List<IResearchViewItem> researchTree = new ArrayList<>();
+    private Rectangle bounds = new Rectangle();
 
     public ResearchView(ResourceLocation registryName, IGuiIcon icon)
     {
         this.unlocalizedName = "technonomicon." + registryName.getResourceDomain() + "." + registryName.getResourcePath() + ".view_name";
         this.registryName = registryName;
         this.icon = icon;
+    }
+
+    @Override
+    public Rectangle getBounds()
+    {
+        return this.bounds;
+    }
+
+    @Override
+    public void setBounds(Rectangle bounds)
+    {
+        this.bounds = bounds;
     }
 
     @Override
@@ -53,9 +71,9 @@ public class ResearchView implements IResearchView
     }
 
     @Override
-    public boolean isVisible()
+    public boolean isTabVisible()
     {
-        return this.isVisible;
+        return true;
     }
 
     @Override
@@ -65,31 +83,8 @@ public class ResearchView implements IResearchView
     }
 
     @Override
-    public void renderBackgroundLayer(Rectangle viewport, Point mousePos)
-    {
-        GuiHelper.INSTANCE.bindTexture(this.background);
-        GuiHelper.INSTANCE.drawTexturedModalRect(0, 0, -viewport.getX(), -viewport.getY(),
-                viewport.getWidth(), viewport.getHeight(), 0);
-    }
-
-    @Override
-    public void renderForegroundLayer(Rectangle viewport, Point mousePos)
-    {
-        RenderHelper.enableGUIStandardItemLighting();
-        for (IResearchViewItem item: this.researchTree)
-            renderItem(item);
-        RenderHelper.disableStandardItemLighting();
-    }
-
-    @Override
-    public void renderTooltipLayer(Rectangle viewport, Point mousePos)
-    {
-    }
-
-    @Override
     public void onShow(GuiScreen parent)
     {
-        this.parent = parent;
     }
 
     public void setBackgroundTexture(ResourceLocation location)
@@ -112,5 +107,42 @@ public class ResearchView implements IResearchView
         GlStateManager.disableLighting();
         GlStateManager.enableCull();
         item.getIcon().renderAt(bounds.getX(), bounds.getY());
+    }
+
+    @Override
+    public void renderComponent(int mouseX, int mouseY)
+    {
+        GuiHelper.INSTANCE.bindTexture(this.background);
+        GuiHelper.INSTANCE.drawTexturedModalRect(this.bounds.getX(), this.bounds.getY(), -this.x, -this.y,
+                this.bounds.getWidth(), this.bounds.getHeight(), 0);
+
+        RenderHelper.enableGUIStandardItemLighting();
+        for (IResearchViewItem item: this.researchTree)
+            renderItem(item);
+        RenderHelper.disableStandardItemLighting();
+    }
+
+    @Override
+    public void renderTooltip(int mouseX, int mouseY)
+    {
+
+    }
+
+    @Override
+    public void onMouseClicked()
+    {
+
+    }
+
+    @Override
+    public void onMouseReleased()
+    {
+
+    }
+
+    @Override
+    public void onMouseDragged()
+    {
+
     }
 }
