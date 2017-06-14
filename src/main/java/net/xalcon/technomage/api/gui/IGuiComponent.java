@@ -8,7 +8,7 @@ public interface IGuiComponent
     void renderComponent(int mouseX, int mouseY);
     void renderTooltip(int mouseX, int mouseY);
 
-    void onMouseClicked();
-    void onMouseReleased();
-    void onMouseDragged();
+    void onMouseClicked(int mouseX, int mouseY, int mouseButton);
+    void onMouseReleased(int mouseX, int mouseY, int state);
+    void onMouseDragged(int mouseX, int mouseY, int clickedMouseButton, long timeSinceLastClick);
 }

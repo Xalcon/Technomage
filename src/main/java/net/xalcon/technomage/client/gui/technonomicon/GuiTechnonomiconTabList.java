@@ -1,9 +1,11 @@
 package net.xalcon.technomage.client.gui.technonomicon;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.util.ResourceLocation;
 import net.xalcon.technolib.client.GuiHelper;
 import net.xalcon.technomage.Technomage;
@@ -27,8 +29,6 @@ public class GuiTechnonomiconTabList implements IGuiComponent
 
     public IResearchView getActiveView()
     {
-        if(this.activeView == null && this.tabs.size() > 0)
-            this.activeView = this.tabs.get(0);
         return this.activeView;
     }
 
@@ -37,7 +37,10 @@ public class GuiTechnonomiconTabList implements IGuiComponent
         this.tabs.clear();
         this.tabs.addAll(viewsList);
         if(this.tabs.size() > 0)
+        {
             this.activeView = this.tabs.get(0);
+            this.activeView.onShow(null);
+        }
     }
 
     public void setPosition(int left, int top)
@@ -50,7 +53,7 @@ public class GuiTechnonomiconTabList implements IGuiComponent
     public Rectangle getBounds()
     {
         int c = (int)this.tabs.stream().filter(IResearchView::isTabVisible).count();
-        return new Rectangle(this.left, this.top, TAB_SIZE, TAB_SIZE * c);
+        return new Rectangle(this.left, this.top + 48, TAB_SIZE, TAB_SIZE * c);
     }
 
     @Override
@@ -86,17 +89,36 @@ public class GuiTechnonomiconTabList implements IGuiComponent
     }
 
     @Override
-    public void onMouseClicked()
+    public void onMouseClicked(int mouseX, int mouseY, int mouseButton)
     {
+        List<IResearchView> list = this.tabs.stream()
+                .filter(IResearchView::isTabVisible)
+                .sorted(Comparator.comparingInt(IResearchView::getSortingIndex))
+                .collect(Collectors.toList());
+        int i = 0;
+        for(IResearchView view : list)
+        {
+            Rectangle bounds = new Rectangle(this.left, this.top + 48 + 18 * i, 16, 16);
+            if(bounds.contains(mouseX, mouseY))
+            {
+                Minecraft.getMinecraft().getSoundHandler().playSound(PositionedSoundRecord.getMasterRecord(SoundEvents.UI_BUTTON_CLICK, 1.0F));
+                this.activeView = view;
+                this.activeView.onShow(null);
+                return;
+            }
+            i++;
+        }
     }
 
     @Override
-    public void onMouseReleased()
+    public void onMouseReleased(int mouseX, int mouseY, int state)
     {
+
     }
 
     @Override
-    public void onMouseDragged()
+    public void onMouseDragged(int mouseX, int mouseY, int clickedMouseButton, long timeSinceLastClick)
     {
+
     }
 }

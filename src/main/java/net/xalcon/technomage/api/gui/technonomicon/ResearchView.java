@@ -6,7 +6,6 @@ import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.util.ResourceLocation;
 import net.xalcon.technolib.client.GuiHelper;
 import net.xalcon.technomage.Technomage;
-import org.lwjgl.util.Point;
 import org.lwjgl.util.Rectangle;
 
 import java.util.ArrayList;
@@ -23,8 +22,11 @@ public class ResearchView implements IResearchView
 
     private int x;
     private int y;
+    private int max_width = 512;
+    private int max_height = 512;
     private float zoom;
-    private boolean scrolling;
+    private int lastMouseX;
+    private int lastMouseY;
 
     protected int sortingIndex;
     protected boolean isVisible = true;
@@ -85,6 +87,8 @@ public class ResearchView implements IResearchView
     @Override
     public void onShow(GuiScreen parent)
     {
+        this.x = 0;
+        this.y = 0;
     }
 
     public void setBackgroundTexture(ResourceLocation location)
@@ -98,15 +102,18 @@ public class ResearchView implements IResearchView
             this.researchTree.add(item);
     }
 
-    private static void renderItem(IResearchViewItem item)
+    private void renderItem(IResearchViewItem item)
     {
         GuiHelper.INSTANCE.bindTexture(RESEARCH_TEXTURE);
-        Rectangle bounds = item.getBounds();
-        GuiHelper.INSTANCE.drawTexturedModalRect(bounds.getX() - 5, bounds.getY() - 5, 42 + 26 * item.getResearchIconType().getIndex(), 107, 26, 26, 0);
+        Rectangle itemBounds = item.getBounds();
+
+        int rx = this.x + this.bounds.getX() + itemBounds.getX();
+        int ry = this.y + this.bounds.getY() + itemBounds.getY();
+        GuiHelper.INSTANCE.drawTexturedModalRect( rx - 5, ry - 5, 42 + 26 * item.getResearchIconType().getIndex(), 107, 26, 26, 0);
         GlStateManager.color(1f, 1f, 1f);
         GlStateManager.disableLighting();
         GlStateManager.enableCull();
-        item.getIcon().renderAt(bounds.getX(), bounds.getY());
+        item.getIcon().renderAt(rx, ry);
     }
 
     @Override
@@ -129,20 +136,28 @@ public class ResearchView implements IResearchView
     }
 
     @Override
-    public void onMouseClicked()
+    public void onMouseClicked(int mouseX, int mouseY, int mouseButton)
+    {
+        this.lastMouseX = mouseX;
+        this.lastMouseY = mouseY;
+    }
+
+    @Override
+    public void onMouseReleased(int mouseX, int mouseY, int state)
     {
 
     }
 
     @Override
-    public void onMouseReleased()
+    public void onMouseDragged(int mouseX, int mouseY, int clickedMouseButton, long timeSinceLastClick)
     {
+        int deltaX = mouseX - this.lastMouseX;
+        int deltaY = mouseY - this.lastMouseY;
 
-    }
+        this.x += deltaX;
+        this.y += deltaY;
 
-    @Override
-    public void onMouseDragged()
-    {
-
+        this.lastMouseX = mouseX;
+        this.lastMouseY = mouseY;
     }
 }

@@ -22,7 +22,6 @@ public class GuiTechnonomiconResearchViewer extends GuiScreen
 {
     private final static ResourceLocation RESEARCH_TEX = new ResourceLocation(Technomage.MOD_ID, "textures/gui/technonomicon/research.png");
     private final static int INDENT = 8;
-    private List<IGuiComponent> components = new ArrayList<>();
     private List<IResearchView> viewList = new ArrayList<>();
     private GuiTechnonomiconTabList tabList = new GuiTechnonomiconTabList();
 
@@ -50,7 +49,7 @@ public class GuiTechnonomiconResearchViewer extends GuiScreen
             @Override
             public Rectangle getBounds()
             {
-                return new Rectangle(64, 64, 16, 16);
+                return new Rectangle(256, 256, 16, 16);
             }
 
             @Override
@@ -88,25 +87,19 @@ public class GuiTechnonomiconResearchViewer extends GuiScreen
             {
             }
         });
-        this.addResearchView(view);
+        this.viewList.add(view);
 
         view = new ResearchView(new ResourceLocation(Technomage.MOD_ID, "test2"), new ItemStackGuiIcon(Items.DIAMOND));
         view.setBackgroundTexture(new ResourceLocation(Technomage.MOD_ID, "textures/gui/technonomicon/background_02.png"));
-        this.addResearchView(view);
+        this.viewList.add(view);
 
         view = new ResearchView(new ResourceLocation(Technomage.MOD_ID, "test3"), new ItemStackGuiIcon(Items.REDSTONE));
         view.setBackgroundTexture(new ResourceLocation(Technomage.MOD_ID, "textures/gui/technonomicon/background_03.png"));
-        this.addResearchView(view);
+        this.viewList.add(view);
 
         view = new ResearchView(new ResourceLocation(Technomage.MOD_ID, "test4"), new ItemStackGuiIcon(Blocks.CRAFTING_TABLE));
         view.setBackgroundTexture(new ResourceLocation(Technomage.MOD_ID, "textures/gui/technonomicon/background_02.png"));
-        this.addResearchView(view);
-    }
-
-    public void addResearchView(IResearchView view)
-    {
         this.viewList.add(view);
-        this.components.add(view);
     }
 
     @Override
@@ -124,35 +117,31 @@ public class GuiTechnonomiconResearchViewer extends GuiScreen
     protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException
     {
         super.mouseClicked(mouseX, mouseY, mouseButton);
-
-//        List<IResearchView> list = this.viewList.stream()
-//                .filter(IResearchView::isTabVisible)
-//                .sorted(Comparator.comparingInt(IResearchView::getSortingIndex))
-//                .collect(Collectors.toList());
-//        int i = 0;
-//        for(IResearchView view : list)
-//        {
-//            Rectangle bounds = new Rectangle(0, 48 + 18 * i, 16, 16);
-//            if(bounds.contains(mousePos))
-//            {
-//                this.mc.getSoundHandler().playSound(PositionedSoundRecord.getMasterRecord(SoundEvents.UI_BUTTON_CLICK, 1.0F));
-//                this.activeView = view;
-//                return;
-//            }
-//            i++;
-//        }
+        if(this.tabList.getBounds().contains(mouseX, mouseY))
+            this.tabList.onMouseClicked(mouseX, mouseY, mouseButton);
+        else if(this.tabList.getActiveView().getBounds().contains(mouseX, mouseY))
+            this.tabList.getActiveView().onMouseClicked(mouseX, mouseY, mouseButton);
     }
 
     @Override
     protected void mouseReleased(int mouseX, int mouseY, int state)
     {
         super.mouseReleased(mouseX, mouseY, state);
+        if(this.tabList.getBounds().contains(mouseX, mouseY))
+            this.tabList.onMouseReleased(mouseX, mouseY, state);
+        else if(this.tabList.getActiveView().getBounds().contains(mouseX, mouseY))
+            this.tabList.getActiveView().onMouseReleased(mouseX, mouseY, state);
     }
 
     @Override
     protected void mouseClickMove(int mouseX, int mouseY, int clickedMouseButton, long timeSinceLastClick)
     {
         super.mouseClickMove(mouseX, mouseY, clickedMouseButton, timeSinceLastClick);
+        if(this.tabList.getBounds().contains(mouseX, mouseY))
+            this.tabList.onMouseDragged(mouseX, mouseY, clickedMouseButton, timeSinceLastClick);
+        else if(this.tabList.getActiveView().getBounds().contains(mouseX, mouseY))
+            this.tabList.getActiveView().onMouseDragged(mouseX, mouseY, clickedMouseButton, timeSinceLastClick);
+
     }
 
     @Override
@@ -186,13 +175,7 @@ public class GuiTechnonomiconResearchViewer extends GuiScreen
         this.tabList.renderComponent(mouseX, mouseY);
         if(activeView != null && activeView.getBounds().contains(mouseX, mouseY))
             activeView.renderTooltip(mouseX, mouseY);
-        else
-            this.handleTabMouseOver();
 
-    }
-
-    private void handleTabMouseOver()
-    {
     }
 
     private void drawBorder()
