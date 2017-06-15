@@ -35,6 +35,9 @@ minecraft {
     // simply re-run your setup task after changing the mappings to update your workspace.
     mappings = "${mcp_mappings}"
     makeObfSourceJar = false // an Srg named sources jar is made by default. uncomment this to disable.
+
+    replace '@VERSION@', project.version
+    replace '@BUILD_NUMBER@', getBuildNumber()
 }
 
 repositories {
@@ -73,7 +76,7 @@ processResources {
         // replace version and mcversion
         expand 'version':project.version, 'mcversion':project.minecraft.version
     }
-        
+
     // copy everything else except the mcmod.info
     from(sourceSets.main.resources.srcDirs) {
         exclude 'mcmod.info'
