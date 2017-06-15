@@ -3,7 +3,7 @@ package net.xalcon.technomage.api.gui.technonomicon;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.util.ResourceLocation;
-import net.xalcon.technolib.client.GuiHelper;
+import net.xalcon.technomage.lib.client.GuiHelper;
 
 public class ResourceLocationGuiIcon implements IGuiIcon
 {
@@ -19,6 +19,6 @@ public class ResourceLocationGuiIcon implements IGuiIcon
     @Override
     public void renderAt(int x, int y)
     {
-        GuiHelper.INSTANCE.drawTexturedModalRect(x, y, this.sprite, 16, 16, 0);
+        GuiHelper.drawTexturedModalRect(x, y, this.sprite, 16, 16, 0);
     }
 }

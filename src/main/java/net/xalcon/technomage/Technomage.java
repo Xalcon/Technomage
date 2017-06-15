@@ -8,7 +8,7 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.xalcon.technomage.common.CommonProxy;
-import net.xalcon.technomage.common.TechnomageGuiHandler;
+import net.xalcon.technomage.common.GuiHandlerTechnomage;
 import net.xalcon.technomage.common.init.TMBlocks;
 import net.xalcon.technomage.common.init.TMItems;
 import org.apache.logging.log4j.LogManager;
@@ -50,7 +50,7 @@ public class Technomage
         TMBlocks.init();
         TMItems.init();
 
-        NetworkRegistry.INSTANCE.registerGuiHandler(instance, TechnomageGuiHandler.INSTANCE);
+        NetworkRegistry.INSTANCE.registerGuiHandler(instance, new GuiHandlerTechnomage());
     }
 
     @Mod.EventHandler

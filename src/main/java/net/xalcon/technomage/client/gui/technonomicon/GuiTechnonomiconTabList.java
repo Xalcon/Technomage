@@ -7,10 +7,10 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.util.ResourceLocation;
-import net.xalcon.technolib.client.GuiHelper;
 import net.xalcon.technomage.Technomage;
 import net.xalcon.technomage.api.gui.IGuiComponent;
 import net.xalcon.technomage.api.gui.technonomicon.IResearchView;
+import net.xalcon.technomage.lib.client.GuiHelper;
 import org.lwjgl.util.Rectangle;
 
 import java.util.ArrayList;
@@ -73,7 +73,7 @@ public class GuiTechnonomiconTabList implements IGuiComponent
                 GlStateManager.color(0.5f, 0.5f, 0.5f);
 
             Minecraft.getMinecraft().getTextureManager().bindTexture(RESEARCH_TEX);
-            GuiHelper.INSTANCE.drawTexturedModalRect(this.left - 16, this.top + 32 + 18 * i, 0, 0, 48, 48, 0);
+            GuiHelper.drawTexturedModalRect(this.left - 16, this.top + 32 + 18 * i, 0, 0, 48, 48, 0);
 
             if(bounds.contains(mouseX, mouseY))
                 Gui.drawRect(bounds.getX(), bounds.getY(), bounds.getX() + bounds.getWidth(), bounds.getY() + bounds.getHeight(), 0x88FFFFFF);

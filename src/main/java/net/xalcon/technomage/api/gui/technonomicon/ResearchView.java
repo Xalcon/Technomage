@@ -6,8 +6,8 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
-import net.xalcon.technolib.client.GuiHelper;
 import net.xalcon.technomage.Technomage;
+import net.xalcon.technomage.lib.client.GuiHelper;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.util.Rectangle;
@@ -114,12 +114,12 @@ public class ResearchView implements IResearchView
 
     private void renderItem(IResearchViewItem item)
     {
-        GuiHelper.INSTANCE.bindTexture(RESEARCH_TEXTURE);
+        GuiHelper.bindTexture(RESEARCH_TEXTURE);
         Rectangle itemBounds = item.getBounds();
 
         int rx = (int) ((this.x + itemBounds.getX()) * this.zoom + this.bounds.getX());
         int ry = (int) ((this.y + itemBounds.getY()) * this.zoom + this.bounds.getY());
-        GuiHelper.INSTANCE.drawTexturedModalRect( rx - 5, ry - 5, 42 + 26 * item.getResearchIconType().getIndex(), 107, 26, 26, 0);
+        GuiHelper.drawTexturedModalRect( rx - 5, ry - 5, 42 + 26 * item.getResearchIconType().getIndex(), 107, 26, 26, 0);
         GlStateManager.color(1f, 1f, 1f);
         GlStateManager.disableLighting();
         GlStateManager.enableCull();
@@ -138,8 +138,8 @@ public class ResearchView implements IResearchView
 
         GlStateManager.pushMatrix();
         GlStateManager.scale(this.zoom, this.zoom, this.zoom);
-        GuiHelper.INSTANCE.bindTexture(this.background);
-        GuiHelper.INSTANCE.drawTexturedModalRect(this.bounds.getX() / this.zoom, this.bounds.getY() / this.zoom, -this.x, -this.y,
+        GuiHelper.bindTexture(this.background);
+        GuiHelper.drawTexturedModalRect(this.bounds.getX() / this.zoom, this.bounds.getY() / this.zoom, -this.x, -this.y,
                 (int)(this.bounds.getWidth() * this.zoom), (int)(this.bounds.getHeight() * this.zoom), 0);
 
         GL11.glDisable(GL11.GL_SCISSOR_TEST);
