@@ -9,6 +9,8 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.xalcon.technomage.common.CommonProxy;
 import net.xalcon.technomage.common.TechnomageGuiHandler;
+import net.xalcon.technomage.common.init.TMBlocks;
+import net.xalcon.technomage.common.init.TMItems;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -45,8 +47,8 @@ public class Technomage
     public static void onPreInit(FMLPreInitializationEvent event)
     {
         Proxy.preInit(event);
-        TMBlocks.INSTANCE.init();
-        TMItems.INSTANCE.init();
+        TMBlocks.init();
+        TMItems.init();
 
         NetworkRegistry.INSTANCE.registerGuiHandler(instance, TechnomageGuiHandler.INSTANCE);
     }

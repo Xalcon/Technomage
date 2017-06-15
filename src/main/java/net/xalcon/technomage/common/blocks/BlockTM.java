@@ -12,7 +12,7 @@ import net.xalcon.technomage.lib.item.IItemBlockProvider;
 import net.xalcon.technomage.lib.item.IItemModelRegisterHandler;
 import org.jetbrains.annotations.NotNull;
 
-public class BlockTM extends Block implements IItemBlockProvider, IItemModelRegisterHandler
+public abstract class BlockTM extends Block implements IItemBlockProvider, IItemModelRegisterHandler
 {
     public BlockTM(String internalName, Material materialIn)
     {

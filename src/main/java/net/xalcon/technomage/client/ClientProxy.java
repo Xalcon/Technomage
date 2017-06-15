@@ -6,6 +6,7 @@ import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.xalcon.technomage.common.CommonProxy;
+import net.xalcon.technomage.lib.item.IItemModelRegisterHandler;
 
 @SideOnly(Side.CLIENT)
 public class ClientProxy extends CommonProxy

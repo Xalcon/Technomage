@@ -8,6 +8,7 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.util.ResourceLocation;
+import net.xalcon.technomage.Technomage;
 import net.xalcon.technomage.api.gui.technonomicon.*;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.util.Rectangle;

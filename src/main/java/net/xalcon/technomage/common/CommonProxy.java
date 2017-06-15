@@ -8,6 +8,7 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.xalcon.technomage.common.blocks.BlockTMTileProvider;
+import net.xalcon.technomage.lib.item.IItemBlockProvider;
 
 public class CommonProxy
 {
@@ -31,8 +32,8 @@ public class CommonProxy
 
         if(block instanceof BlockTMTileProvider)
         {
-            ((BlockTMTileProvider)block).getTileEntityClasses()
-                    .forEach(p -> GameRegistry.registerTileEntity(p.component2(), p.component1()));
+            ((BlockTMTileProvider) block).getTileEntityClasses()
+                    .forEach((key, value) -> GameRegistry.registerTileEntity(value, key));
         }
         return block;
     }
