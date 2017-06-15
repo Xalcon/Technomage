@@ -8,7 +8,6 @@ import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.util.ResourceLocation;
 import net.xalcon.technolib.client.GuiHelper;
-import net.xalcon.technomage.Technomage;
 import net.xalcon.technomage.api.gui.IGuiComponent;
 import net.xalcon.technomage.api.gui.technonomicon.IResearchView;
 import org.lwjgl.util.Rectangle;

@@ -1,8 +1,5 @@
 package net.xalcon.technomage
 
-import net.xalcon.technomage.common.items.ItemLeystoneWand
-import net.xalcon.technomage.common.items.ItemTechnonomicon
-
 object TMItems
 {
     val technonomicon = ItemTechnonomicon()

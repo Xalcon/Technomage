@@ -1,22 +1,18 @@
 package net.xalcon.technomage.common.blocks.multiblocks
 
-import jdk.nashorn.internal.ir.Block
 import net.minecraft.block.state.IBlockState
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.init.Blocks
 import net.minecraft.init.SoundEvents
 import net.minecraft.util.EnumFacing
-import net.minecraft.util.EnumHand
 import net.minecraft.util.ResourceLocation
 import net.minecraft.util.SoundCategory
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 import net.xalcon.technomage.TMBlocks
-import net.xalcon.technomage.Technomage
-import net.xalcon.technomage.api.multiblocks.IMultiblock
 import net.xalcon.technomage.common.tileentities.multiblock.TileEntityBrickFurnace
 
-class MultiblockBrickFurnace : IMultiblock
+class MultiblockBrickFurnace
 {
     override fun isBlockTrigger(state: IBlockState): Boolean = state.block == Blocks.BRICK_BLOCK
 
