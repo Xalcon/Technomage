@@ -7,6 +7,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraftforge.client.model.ModelLoader;
 import net.xalcon.technomage.Technomage;
+import net.xalcon.technomage.common.CreativeTabsTechnomage;
 import net.xalcon.technomage.common.items.ItemBlockTM;
 import net.xalcon.technomage.lib.item.IItemBlockProvider;
 import net.xalcon.technomage.lib.item.IItemModelRegisterHandler;
@@ -20,6 +21,7 @@ public abstract class BlockTM extends Block implements IItemBlockProvider, IItem
         super(materialIn);
         this.setUnlocalizedName(Technomage.MOD_ID + "." + internalName);
         this.setRegistryName(internalName);
+        this.setCreativeTab(CreativeTabsTechnomage.tabMain);
     }
 
     @Nonnull

@@ -13,7 +13,7 @@ public class ItemTM extends Item implements IItemModelRegisterHandler
     {
         this.setUnlocalizedName(Technomage.MOD_ID + "." + internalName);
         this.setRegistryName(internalName);
-        this.setCreativeTab(CreativeTabsTechnomage.Main);
+        this.setCreativeTab(CreativeTabsTechnomage.tabMain);
     }
 
     @Override

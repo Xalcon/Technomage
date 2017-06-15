@@ -56,11 +56,13 @@ public class Technomage
     @Mod.EventHandler
     public static void onInit(FMLInitializationEvent event)
     {
+        Proxy.init(event);
     }
 
     @Mod.EventHandler
     public static void onPostInit(FMLPostInitializationEvent event)
     {
+        Proxy.postInit(event);
     }
 
     @Mod.InstanceFactory

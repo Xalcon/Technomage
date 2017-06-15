@@ -7,7 +7,7 @@ import net.xalcon.technomage.Technomage;
 
 public class CreativeTabsTechnomage
 {
-    public final static CreativeTabs Main = new CreativeTabs(Technomage.MOD_ID + ".main")
+    public final static CreativeTabs tabMain = new CreativeTabs(Technomage.MOD_ID + ".main")
     {
         @Override
         public ItemStack getTabIconItem()
