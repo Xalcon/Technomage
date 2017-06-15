@@ -3,10 +3,22 @@ package net.xalcon.technomage.common.blocks;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
+import net.minecraft.init.SoundEvents;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
+import net.minecraftforge.fluids.capability.IFluidHandlerItem;
 import net.xalcon.technomage.Technomage;
 import net.xalcon.technomage.common.tileentities.TileEntityAlchemicalCauldron;
 
@@ -59,5 +71,32 @@ public class BlockAlchemicalCauldron extends BlockTMTileProvider
 
         addCollisionBoxToList(pos, entityBox, collidingBoxes, new AxisAlignedBB(0, 0, 0, 2f / 16f, 1f,1f));
         addCollisionBoxToList(pos, entityBox, collidingBoxes, new AxisAlignedBB(14f / 16f, 0, 0, 1f, 1f,1f));
+    }
+
+    @Override
+    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
+    {
+        if(worldIn.isRemote) return true;
+
+        TileEntity te = worldIn.getTileEntity(pos);
+        if(!(te instanceof TileEntityAlchemicalCauldron)) return false;
+
+        TileEntityAlchemicalCauldron cauldron = (TileEntityAlchemicalCauldron) te;
+        if(cauldron.hasWater) return false;
+
+        ItemStack itemStack = playerIn.getHeldItem(hand);
+        if(itemStack.getItem().getContainerItem() != Items.BUCKET) return false;
+
+        IFluidHandlerItem fluidHandler = itemStack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
+        if(fluidHandler == null) return false;
+
+        FluidStack fluidStack = fluidHandler.drain(new FluidStack(FluidRegistry.WATER, 1000), !playerIn.isCreative());
+        if(fluidStack == null) return false;
+
+        cauldron.hasWater = true;
+        worldIn.notifyBlockUpdate(pos, state, state, 3);
+        worldIn.playSound(null, pos, SoundEvents.ITEM_BUCKET_FILL, SoundCategory.BLOCKS, 1.0f, 1.0f);
+
+        return true;
     }
 }

@@ -1,9 +1,9 @@
 package net.xalcon.technomage.client.renderer.block;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.VertexBuffer;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
@@ -16,11 +16,12 @@ import org.lwjgl.opengl.GL11;
 public class TileEntityAlchemicalCauldronRenderer extends TileEntitySpecialRenderer<TileEntityAlchemicalCauldron>
 {
     @Override
-    public void renderTileEntityAt(TileEntityAlchemicalCauldron te, double x, double y, double z, float partialTicks, int destroyStage)
+    public void renderTileEntityAt(TileEntityAlchemicalCauldron te, double x, double y, double z, float partialTicks, int destroyStage, float alpha)
     {
+        if(!te.hasWater) return;
         GlStateManager.translate(x, y, z);
         Tessellator tessellator = Tessellator.getInstance();
-        VertexBuffer buffer = tessellator.getBuffer();
+        BufferBuilder buffer = tessellator.getBuffer();
 
         Fluid fluid = FluidRegistry.WATER;
         TextureAtlasSprite sprite = Minecraft.getMinecraft().getTextureMapBlocks().getTextureExtry(fluid.getStill().toString());

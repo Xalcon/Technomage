@@ -143,7 +143,7 @@ public class ResearchView implements IResearchView
                 (int)(this.bounds.getWidth() * this.zoom), (int)(this.bounds.getHeight() * this.zoom), 0);
 
         GL11.glDisable(GL11.GL_SCISSOR_TEST);
-        Minecraft.getMinecraft().fontRendererObj.drawString(this.x + "/" + this.y, 0, 0, -1);
+        Minecraft.getMinecraft().fontRenderer.drawString(this.x + "/" + this.y, 0, 0, -1);
         GL11.glEnable(GL11.GL_SCISSOR_TEST);
 
         RenderHelper.enableGUIStandardItemLighting();

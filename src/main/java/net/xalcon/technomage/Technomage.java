@@ -11,6 +11,7 @@ import net.xalcon.technomage.common.CommonProxy;
 import net.xalcon.technomage.common.GuiHandlerTechnomage;
 import net.xalcon.technomage.common.init.TMBlocks;
 import net.xalcon.technomage.common.init.TMItems;
+import net.xalcon.technomage.common.init.TMRecipes;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -28,8 +29,8 @@ public class Technomage
     public final static String NAME = "Technomage";
     public final static String GROUP = "net.xalcon." + MOD_ID;
     public final static String VERSION = "@VERSION@";
-    public final static String MC_VERSION = "1.11.2";
-    public final static String DEPENDENCIES = "required-after:forge@[13.20.0.2304,);required-after:forgelin@[1.4.0,)";
+    public final static String MC_VERSION = "1.12";
+    public final static String DEPENDENCIES = "required-after:forge@[14.21.0.2328,)";
 
     private static Technomage instance = new Technomage();
 
@@ -57,6 +58,7 @@ public class Technomage
     public static void onInit(FMLInitializationEvent event)
     {
         Proxy.init(event);
+        TMRecipes.init();
     }
 
     @Mod.EventHandler

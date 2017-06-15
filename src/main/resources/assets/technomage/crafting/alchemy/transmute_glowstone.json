@@ -1,0 +1,16 @@
+{
+    "conditions": [
+        {
+            "type": "mod_loaded",
+            "mod": "minecraft"
+        }
+    ],
+    "type": "technomage:alchemy",
+    "group": "",
+    "input": {
+        "item": "minecraft:glowstone_dust"
+    },
+    "result": {
+        "item": "minecraft:redstone_dust"
+    }
+}
