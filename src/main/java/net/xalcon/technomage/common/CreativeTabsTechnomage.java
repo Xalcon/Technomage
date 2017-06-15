@@ -3,10 +3,11 @@ package net.xalcon.technomage.common;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.xalcon.technomage.Technomage;
 
-public class CreativeTabTechnomage
+public class CreativeTabsTechnomage
 {
-    public static CreativeTabs Main = new CreativeTabs("technomage")
+    public final static CreativeTabs Main = new CreativeTabs(Technomage.MOD_ID + ".main")
     {
         @Override
         public ItemStack getTabIconItem()

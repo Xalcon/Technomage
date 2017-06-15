@@ -4,7 +4,7 @@ import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.model.ModelLoader;
 import net.xalcon.technomage.Technomage;
-import net.xalcon.technomage.common.CreativeTabTechnomage;
+import net.xalcon.technomage.common.CreativeTabsTechnomage;
 import net.xalcon.technomage.lib.item.IItemModelRegisterHandler;
 
 public class ItemTM extends Item implements IItemModelRegisterHandler
@@ -13,7 +13,7 @@ public class ItemTM extends Item implements IItemModelRegisterHandler
     {
         this.setUnlocalizedName(Technomage.MOD_ID + "." + internalName);
         this.setRegistryName(internalName);
-        this.setCreativeTab(CreativeTabTechnomage.Main);
+        this.setCreativeTab(CreativeTabsTechnomage.Main);
     }
 
     @Override
