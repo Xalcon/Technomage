@@ -10,7 +10,8 @@ import net.xalcon.technomage.Technomage;
 import net.xalcon.technomage.common.items.ItemBlockTM;
 import net.xalcon.technomage.lib.item.IItemBlockProvider;
 import net.xalcon.technomage.lib.item.IItemModelRegisterHandler;
-import org.jetbrains.annotations.NotNull;
+
+import javax.annotation.Nonnull;
 
 public abstract class BlockTM extends Block implements IItemBlockProvider, IItemModelRegisterHandler
 {
@@ -21,7 +22,7 @@ public abstract class BlockTM extends Block implements IItemBlockProvider, IItem
         this.setRegistryName(internalName);
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public ItemBlock createItemBlock()
     {
@@ -35,7 +36,7 @@ public abstract class BlockTM extends Block implements IItemBlockProvider, IItem
     }
 
     @Override
-    public void registerItemModels(@NotNull Item item)
+    public void registerItemModels(@Nonnull Item item)
     {
         ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(item.getRegistryName(), "inventory"));
     }
