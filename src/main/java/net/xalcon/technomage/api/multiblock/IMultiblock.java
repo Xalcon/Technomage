@@ -1,6 +1,5 @@
 package net.xalcon.technomage.api.multiblock;
 
-import kotlin.Suppress;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemBlock;

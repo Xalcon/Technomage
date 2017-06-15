@@ -4,6 +4,7 @@ import net.minecraft.block.Block;
 import net.minecraft.util.ResourceLocation;
 import net.xalcon.technomage.Technomage;
 import net.xalcon.technomage.api.multiblock.MultiblockRegistry;
+import net.xalcon.technomage.common.blocks.BlockAlchemicalCauldron;
 import net.xalcon.technomage.common.blocks.multiblocks.BlockBrickFurnace;
 import net.xalcon.technomage.common.blocks.multiblocks.MultiblockBrickFurnace;
 
@@ -16,10 +17,13 @@ public class TMBlocks
 
     public final static BlockBrickFurnace brickFurnace = new BlockBrickFurnace();
 
+    public final static BlockAlchemicalCauldron alchemicalCauldron = new BlockAlchemicalCauldron();
+
     public static void init()
     {
         MultiblockRegistry.register(new MultiblockBrickFurnace());
 
         Technomage.Proxy.register(brickFurnace);
+        Technomage.Proxy.register(alchemicalCauldron);
     }
 }

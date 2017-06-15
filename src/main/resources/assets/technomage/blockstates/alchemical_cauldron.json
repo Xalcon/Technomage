@@ -1,0 +1,18 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+        "textures": {
+            "particle": "technomage:blocks/alchemica_cauldron_side",
+            "top": "technomage:blocks/alchemica_cauldron_top",
+            "bottom": "technomage:blocks/alchemica_auldron_bottom",
+            "side": "technomage:blocks/alchemica_cauldron_side",
+            "inside": "technomage:blocks/alchemica_cauldron_inner"
+        },
+        "model": "technomage:alchemical_cauldron",
+        "uvlock": true
+    },
+    "variants": {
+        "default": [{}],
+        "inventory": [{}]
+    }
+}
