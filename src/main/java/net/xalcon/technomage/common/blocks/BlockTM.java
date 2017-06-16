@@ -42,4 +42,6 @@ public abstract class BlockTM extends Block implements IItemBlockProvider, IItem
     {
         ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(item.getRegistryName(), "inventory"));
     }
+
+
 }

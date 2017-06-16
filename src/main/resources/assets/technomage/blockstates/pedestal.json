@@ -1,0 +1,17 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+        "textures": {
+            "particle": "technomage:blocks/pedestal_slab_bottom",
+            "Side": "technomage:blocks/pedestal_side",
+            "TopPlate": "technomage:blocks/pedestal_slab_top",
+            "BottomPlate": "technomage:blocks/pedestal_slab_bottom"
+        },
+        "model": "technomage:pedestal",
+        "uvlock": true
+    },
+    "variants": {
+        "normal": [{}],
+        "inventory": [{}]
+    }
+}
