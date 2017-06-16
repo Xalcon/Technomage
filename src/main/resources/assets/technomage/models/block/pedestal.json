@@ -1,0 +1,55 @@
+{
+	"parent": "block/block",
+	"__comment": "Designed by Xalcon with Cubik Studio - https://cubik.studio",
+	"elements": [
+		{
+			"__comment": "Bottom",
+			"from": [ 0, 0, 0 ],
+			"to": [ 16, 4, 16 ],
+			"faces": {
+				"down": { "uv": [ 0, 0, 16, 16 ], "texture": "#BottomPlate", "cullface": "down" },
+				"up": { "uv": [ 0, 0, 16, 16 ], "texture": "#BottomPlate" },
+				"north": { "uv": [ 0, 12, 16, 16 ], "texture": "#Side", "cullface": "north" },
+				"south": { "uv": [ 0, 12, 16, 16 ], "texture": "#Side", "cullface": "south" },
+				"west": { "uv": [ 0, 12, 16, 16 ], "texture": "#Side", "cullface": "west" },
+				"east": { "uv": [ 0, 12, 16, 16 ], "texture": "#Side", "cullface": "east" }
+			}
+		},
+		{
+			"__comment": "Top",
+			"from": [ 2, 12, 2 ],
+			"to": [ 14, 16, 14 ],
+			"faces": {
+				"down": { "uv": [ 2, 2, 14, 14 ], "texture": "#TopPlate" },
+				"up": { "uv": [ 2, 2, 14, 14 ], "texture": "#TopPlate", "cullface": "up" },
+				"north": { "uv": [ 2, 0, 14, 4 ], "texture": "#Side" },
+				"south": { "uv": [ 2, 0, 14, 4 ], "texture": "#Side" },
+				"west": { "uv": [ 2, 0, 14, 4 ], "texture": "#Side" },
+				"east": { "uv": [ 2, 0, 14, 4 ], "texture": "#Side" }
+			}
+		},
+		{
+			"__comment": "Column",
+			"from": [ 4, 5, 4 ],
+			"to": [ 12, 12, 12 ],
+			"faces": {
+				"north": { "uv": [ 4, 4, 12, 11 ], "texture": "#Side" },
+				"south": { "uv": [ 4, 4, 12, 11 ], "texture": "#Side" },
+				"west": { "uv": [ 4, 4, 12, 11 ], "texture": "#Side" },
+				"east": { "uv": [ 4, 4, 12, 11 ], "texture": "#Side" }
+			}
+		},
+		{
+			"__comment": "OrnamentRing",
+			"from": [ 3, 4, 3 ],
+			"to": [ 13, 5, 13 ],
+			"faces": {
+				"up": { "uv": [ 3, 3, 13, 13 ], "texture": "#BottomPlate" },
+				"north": { "uv": [ 3, 11, 13, 12 ], "texture": "#Side" },
+				"south": { "uv": [ 3, 11, 13, 12 ], "texture": "#Side" },
+				"west": { "uv": [ 3, 11, 13, 12 ], "texture": "#Side" },
+				"east": { "uv": [ 3, 11, 13, 12 ], "texture": "#Side" }
+			}
+		}
+	]
+}
