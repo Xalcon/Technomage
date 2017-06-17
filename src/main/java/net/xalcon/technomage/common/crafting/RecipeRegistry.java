@@ -6,7 +6,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-public class RecipeRegistry<T extends IRegistryEntry>
+public class RecipeRegistry<T extends IRecipeEntry>
 {
     private Map<ResourceLocation, T> recipes = new HashMap<>();
 

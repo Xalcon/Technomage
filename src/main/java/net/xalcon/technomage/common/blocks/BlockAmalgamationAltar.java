@@ -9,6 +9,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.xalcon.technomage.common.init.TMItems;
 import net.xalcon.technomage.common.tileentities.TileEntityAmalgamationAltar;
 import net.xalcon.technomage.common.tileentities.TileEntityPedestal;
 
@@ -50,19 +51,24 @@ public class BlockAmalgamationAltar extends BlockTMTileProvider
         TileEntity te = worldIn.getTileEntity(pos);
         if(te instanceof TileEntityAmalgamationAltar)
         {
-            TileEntityAmalgamationAltar pedestal = (TileEntityAmalgamationAltar) te;
-            ItemStack itemStack = pedestal.getItemStack();
-            if(!itemStack.isEmpty())
+            TileEntityAmalgamationAltar altar = (TileEntityAmalgamationAltar) te;
+            ItemStack heldItem = playerIn.getHeldItem(hand);
+            ItemStack itemStack = altar.getItemStack();
+            if(heldItem.getItem() == TMItems.leystoneWand && !itemStack.isEmpty())
+            {
+                // try start crafting
+                altar.startCrafting();
+            }
+            else if(!itemStack.isEmpty())
             {
                 if(playerIn.addItemStackToInventory(itemStack.copy()))
                 {
-                    pedestal.removeItemStack();
+                    altar.removeItemStack();
                 }
             }
             else
             {
-                ItemStack heldItem = playerIn.getHeldItem(hand);
-                if(!heldItem.isEmpty() && pedestal.putItemStack(heldItem.copy()))
+                if(!heldItem.isEmpty() && altar.putItemStack(heldItem.copy()))
                 {
                     heldItem.setCount(0);
                 }

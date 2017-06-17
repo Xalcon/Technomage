@@ -3,9 +3,9 @@ package net.xalcon.technomage.common.crafting.alchemy;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.ResourceLocation;
-import net.xalcon.technomage.common.crafting.IRegistryEntry;
+import net.xalcon.technomage.common.crafting.IRecipeEntry;
 
-public class AlchemyRecipe implements IRegistryEntry
+public class AlchemyRecipe implements IRecipeEntry
 {
     private ResourceLocation name;
     private Ingredient ingredient;
