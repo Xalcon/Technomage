@@ -11,9 +11,11 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.xalcon.technomage.Technomage;
 import net.xalcon.technomage.client.renderer.block.TileEntityAlchemicalCauldronRenderer;
+import net.xalcon.technomage.client.renderer.block.TileEntityAmalgamationAltarRenderer;
 import net.xalcon.technomage.client.renderer.block.TileEntityPedestalRenderer;
 import net.xalcon.technomage.common.CommonProxy;
 import net.xalcon.technomage.common.tileentities.TileEntityAlchemicalCauldron;
+import net.xalcon.technomage.common.tileentities.TileEntityAmalgamationAltar;
 import net.xalcon.technomage.common.tileentities.TileEntityPedestal;
 import net.xalcon.technomage.lib.item.IItemModelRegisterHandler;
 
@@ -33,6 +35,7 @@ public class ClientProxy extends CommonProxy
         super.init(event);
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityAlchemicalCauldron.class, new TileEntityAlchemicalCauldronRenderer());
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityPedestal.class, new TileEntityPedestalRenderer());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileEntityAmalgamationAltar.class, new TileEntityAmalgamationAltarRenderer());
     }
 
     @Override
