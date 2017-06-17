@@ -10,4 +10,4 @@ You may use this code as a learning resource, but you are not allowed to redistr
 
 Some assets in this project may be created by 3th party.
 Affected assets and their originals (if any) as well as license information will be listed inside the
-(credits)[https://github.com/Xalcon/Technomage/tree/master/credits] folder.
+[credits](/credits) folder.
