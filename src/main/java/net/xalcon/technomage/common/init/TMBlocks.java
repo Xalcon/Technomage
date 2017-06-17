@@ -8,7 +8,7 @@ import net.xalcon.technomage.common.blocks.BlockAlchemicalCauldron;
 import net.xalcon.technomage.common.blocks.BlockAmalgamationAltar;
 import net.xalcon.technomage.common.blocks.BlockPedestal;
 import net.xalcon.technomage.common.blocks.multiblocks.BlockBrickFurnace;
-import net.xalcon.technomage.common.blocks.multiblocks.MultiblockBrickFurnace;
+import net.xalcon.technomage.common.multiblocks.MultiblockBrickFurnace;
 
 import java.util.HashMap;
 import java.util.Map;

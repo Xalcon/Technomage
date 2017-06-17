@@ -1,4 +1,4 @@
-package net.xalcon.technomage.common.blocks.multiblocks;
+package net.xalcon.technomage.common.multiblocks;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
@@ -12,6 +12,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.xalcon.technomage.Technomage;
 import net.xalcon.technomage.api.multiblock.IMultiblock;
+import net.xalcon.technomage.common.blocks.multiblocks.BlockBrickFurnace;
 import net.xalcon.technomage.common.init.TMBlocks;
 import net.xalcon.technomage.common.tileentities.multiblock.TileEntityBrickFurnace;
 
