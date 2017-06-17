@@ -1,0 +1,18 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+        "textures": {
+            "particle": "technomage:blocks/alchemical_cauldron_side",
+            "top": "technomage:blocks/alchemical_cauldron_top",
+            "bottom": "technomage:blocks/alchemical_cauldron_bottom",
+            "side": "technomage:blocks/alchemical_cauldron_side",
+            "inside": "technomage:blocks/alchemical_cauldron_inner"
+        },
+        "model": "technomage:altar.obj",
+        "uvlock": true
+    },
+    "variants": {
+        "normal": [{}],
+        "inventory": [{ "model": "minecraft:diamond_block" }]
+    }
+}

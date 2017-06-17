@@ -37,7 +37,7 @@ public class BlockAlchemicalCauldron extends BlockTMTileProvider
     @Override
     public Map<String, Class<? extends TileEntity>> getTileEntityClasses()
     {
-        return Collections.singletonMap(Technomage.MOD_ID + "." + this.getRegistryName().getResourceDomain(), TileEntityAlchemicalCauldron.class);
+        return Collections.singletonMap(this.getRegistryName().toString(), TileEntityAlchemicalCauldron.class);
     }
 
     @Nullable

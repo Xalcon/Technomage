@@ -6,8 +6,8 @@ import net.xalcon.technomage.common.items.ItemTechnonomicon;
 
 public class TMItems
 {
-    public static ItemTechnonomicon technonomicon = new ItemTechnonomicon();
-    public static ItemLeystoneWand leystoneWand = new ItemLeystoneWand();
+    public final static ItemTechnonomicon technonomicon = new ItemTechnonomicon();
+    public final static ItemLeystoneWand leystoneWand = new ItemLeystoneWand();
 
     public static void init()
     {

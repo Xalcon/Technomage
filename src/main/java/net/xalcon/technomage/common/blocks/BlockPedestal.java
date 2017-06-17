@@ -39,7 +39,7 @@ public class BlockPedestal extends BlockTMTileProvider
     @Override
     public Map<String, Class<? extends TileEntity>> getTileEntityClasses()
     {
-        return Collections.singletonMap(Technomage.MOD_ID + "." + this.getRegistryName().getResourcePath(), TileEntityPedestal.class);
+        return Collections.singletonMap(this.getRegistryName().toString(), TileEntityPedestal.class);
     }
 
     @Nullable
@@ -103,6 +103,7 @@ public class BlockPedestal extends BlockTMTileProvider
     @Override
     public RayTraceResult collisionRayTrace(IBlockState blockState, World worldIn, BlockPos pos, Vec3d start, Vec3d end)
     {
+
         RayTraceResult hitRay = null;
         Vec3d start1 = start.subtract(pos.getX(), pos.getY(), pos.getZ());
         Vec3d end1 = end.subtract(pos.getX(), pos.getY(), pos.getZ());
