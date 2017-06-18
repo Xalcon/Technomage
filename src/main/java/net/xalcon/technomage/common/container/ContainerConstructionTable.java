@@ -12,6 +12,7 @@ import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.network.play.server.SPacketSetSlot;
 import net.minecraft.world.World;
 import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.items.SlotItemHandler;
 import net.xalcon.technomage.common.tileentities.TileEntityConstructionTable;
 
@@ -20,8 +21,11 @@ public class ContainerConstructionTable extends ContainerTM
     private final EntityPlayer player;
     private final TileEntityConstructionTable tile;
     private final IItemHandler inventory;
-    private final IItemHandler craftMatrix;
+    private final ItemStackHandler craftMatrix;
+    private final InventoryCraftingProxy craftMatrixProxy;
     private final InventoryCraftResult craftResult;
+
+    private int craftResultSlotId;
 
     private IRecipe lastRecipe;
 
@@ -32,6 +36,7 @@ public class ContainerConstructionTable extends ContainerTM
 
         this.inventory = this.tile.getInventory();
         this.craftMatrix = this.tile.getMatrix();
+        this.craftMatrixProxy = new InventoryCraftingProxy(this);
         this.craftResult = this.tile.getCraftResult();
 
         this.bindPlayerInventory(player);
@@ -55,11 +60,11 @@ public class ContainerConstructionTable extends ContainerTM
             for(int row = 0; row < 3; row++)
             {
                 int index = 3 * col + row;
-                this.addSlotToContainer(new SlotItemHandler(this.craftMatrix, index, 48 + col * 18, 18 + row * 18));
+                this.addSlotToContainer(new Slot(this.craftMatrixProxy, index, 48 + col * 18, 18 + row * 18));
             }
         }
 
-        this.addSlotToContainer(new Slot(this.craftResult, 0, 143, 36));
+        this.craftResultSlotId = this.addSlotToContainer(new Slot(this.craftResult, 0, 143, 36)).slotNumber;
     }
 
     @Override
@@ -71,7 +76,8 @@ public class ContainerConstructionTable extends ContainerTM
     @Override
     public void onCraftMatrixChanged(IInventory inventoryIn)
     {
-        //super.onCraftMatrixChanged(inventoryIn);
+        this.updateCraftOutput(this.player.getEntityWorld(), this.player, this.craftMatrixProxy, this.craftResult);
+        System.out.println("MATRIX CHANGED");
     }
 
     /**
@@ -102,8 +108,8 @@ public class ContainerConstructionTable extends ContainerTM
                 itemstack = recipe.getCraftingResult(inventoryCrafting);
             }
 
-            craftResult.setInventorySlotContents(0, itemstack);
-            entityplayermp.connection.sendPacket(new SPacketSetSlot(this.windowId, 0, itemstack));
+            craftResult.setInventorySlotContents(this.craftResultSlotId, itemstack);
+            entityplayermp.connection.sendPacket(new SPacketSetSlot(this.windowId, this.craftResultSlotId, itemstack));
 
             this.lastRecipe = recipe;
         }

@@ -1,290 +1,186 @@
 package net.xalcon.technomage.common.container;
 
 import net.minecraft.client.util.RecipeItemHelper;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.InventoryCrafting;
+import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.NonNullList;
-import net.minecraftforge.common.util.Constants;
-import net.minecraftforge.common.util.INBTSerializable;
-import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.IItemHandlerModifiable;
-import net.minecraftforge.items.ItemHandlerHelper;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import net.xalcon.technomage.Technomage;
 
-import javax.annotation.Nonnull;
-
-public class InventoryCraftingProxy extends InventoryCrafting implements IItemHandler, IItemHandlerModifiable, INBTSerializable<NBTTagCompound>
+public class InventoryCraftingProxy
+        extends InventoryCrafting
 {
-    private final static int INVENTORY_WIDTH = 3;
-    private final static int INVENTORY_HEIGHT = 3;
-    private final static int SIZE = INVENTORY_WIDTH * INVENTORY_HEIGHT;
+    /** List of the stacks in the crafting matrix. */
+    private final NonNullList<ItemStack> stackList;
+    /** the width of the crafting inventory */
+    private final int inventoryWidth;
+    private final int inventoryHeight;
+    /** Class containing the callbacks for the events on_GUIClosed and on_CraftMaxtrixChanged. */
     private final Container eventHandler;
 
-    protected NonNullList<ItemStack> matrix = NonNullList.withSize(SIZE, ItemStack.EMPTY);
-
-    public InventoryCraftingProxy(Container eventHandlerIn, int width, int height)
+    public InventoryCraftingProxy(Container eventHandlerIn)
     {
-        super(eventHandlerIn, width, height);
+        super(eventHandlerIn, 0, 0);
+        this.stackList = NonNullList.withSize(3 * 3, ItemStack.EMPTY);
         this.eventHandler = eventHandlerIn;
+        this.inventoryWidth = 3;
+        this.inventoryHeight = 3;
     }
 
-    //region IItemHandler implementation
-    @Override
-    public int getSlots()
-    {
-        return SIZE;
-    }
-
-    @Nonnull
-    @Override
-    public ItemStack insertItem(int slot, @Nonnull ItemStack stack, boolean simulate)
-    {
-        if (stack.isEmpty())
-            return ItemStack.EMPTY;
-
-        ItemStack existing = this.matrix.get(slot);
-
-        int limit = this.getStackLimit(slot, stack);
-
-        if (!existing.isEmpty())
-        {
-            if (!ItemHandlerHelper.canItemStacksStack(stack, existing))
-                return stack;
-
-            limit -= existing.getCount();
-        }
-
-        if (limit <= 0)
-            return stack;
-
-        boolean reachedLimit = stack.getCount() > limit;
-
-        if (!simulate)
-        {
-            if (existing.isEmpty())
-            {
-                this.matrix.set(slot, reachedLimit ? ItemHandlerHelper.copyStackWithSize(stack, limit) : stack);
-            }
-            else
-            {
-                existing.grow(reachedLimit ? limit : stack.getCount());
-            }
-            this.onContentsChanged(slot);
-        }
-
-        return reachedLimit ? ItemHandlerHelper.copyStackWithSize(stack, stack.getCount()- limit) : ItemStack.EMPTY;
-    }
-
-    @Nonnull
-    @Override
-    public ItemStack extractItem(int slot, int amount, boolean simulate)
-    {
-        if (amount == 0)
-            return ItemStack.EMPTY;
-
-        ItemStack existing = this.matrix.get(slot);
-
-        if (existing.isEmpty())
-            return ItemStack.EMPTY;
-
-        int toExtract = Math.min(amount, existing.getMaxStackSize());
-
-        if (existing.getCount() <= toExtract)
-        {
-            if (!simulate)
-            {
-                this.matrix.set(slot, ItemStack.EMPTY);
-                this.onContentsChanged(slot);
-            }
-            return existing;
-        }
-        else
-        {
-            if (!simulate)
-            {
-                this.matrix.set(slot, ItemHandlerHelper.copyStackWithSize(existing, existing.getCount() - toExtract));
-                this.onContentsChanged(slot);
-            }
-
-            return ItemHandlerHelper.copyStackWithSize(existing, toExtract);
-        }
-    }
-
-    @Nonnull
-    @Override
-    public ItemStack getStackInSlot(int slot)
-    {
-        return this.matrix.get(slot);
-    }
-
-    @Override
-    public void setStackInSlot(int slot, @Nonnull ItemStack stack)
-    {
-        if (ItemStack.areItemStacksEqual(this.matrix.get(slot), stack))
-            return;
-        this.matrix.set(slot, stack);
-        this.onContentsChanged(slot);
-    }
-
-    @Override
-    public int getSlotLimit(int slot)
-    {
-        return 64;
-    }
-
-    @Override
-    public NBTTagCompound serializeNBT()
-    {
-        NBTTagList nbtTagList = new NBTTagList();
-        for (int i = 0; i < this.matrix.size(); i++)
-        {
-            if (!this.matrix.get(i).isEmpty())
-            {
-                NBTTagCompound itemTag = new NBTTagCompound();
-                itemTag.setInteger("Slot", i);
-                this.matrix.get(i).writeToNBT(itemTag);
-                nbtTagList.appendTag(itemTag);
-            }
-        }
-        NBTTagCompound nbt = new NBTTagCompound();
-        nbt.setTag("Items", nbtTagList);
-        return nbt;
-    }
-
-    @Override
-    public void deserializeNBT(NBTTagCompound nbt)
-    {
-        NBTTagList tagList = nbt.getTagList("Items", Constants.NBT.TAG_COMPOUND);
-        for (int i = 0; i < tagList.tagCount(); i++)
-        {
-            NBTTagCompound itemTags = tagList.getCompoundTagAt(i);
-            int slot = itemTags.getInteger("Slot");
-
-            if (slot >= 0 && slot < this.matrix.size())
-            {
-                this.matrix.set(slot, new ItemStack(itemTags));
-            }
-        }
-        this.onLoad();
-    }
-
-    private int getStackLimit(int slot, @Nonnull ItemStack stack)
-    {
-        return Math.min(this.getSlotLimit(slot), stack.getMaxStackSize());
-    }
-
-    protected void onLoad()
-    {
-
-    }
-
-    protected void onContentsChanged(int slot)
-    {
-
-    }
-    //endregion
-
-
+    /**
+     * Returns the number of slots in the inventory.
+     */
     @Override
     public int getSizeInventory()
     {
-        return this.getSlots();
+        return this.stackList.size();
     }
 
     @Override
     public boolean isEmpty()
     {
-        for (ItemStack itemstack : this.matrix)
-        {
+        for (ItemStack itemstack : this.stackList)
             if (!itemstack.isEmpty())
-            {
                 return false;
-            }
-        }
-
         return true;
     }
 
+    /**
+     * Returns the stack in the given slot.
+     */
+    @Override
+    public ItemStack getStackInSlot(int index)
+    {
+        return index >= this.getSizeInventory() ? ItemStack.EMPTY : this.stackList.get(index);
+    }
+
+    /**
+     * Gets the ItemStack in the slot specified.
+     */
     @Override
     public ItemStack getStackInRowAndColumn(int row, int column)
     {
-        return this.getStackInSlot(row + column * this.getWidth());
+        return row >= 0 && row < this.inventoryWidth && column >= 0 && column <= this.inventoryHeight ? this.getStackInSlot(row + column * this.inventoryWidth) : ItemStack.EMPTY;
     }
 
+    /**
+     * Get the name of this object. For players this returns their username
+     */
     @Override
     public String getName()
     {
         return Technomage.MOD_ID + ".container.construction_table";
     }
 
+    /**
+     * Returns true if this thing is named
+     */
     @Override
     public boolean hasCustomName()
     {
         return false;
     }
 
+    /**
+     * Get the formatted ChatComponent that will be used for the sender's username in chat
+     */
+    @Override
+    public ITextComponent getDisplayName()
+    {
+        return this.hasCustomName() ? new TextComponentString(this.getName()) : new TextComponentTranslation(this.getName(), new Object[0]);
+    }
+
+    /**
+     * Removes a stack from the given slot and returns it.
+     */
     @Override
     public ItemStack removeStackFromSlot(int index)
     {
-        ItemStack outStack = this.getStackInSlot(index);
-        this.setStackInSlot(index, ItemStack.EMPTY);
-        return outStack;
+        return ItemStackHelper.getAndRemove(this.stackList, index);
     }
 
+    /**
+     * Removes up to a specified number of items from an inventory slot and returns them in a new stack.
+     */
     @Override
     public ItemStack decrStackSize(int index, int count)
     {
-        ItemStack itemstack = this.extractItem(index, count, false);
+        ItemStack itemstack = ItemStackHelper.getAndSplit(this.stackList, index, count);
 
         if (!itemstack.isEmpty())
-        {
             this.eventHandler.onCraftMatrixChanged(this);
-        }
 
         return itemstack;
     }
 
+    /**
+     * Sets the given item stack to the specified slot in the inventory (can be crafting or armor sections).
+     */
     @Override
     public void setInventorySlotContents(int index, ItemStack stack)
     {
-        this.setStackInSlot(index, stack);
+        this.stackList.set(index, stack);
         this.eventHandler.onCraftMatrixChanged(this);
     }
 
+    /**
+     * Returns the maximum stack size for a inventory slot. Seems to always be 64, possibly will be extended.
+     */
     @Override
     public int getInventoryStackLimit()
     {
-        return this.getSlotLimit(0);
+        return 64;
+    }
+
+    /**
+     * Don't rename this method to canInteractWith due to conflicts with Container
+     */
+    @Override
+    public boolean isUsableByPlayer(EntityPlayer player)
+    {
+        return true;
+    }
+
+    /**
+     * Returns true if automation is allowed to insert the given stack (ignoring stack size) into the given slot. For
+     * guis use Slot.isItemValid
+     */
+    @Override
+    public boolean isItemValidForSlot(int index, ItemStack stack)
+    {
+        return true;
     }
 
     @Override
     public void clear()
     {
-        for(int i = 0; i < SIZE; i++)
-            this.matrix.set(i, ItemStack.EMPTY);
+        this.stackList.clear();
     }
 
     @Override
     public int getHeight()
     {
-        return 3;
+        return this.inventoryHeight;
     }
 
     @Override
     public int getWidth()
     {
-        return 3;
+        return this.inventoryWidth;
     }
 
+    @SideOnly(Side.CLIENT)
     @Override
-    public void func_194018_a(RecipeItemHelper recipeItemHelper)
+    public void func_194018_a(RecipeItemHelper recipeItemhelper)
     {
-        for (ItemStack itemstack : this.matrix)
-        {
-            recipeItemHelper.func_194112_a(itemstack);
-        }
+        for (ItemStack itemstack : this.stackList)
+            recipeItemhelper.func_194112_a(itemstack);
     }
 }
