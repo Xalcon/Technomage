@@ -1,7 +1,16 @@
 package net.xalcon.technomage.common.container;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.InventoryCraftResult;
+import net.minecraft.inventory.InventoryCrafting;
+import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.CraftingManager;
+import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.network.play.server.SPacketSetSlot;
+import net.minecraft.world.World;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
 import net.xalcon.technomage.common.tileentities.TileEntityConstructionTable;
@@ -10,11 +19,20 @@ public class ContainerConstructionTable extends ContainerTM
 {
     private final EntityPlayer player;
     private final TileEntityConstructionTable tile;
+    private final IItemHandler inventory;
+    private final IItemHandler craftMatrix;
+    private final InventoryCraftResult craftResult;
+
+    private IRecipe lastRecipe;
 
     public ContainerConstructionTable(EntityPlayer player, TileEntityConstructionTable tile)
     {
         this.player = player;
         this.tile = tile;
+
+        this.inventory = this.tile.getInventory();
+        this.craftMatrix = this.tile.getMatrix();
+        this.craftResult = this.tile.getCraftResult();
 
         this.bindPlayerInventory(player);
         this.bindContainerSlots();
@@ -25,14 +43,11 @@ public class ContainerConstructionTable extends ContainerTM
 
     public void bindContainerSlots()
     {
-        IItemHandler inventory = this.tile.getInventory();
-        IItemHandler craftMatrix = this.tile.getMatrix();
-        IItemHandler output = this.tile.getOutput();
 
         for(int i = 0; i < 9; i++)
         {
-            this.addSlotToContainer(new SlotItemHandler(inventory, i, 8 + i * 18, 90));
-            this.addSlotToContainer(new SlotItemHandler(inventory, i + 9, 8 + i * 18, 108));
+            this.addSlotToContainer(new SlotItemHandler(this.inventory, i, 8 + i * 18, 90));
+            this.addSlotToContainer(new SlotItemHandler(this.inventory, i + 9, 8 + i * 18, 108));
         }
 
         for(int col = 0; col < 3; col++)
@@ -40,16 +55,57 @@ public class ContainerConstructionTable extends ContainerTM
             for(int row = 0; row < 3; row++)
             {
                 int index = 3 * col + row;
-                this.addSlotToContainer(new SlotItemHandler(craftMatrix, index, 48 + col * 18, 18 + row * 18));
+                this.addSlotToContainer(new SlotItemHandler(this.craftMatrix, index, 48 + col * 18, 18 + row * 18));
             }
         }
 
-        this.addSlotToContainer(new SlotItemHandler(output, 0, 143, 36));
+        this.addSlotToContainer(new Slot(this.craftResult, 0, 143, 36));
     }
 
     @Override
     public ItemStack transferStackInSlot(EntityPlayer playerIn, int index)
     {
         return ItemStack.EMPTY;
+    }
+
+    @Override
+    public void onCraftMatrixChanged(IInventory inventoryIn)
+    {
+        //super.onCraftMatrixChanged(inventoryIn);
+    }
+
+    /**
+     * Called to determine if the current slot is valid for the stack merging (double-click) code. The stack passed in
+     * is null for the initial slot that was double-clicked.
+     */
+    @Override
+    public boolean canMergeSlot(ItemStack stack, Slot slotIn)
+    {
+        return slotIn.inventory != this.craftResult && super.canMergeSlot(stack, slotIn);
+    }
+
+    public void updateCraftOutput(World world, EntityPlayer player, InventoryCrafting inventoryCrafting, InventoryCraftResult craftResult)
+    {
+        if (!world.isRemote)
+        {
+            EntityPlayerMP entityplayermp = (EntityPlayerMP)player;
+            ItemStack itemstack = ItemStack.EMPTY;
+            IRecipe recipe = null; //this.lastRecipe;
+            if(recipe == null || !recipe.matches(inventoryCrafting, world))
+            {
+                recipe = CraftingManager.findMatchingRecipe(inventoryCrafting, world);
+            }
+
+            if (recipe != null && (recipe.isHidden() || !world.getGameRules().getBoolean("doLimitedCrafting") || entityplayermp.getRecipeBook().containsRecipe(recipe)))
+            {
+                craftResult.func_193056_a(recipe);
+                itemstack = recipe.getCraftingResult(inventoryCrafting);
+            }
+
+            craftResult.setInventorySlotContents(0, itemstack);
+            entityplayermp.connection.sendPacket(new SPacketSetSlot(this.windowId, 0, itemstack));
+
+            this.lastRecipe = recipe;
+        }
     }
 }
