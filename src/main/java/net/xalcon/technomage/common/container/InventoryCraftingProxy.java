@@ -12,26 +12,30 @@ import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.IItemHandlerModifiable;
 import net.xalcon.technomage.Technomage;
 
-public class InventoryCraftingProxy
+public class InventoryCraftingProxy<T extends IItemHandler & IItemHandlerModifiable>
         extends InventoryCrafting
 {
     /** List of the stacks in the crafting matrix. */
-    private final NonNullList<ItemStack> stackList;
+    //private final NonNullList<ItemStack> stackList;
     /** the width of the crafting inventory */
     private final int inventoryWidth;
     private final int inventoryHeight;
     /** Class containing the callbacks for the events on_GUIClosed and on_CraftMaxtrixChanged. */
     private final Container eventHandler;
+    private final T matrix;
 
-    public InventoryCraftingProxy(Container eventHandlerIn)
+    public InventoryCraftingProxy(ContainerConstructionTable eventHandlerIn, T matrix)
     {
         super(eventHandlerIn, 0, 0);
-        this.stackList = NonNullList.withSize(3 * 3, ItemStack.EMPTY);
+        //this.stackList = NonNullList.withSize(3 * 3, ItemStack.EMPTY);
         this.eventHandler = eventHandlerIn;
         this.inventoryWidth = 3;
         this.inventoryHeight = 3;
+        this.matrix = matrix;
     }
 
     /**
@@ -40,14 +44,14 @@ public class InventoryCraftingProxy
     @Override
     public int getSizeInventory()
     {
-        return this.stackList.size();
+        return this.matrix.getSlots();
     }
 
     @Override
     public boolean isEmpty()
     {
-        for (ItemStack itemstack : this.stackList)
-            if (!itemstack.isEmpty())
+        for (int i = 0; i < this.matrix.getSlots(); i++)
+            if (!this.matrix.getStackInSlot(i).isEmpty())
                 return false;
         return true;
     }
@@ -58,7 +62,7 @@ public class InventoryCraftingProxy
     @Override
     public ItemStack getStackInSlot(int index)
     {
-        return index >= this.getSizeInventory() ? ItemStack.EMPTY : this.stackList.get(index);
+        return index >= this.getSizeInventory() ? ItemStack.EMPTY : this.matrix.getStackInSlot(index);
     }
 
     /**
@@ -103,7 +107,7 @@ public class InventoryCraftingProxy
     @Override
     public ItemStack removeStackFromSlot(int index)
     {
-        return ItemStackHelper.getAndRemove(this.stackList, index);
+        return this.matrix.extractItem(index, this.getInventoryStackLimit(), false);
     }
 
     /**
@@ -112,7 +116,7 @@ public class InventoryCraftingProxy
     @Override
     public ItemStack decrStackSize(int index, int count)
     {
-        ItemStack itemstack = ItemStackHelper.getAndSplit(this.stackList, index, count);
+        ItemStack itemstack = this.matrix.extractItem(index, count, false);
 
         if (!itemstack.isEmpty())
             this.eventHandler.onCraftMatrixChanged(this);
@@ -126,7 +130,7 @@ public class InventoryCraftingProxy
     @Override
     public void setInventorySlotContents(int index, ItemStack stack)
     {
-        this.stackList.set(index, stack);
+        this.matrix.setStackInSlot(index, stack);
         this.eventHandler.onCraftMatrixChanged(this);
     }
 
@@ -161,7 +165,8 @@ public class InventoryCraftingProxy
     @Override
     public void clear()
     {
-        this.stackList.clear();
+        for (int i = 0; i < this.matrix.getSlots(); i++)
+            this.matrix.setStackInSlot(i, ItemStack.EMPTY);
     }
 
     @Override
@@ -180,7 +185,7 @@ public class InventoryCraftingProxy
     @Override
     public void func_194018_a(RecipeItemHelper recipeItemhelper)
     {
-        for (ItemStack itemstack : this.stackList)
-            recipeItemhelper.func_194112_a(itemstack);
+        for (int i = 0; i < this.matrix.getSlots(); i++)
+            recipeItemhelper.func_194112_a(this.matrix.getStackInSlot(i));
     }
 }

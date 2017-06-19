@@ -20,18 +20,20 @@ public class SlotCraftingEx<T extends IItemHandler> extends Slot
     /** The player that is using the GUI where this slot resides. */
     private final EntityPlayer player;
     private final InventoryCraftResult craftingResultInventory;
+    private final ContainerConstructionTable container;
     /** The number of items that have been crafted so far. Gets passed to ItemStack.onCrafting before being reset. */
     private int amountCrafted;
 
     private final InventoryCrafting dummyMatrix = new InventoryCraftingDummy(3, 3);
 
-    public SlotCraftingEx(EntityPlayer player, InventoryCrafting craftingInventory, InventoryCraftResult craftingResultInventory, T inventory, int slotIndex, int xPosition, int yPosition)
+    public SlotCraftingEx(ContainerConstructionTable container, EntityPlayer player, InventoryCrafting craftingInventory, InventoryCraftResult craftingResultInventory, T inventory, int slotIndex, int xPosition, int yPosition)
     {
         super(craftingResultInventory, slotIndex, xPosition, yPosition);
         this.player = player;
         this.craftMatrix = craftingInventory;
         this.inventory = inventory;
         this.craftingResultInventory = craftingResultInventory;
+        this.container = container;
     }
 
     /**
@@ -107,13 +109,17 @@ public class SlotCraftingEx<T extends IItemHandler> extends Slot
         try
         {
             ForgeHooks.setCraftingPlayer(player);
-            recipe = CraftingManager.findMatchingRecipe(this.craftMatrix, player.getEntityWorld());
-            if(recipe == null) return ItemStack.EMPTY;
+            //recipe = CraftingManager.findMatchingRecipe(this.craftMatrix, player.getEntityWorld());
+            recipe = this.container.getCachedRecipe();
+            if(recipe == null || !recipe.matches(this.craftMatrix, player.getEntityWorld())) return ItemStack.EMPTY;
             remainingItems = recipe.getRemainingItems(this.craftMatrix);
+
         }
         finally
         {
             ForgeHooks.setCraftingPlayer(null);
+            if(!player.world.isRemote)
+                System.out.println(this.amountCrafted);
         }
 
         for(int i = 0; i < 9; i++)
@@ -125,29 +131,38 @@ public class SlotCraftingEx<T extends IItemHandler> extends Slot
             ItemStack existingItem = this.craftMatrix.getStackInSlot(i);
             ItemStack replacementItem = remainingItems.get(i);
 
-            // check for replacement items that are not the same as before (like water bucket -> bucket)
-            // we want to move those items to the internal inventory or the player inventory if possible
-            // to allow mass crafting things like cakes
-            if(!replacementItem.isEmpty() && !replacementItem.isItemEqual(existingItem))
-            {
-                ItemStack remaining = ItemHandlerHelper.insertItem(this.inventory, replacementItem, false);
-                if(remaining.isEmpty())
-                {
-                    replacementItem = ItemStack.EMPTY;
-                }
-                else
-                {
-                    // we dont need to check if insertion into the player inventory was successful or not
-                    // the method reduces the itemstack accordingly, even if it only adds the item partially
-                    // therefor the logic afterwards will add the item to the craft matrix if addItemToInv fails
-                    player.addItemStackToInventory(remaining);
-                }
-            }
-
             if (!existingItem.isEmpty())
             {
                 this.craftMatrix.decrStackSize(i, 1);
                 existingItem = this.craftMatrix.getStackInSlot(i);
+            }
+
+            // check for replacement items that are not the same as before (like water bucket -> bucket)
+            // we want to move those items to the internal inventory or the player inventory if possible
+            // to allow mass crafting things like cakes
+            if(!replacementItem.isEmpty())
+            {
+                if(replacementItem.isItemEqual(existingItem) || (replacementItem.isItemStackDamageable() && replacementItem.isItemDamaged()))
+                {
+                    // same item as before, keep
+                    // i.e. Hammer to craft plates (immersive engineering), magic stone to craft magic seeds (magical crops)
+                }
+                else
+                {
+                    // replacement item was changed, this might be a bucket or something similar
+                    ItemStack remaining = ItemHandlerHelper.insertItemStacked(this.inventory, replacementItem, false);
+                    if(remaining.isEmpty())
+                    {
+                        replacementItem = ItemStack.EMPTY;
+                    }
+                    else
+                    {
+                        // we dont need to check if insertion into the player inventory was successful or not
+                        // the method reduces the itemstack accordingly, even if it only adds the item partially
+                        // therefor the logic afterwards will add the item to the craft matrix if addItemToInv fails
+                        player.addItemStackToInventory(remaining);
+                    }
+                }
             }
 
             if (!replacementItem.isEmpty())
@@ -168,7 +183,7 @@ public class SlotCraftingEx<T extends IItemHandler> extends Slot
             }
             else
             {
-                if(!dummyCraftFailed)
+                if(!dummyCraftFailed && existingItem.isEmpty())
                 {
                     boolean found = false;
                     for(int l = 0; l < this.inventory.getSlots(); l++)
