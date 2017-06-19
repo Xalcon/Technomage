@@ -2,10 +2,7 @@ package net.xalcon.technomage.common.container;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.InventoryCraftResult;
-import net.minecraft.inventory.InventoryCrafting;
-import net.minecraft.inventory.Slot;
+import net.minecraft.inventory.*;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
@@ -55,16 +52,17 @@ public class ContainerConstructionTable extends ContainerTM
             this.addSlotToContainer(new SlotItemHandler(this.inventory, i + 9, 8 + i * 18, 108));
         }
 
-        for(int col = 0; col < 3; col++)
+        for(int row = 0; row < 3; row++)
         {
-            for(int row = 0; row < 3; row++)
+            for(int col = 0; col < 3; col++)
             {
-                int index = 3 * col + row;
+                int index = col + row * 3;
                 this.addSlotToContainer(new Slot(this.craftMatrixProxy, index, 48 + col * 18, 18 + row * 18));
             }
         }
 
-        this.craftResultSlotId = this.addSlotToContainer(new Slot(this.craftResult, 0, 143, 36)).slotNumber;
+        this.craftResultSlotId = this.addSlotToContainer(
+                new SlotCraftingEx<>(this.player, this.craftMatrixProxy, this.craftResult, this.inventory, 0, 143, 36)).slotNumber;
     }
 
     @Override
