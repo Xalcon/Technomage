@@ -1,39 +1,84 @@
 package net.xalcon.technomage.common.init;
 
 import net.minecraft.block.Block;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.item.Item;
+import net.minecraftforge.client.event.ModelRegistryEvent;
+import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import net.xalcon.technomage.Technomage;
 import net.xalcon.technomage.api.multiblock.MultiblockRegistry;
-import net.xalcon.technomage.common.blocks.BlockAlchemicalCauldron;
-import net.xalcon.technomage.common.blocks.BlockAmalgamationAltar;
-import net.xalcon.technomage.common.blocks.BlockConstructionTable;
-import net.xalcon.technomage.common.blocks.BlockPedestal;
+import net.xalcon.technomage.common.blocks.*;
 import net.xalcon.technomage.common.blocks.multiblocks.BlockBrickFurnace;
 import net.xalcon.technomage.common.multiblocks.MultiblockBrickFurnace;
+import net.xalcon.technomage.lib.item.IItemBlockProvider;
+import net.xalcon.technomage.lib.utils.ClassUtils;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
+@Mod.EventBusSubscriber
+@GameRegistry.ObjectHolder(Technomage.MOD_ID)
 public class TMBlocks
 {
-    public final static Map<ResourceLocation, Block> blocks = new HashMap<>();
+    private final static Block[] blocks;
 
-    public final static BlockBrickFurnace brickFurnace = new BlockBrickFurnace();
+    @GameRegistry.ObjectHolder(BlockBrickFurnace.internalName)
+    public final static BlockBrickFurnace brickFurnace = null;
 
-    public final static BlockAlchemicalCauldron alchemicalCauldron = new BlockAlchemicalCauldron();
-    public final static BlockPedestal pedestal = new BlockPedestal();
-    public final static BlockAmalgamationAltar amalgamationAltar = new BlockAmalgamationAltar();
-    public final static Block constructionTable = new BlockConstructionTable();
+    @GameRegistry.ObjectHolder(BlockAlchemicalCauldron.INTERNAL_NAME)
+    public final static BlockAlchemicalCauldron alchemicalCauldron = null;
 
+    @GameRegistry.ObjectHolder(BlockPedestal.INTERNAL_NAME)
+    public final static BlockPedestal pedestal = null;
 
-    public static void init()
+    @GameRegistry.ObjectHolder(BlockAmalgamationAltar.INTERNAL_NAME)
+    public final static BlockAmalgamationAltar amalgamationAltar = null;
+
+    @GameRegistry.ObjectHolder(BlockConstructionTable.INTERNAL_NAME)
+    public final static BlockConstructionTable constructionTable = null;
+
+    static
     {
-        MultiblockRegistry.register(new MultiblockBrickFurnace());
+        blocks = Arrays.stream(TMBlocks.class.getFields())
+            .filter(f -> f.getAnnotation(GameRegistry.ObjectHolder.class) != null)
+            .map(ClassUtils::create)
+            .filter(Objects::nonNull)
+            .toArray(Block[]::new);
 
-        Technomage.Proxy.register(brickFurnace);
-        Technomage.Proxy.register(alchemicalCauldron);
-        Technomage.Proxy.register(pedestal);
-        Technomage.Proxy.register(amalgamationAltar);
-        Technomage.Proxy.register(constructionTable);
+        MultiblockRegistry.register(new MultiblockBrickFurnace());
+    }
+
+    @SubscribeEvent
+    public static void onRegisterBlocks(RegistryEvent.Register<Block> event)
+    {
+        event.getRegistry().registerAll(blocks);
+
+        Arrays.stream(blocks)
+                .filter(b -> b instanceof BlockTMTileProvider)
+                .forEach(block -> ((BlockTMTileProvider) block).getTileEntityClasses()
+                        .forEach((s, t) -> GameRegistry.registerTileEntity(t, s)));
+    }
+
+    @SubscribeEvent
+    public static void onRegisterItems(RegistryEvent.Register<Item> event)
+    {
+        event.getRegistry().registerAll(
+                Arrays.stream(blocks)
+                    .filter(b -> b instanceof IItemBlockProvider && ((IItemBlockProvider) b).hasItemBlock())
+                    .map(block -> ((IItemBlockProvider)block).createItemBlock().setRegistryName(block.getRegistryName()))
+                    .toArray(Item[]::new)
+        );
+    }
+
+    @SideOnly(Side.CLIENT)
+    @SubscribeEvent
+    public static void onRegisterModels(ModelRegistryEvent event)
+    {
+        Arrays.stream(blocks)
+            .filter(b -> b instanceof IItemBlockProvider && ((IItemBlockProvider) b).hasItemBlock())
+            .forEach(block -> ((IItemBlockProvider) block).registerItemModels(Item.getItemFromBlock(block)));
     }
 }

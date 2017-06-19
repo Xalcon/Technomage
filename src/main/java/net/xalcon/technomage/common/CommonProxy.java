@@ -15,32 +15,4 @@ public class CommonProxy
     public void preInit(FMLPreInitializationEvent event) { }
     public void init(FMLInitializationEvent event) { }
     public void postInit(FMLPostInitializationEvent event) { }
-
-    public <T extends Block> T register(T block)
-    {
-        GameRegistry.register(block);
-        if(block instanceof IItemBlockProvider)
-        {
-            IItemBlockProvider provider = (IItemBlockProvider) block;
-            if(provider.hasItemBlock())
-            {
-                ItemBlock itemBlock = provider.createItemBlock();
-                itemBlock.setRegistryName(block.getRegistryName());
-                this.register(itemBlock);
-            }
-        }
-
-        if(block instanceof BlockTMTileProvider)
-        {
-            ((BlockTMTileProvider) block).getTileEntityClasses()
-                    .forEach((key, value) -> GameRegistry.registerTileEntity(value, key));
-        }
-        return block;
-    }
-
-    public <T extends Item> T register(T item)
-    {
-        GameRegistry.register(item);
-        return item;
-    }
 }

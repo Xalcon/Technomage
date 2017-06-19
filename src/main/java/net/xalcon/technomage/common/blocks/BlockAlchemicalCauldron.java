@@ -11,7 +11,6 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -19,7 +18,6 @@ import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandlerItem;
-import net.xalcon.technomage.Technomage;
 import net.xalcon.technomage.common.tileentities.TileEntityAlchemicalCauldron;
 
 import javax.annotation.Nullable;
@@ -29,9 +27,11 @@ import java.util.Map;
 
 public class BlockAlchemicalCauldron extends BlockTMTileProvider
 {
+    public final static String INTERNAL_NAME = "alchemical_cauldron";
+
     public BlockAlchemicalCauldron()
     {
-        super("alchemical_cauldron", Material.IRON);
+        super(INTERNAL_NAME, Material.IRON);
     }
 
     @Override

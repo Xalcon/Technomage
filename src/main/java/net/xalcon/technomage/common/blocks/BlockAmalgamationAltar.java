@@ -11,7 +11,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.xalcon.technomage.common.init.TMItems;
 import net.xalcon.technomage.common.tileentities.TileEntityAmalgamationAltar;
-import net.xalcon.technomage.common.tileentities.TileEntityPedestal;
 
 import javax.annotation.Nullable;
 import java.util.Collections;
@@ -19,9 +18,10 @@ import java.util.Map;
 
 public class BlockAmalgamationAltar extends BlockTMTileProvider
 {
+    public final static String INTERNAL_NAME = "amalgamation_altar";
     public BlockAmalgamationAltar()
     {
-        super("amalgamation_altar", Material.ROCK);
+        super(INTERNAL_NAME, Material.ROCK);
     }
 
     @Override

@@ -5,9 +5,14 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.xalcon.technomage.Technomage;
 import net.xalcon.technomage.common.crafting.Registries;
 import net.xalcon.technomage.common.crafting.alchemy.AlchemyRecipe;
@@ -17,8 +22,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 
+@GameRegistry.ObjectHolder(Technomage.MOD_ID)
+@Mod.EventBusSubscriber
 public class TMRecipes
 {
+    //@SubscribeEvent
+    //public static void registerRecipes(RegistryEvent.Register<IRecipe> event)
     public static void init()
     {
         Registries.ALCHEMY.register(new AlchemyRecipe(

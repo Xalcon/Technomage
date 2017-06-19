@@ -9,9 +9,11 @@ import net.xalcon.technomage.Technomage;
 
 public class ItemTechnonomicon extends ItemTM
 {
+    public static final String INTERNAL_NAME = "technonomicon";
+
     public ItemTechnonomicon()
     {
-        super("technonomicon");
+        super(INTERNAL_NAME);
     }
 
     @Override

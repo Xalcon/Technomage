@@ -24,9 +24,11 @@ public class BlockBrickFurnace extends BlockTMMultiblock
     public static PropertyBool IS_LOWER = PropertyBool.create("lower");
     public static PropertyBool IS_ACTIVE = PropertyBool.create("active");
 
+    public final static String internalName = "brick_furnace";
+
     public BlockBrickFurnace()
     {
-        super("brick_furnace", Material.ROCK);
+        super(internalName, Material.ROCK);
     }
 
     @Override

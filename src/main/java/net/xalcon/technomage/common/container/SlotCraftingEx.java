@@ -118,8 +118,6 @@ public class SlotCraftingEx<T extends IItemHandler> extends Slot
         finally
         {
             ForgeHooks.setCraftingPlayer(null);
-            if(!player.world.isRemote)
-                System.out.println(this.amountCrafted);
         }
 
         for(int i = 0; i < 9; i++)

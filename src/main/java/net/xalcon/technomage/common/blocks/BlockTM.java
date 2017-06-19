@@ -14,7 +14,7 @@ import net.xalcon.technomage.lib.item.IItemModelRegisterHandler;
 
 import javax.annotation.Nonnull;
 
-public abstract class BlockTM extends Block implements IItemBlockProvider, IItemModelRegisterHandler
+public abstract class BlockTM extends Block implements IItemBlockProvider
 {
     public BlockTM(String internalName, Material materialIn)
     {

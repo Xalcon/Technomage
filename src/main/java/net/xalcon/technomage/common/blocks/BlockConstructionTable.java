@@ -17,9 +17,10 @@ import java.util.Map;
 
 public class BlockConstructionTable extends BlockTMTileProvider
 {
+    public final static String INTERNAL_NAME = "construction_table";
     public BlockConstructionTable()
     {
-        super("construction_table", Material.ROCK);
+        super(INTERNAL_NAME, Material.ROCK);
     }
 
     @Override

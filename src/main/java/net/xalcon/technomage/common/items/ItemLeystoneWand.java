@@ -21,9 +21,10 @@ import net.xalcon.technomage.api.multiblock.MultiblockRegistry;
 
 public class ItemLeystoneWand extends ItemTM
 {
+    public static final String INTERNAL_NAME = "leystone_wand";
     public ItemLeystoneWand()
     {
-        super("leystone_wand");
+        super(INTERNAL_NAME);
     }
 
     @Override

@@ -48,9 +48,6 @@ public class Technomage
     public static void onPreInit(FMLPreInitializationEvent event)
     {
         Proxy.preInit(event);
-        TMBlocks.init();
-        TMItems.init();
-
         NetworkRegistry.INSTANCE.registerGuiHandler(instance, new GuiHandlerTechnomage());
     }
 

@@ -17,9 +17,10 @@ import net.minecraft.world.World;
 
 public class ItemCursedClawWand extends ItemTM
 {
+    public static final String INTERNAL_NAME = "cursed_claw_wand";
     public ItemCursedClawWand()
     {
-        super("cursed_claw_wand");
+        super(INTERNAL_NAME);
     }
 
     @Override

@@ -16,7 +16,6 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import net.xalcon.technomage.Technomage;
 import net.xalcon.technomage.common.tileentities.TileEntityPedestal;
 
 import javax.annotation.Nullable;
@@ -26,6 +25,7 @@ import java.util.Map;
 
 public class BlockPedestal extends BlockTMTileProvider
 {
+    public final static String INTERNAL_NAME = "pedestal";
     private final static AxisAlignedBB BOTTOM_SLAB = new AxisAlignedBB(0f, 0f, 0f, 1f, 4f / 16f, 1f);
     private final static AxisAlignedBB COLUMN = new AxisAlignedBB(4f / 16f, 5f / 16f, 4f / 16f, 12f / 16f, 12f / 16f, 12f / 16f);
     private final static AxisAlignedBB TOP_SLAB = new AxisAlignedBB(2f / 16f, 12f / 16f, 2f / 16f, 14f / 16f, 1f, 14f / 16f);
@@ -33,7 +33,7 @@ public class BlockPedestal extends BlockTMTileProvider
 
     public BlockPedestal()
     {
-        super("pedestal", Material.ROCK);
+        super(INTERNAL_NAME, Material.ROCK);
     }
 
     @Override

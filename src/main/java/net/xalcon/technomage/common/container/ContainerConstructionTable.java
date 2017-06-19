@@ -25,6 +25,7 @@ public class ContainerConstructionTable extends ContainerTM
     private final InventoryCraftingProxy craftMatrixProxy;
     private final InventoryCraftResult craftResult;
 
+    private SlotCraftingEx craftingResultSlot;
     private int craftResultSlotId;
     private int internalInventoryStartIndex;
     private int internalInventoryEndIndex;
@@ -74,8 +75,8 @@ public class ContainerConstructionTable extends ContainerTM
         }
         this.craftMatrixEndIndex = this.inventorySlots.size() - 1;
 
-        this.craftResultSlotId = this.addSlotToContainer(
-                new SlotCraftingEx<>(this, this.player, this.craftMatrixProxy, this.craftResult, this.inventory, 0, 143, 36)).slotNumber;
+        this.craftingResultSlot = (SlotCraftingEx)this.addSlotToContainer(new SlotCraftingEx<>(this, this.player, this.craftMatrixProxy, this.craftResult, this.inventory, 0, 143, 36));
+        this.craftResultSlotId = this.craftingResultSlot.slotNumber;
     }
 
     @Override
@@ -155,7 +156,6 @@ public class ContainerConstructionTable extends ContainerTM
     public void onCraftMatrixChanged(IInventory inventoryIn)
     {
         this.updateCraftOutput(this.player.getEntityWorld(), this.player, this.craftMatrixProxy, this.craftResult);
-        //System.out.println("MATRIX CHANGED");
     }
 
     /**
@@ -199,31 +199,30 @@ public class ContainerConstructionTable extends ContainerTM
     public ItemStack slotClick(int slotId, int dragType, ClickType clickTypeIn, EntityPlayer player)
     {
         ItemStack itemstack = ItemStack.EMPTY;
-        InventoryPlayer inventoryplayer = player.inventory;
 
-        if (clickTypeIn == ClickType.QUICK_MOVE && slotId != -999)
+        if (clickTypeIn == ClickType.QUICK_MOVE && slotId == this.craftResultSlotId)
         {
-            if (slotId < 0)
+            if (!this.craftingResultSlot.canTakeStack(player))
             {
                 return ItemStack.EMPTY;
             }
 
-            Slot slot5 = this.inventorySlots.get(slotId);
+            ItemStack craftOutput = this.craftingResultSlot.getStack();
+            int maxCraftAmount = craftOutput.getMaxStackSize();
+            int craftedAmount = 0;
 
-            if (slot5 == null || !slot5.canTakeStack(player))
+            for (ItemStack returnStack = this.transferStackInSlot(player, slotId);
+                 !returnStack.isEmpty() && ItemStack.areItemsEqual(this.craftingResultSlot.getStack(), returnStack);
+                 returnStack = this.transferStackInSlot(player, slotId))
             {
-                return ItemStack.EMPTY;
-            }
-
-            for (ItemStack itemstack7 = this.transferStackInSlot(player, slotId);
-                 !itemstack7.isEmpty() && ItemStack.areItemsEqual(slot5.getStack(), itemstack7);
-                 itemstack7 = this.transferStackInSlot(player, slotId))
-            {
-                itemstack = itemstack7.copy();
+                itemstack = returnStack.copy();
+                craftedAmount += itemstack.getCount();
+                if(craftedAmount >= maxCraftAmount)
+                    break;
             }
         }
         else
-            super.slotClick(slotId, dragType, clickTypeIn, player);
+            return super.slotClick(slotId, dragType, clickTypeIn, player);
 
         return itemstack;
     }
