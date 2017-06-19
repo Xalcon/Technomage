@@ -44,6 +44,7 @@ public class TMBlocks
     {
         blocks = Arrays.stream(TMBlocks.class.getFields())
             .filter(f -> f.getAnnotation(GameRegistry.ObjectHolder.class) != null)
+            .filter(f -> Block.class.isAssignableFrom(f.getType()))
             .map(ClassUtils::create)
             .filter(Objects::nonNull)
             .toArray(Block[]::new);

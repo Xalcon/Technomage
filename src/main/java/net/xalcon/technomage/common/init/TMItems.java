@@ -35,6 +35,7 @@ public class TMItems
     {
         items = Arrays.stream(TMItems.class.getFields())
             .filter(f -> f.getAnnotation(GameRegistry.ObjectHolder.class) != null)
+            .filter(f -> Item.class.isAssignableFrom(f.getType()))
             .map(ClassUtils::create)
             .filter(Objects::nonNull)
             .toArray(Item[]::new);
