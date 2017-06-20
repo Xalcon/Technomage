@@ -10,6 +10,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.xalcon.technomage.Technomage;
 import net.xalcon.technomage.common.items.ItemCursedClawWand;
+import net.xalcon.technomage.common.items.ItemImbuedShard;
 import net.xalcon.technomage.common.items.ItemLeystoneWand;
 import net.xalcon.technomage.common.items.ItemTechnonomicon;
 import net.xalcon.technomage.lib.item.IItemModelRegisterHandler;
@@ -32,6 +33,9 @@ public class TMItems
 
     @GameRegistry.ObjectHolder(ItemCursedClawWand.INTERNAL_NAME)
     public final static ItemCursedClawWand cursedClawWand = new ItemCursedClawWand();
+
+    @GameRegistry.ObjectHolder(ItemImbuedShard.INTERNAL_NAME)
+    public static ItemImbuedShard imbuedShard;
 
     @SubscribeEvent
     public static void onRegisterItems(RegistryEvent.Register<Item> event)

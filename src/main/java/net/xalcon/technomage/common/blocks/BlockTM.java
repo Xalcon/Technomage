@@ -8,10 +8,7 @@ import net.minecraft.item.ItemBlock;
 import net.minecraftforge.client.model.ModelLoader;
 import net.xalcon.technomage.Technomage;
 import net.xalcon.technomage.common.CreativeTabsTechnomage;
-import net.xalcon.technomage.common.items.ItemBlockTMMeta;
 import net.xalcon.technomage.lib.item.IItemBlockProvider;
-
-import javax.annotation.Nonnull;
 
 public abstract class BlockTM extends Block implements IItemBlockProvider
 {

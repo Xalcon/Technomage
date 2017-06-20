@@ -1,0 +1,21 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+        "model": "builtin/generated",
+        "transform": "forge:default-item",
+        "textures": {
+            "layer0": "technomage:items/imbued_shard"
+        }
+    },
+    "variants": {
+        "type": {
+            "earth": { },
+            "fire": {},
+            "water": {},
+            "wind": {},
+            "ley": {},
+            "fel": {},
+            "depleted": {}
+        }
+    }
+}

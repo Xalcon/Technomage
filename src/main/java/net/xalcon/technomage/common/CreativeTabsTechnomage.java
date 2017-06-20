@@ -4,6 +4,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.xalcon.technomage.Technomage;
+import net.xalcon.technomage.common.init.TMItems;
 
 public class CreativeTabsTechnomage
 {
@@ -12,7 +13,7 @@ public class CreativeTabsTechnomage
         @Override
         public ItemStack getTabIconItem()
         {
-            return new ItemStack(Items.ENCHANTED_BOOK);
+            return new ItemStack(TMItems.technonomicon);
         }
     };
 }

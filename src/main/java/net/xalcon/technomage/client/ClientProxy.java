@@ -14,6 +14,8 @@ import net.xalcon.technomage.client.renderer.block.TileEntityPedestalRenderer;
 import net.xalcon.technomage.common.CommonProxy;
 import net.xalcon.technomage.common.blocks.BlockImbuedOre;
 import net.xalcon.technomage.common.init.TMBlocks;
+import net.xalcon.technomage.common.init.TMItems;
+import net.xalcon.technomage.common.items.ItemImbuedShard;
 import net.xalcon.technomage.common.tileentities.TileEntityAlchemicalCauldron;
 import net.xalcon.technomage.common.tileentities.TileEntityAmalgamationAltar;
 import net.xalcon.technomage.common.tileentities.TileEntityPedestal;
@@ -36,6 +38,7 @@ public class ClientProxy extends CommonProxy
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityPedestal.class, new TileEntityPedestalRenderer());
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityAmalgamationAltar.class, new TileEntityAmalgamationAltarRenderer());
 
+        FMLClientHandler.instance().getClient().getItemColors().registerItemColorHandler(ItemImbuedShard.ITEM_COLOR_HANDLER, TMItems.imbuedShard);
         FMLClientHandler.instance().getClient().getItemColors().registerItemColorHandler(BlockImbuedOre.ITEM_COLOR_HANDLER, TMBlocks.imbuedOre);
         FMLClientHandler.instance().getClient().getBlockColors().registerBlockColorHandler(BlockImbuedOre.BLOCK_COLOR_HANDLER, TMBlocks.imbuedOre);
     }

@@ -1,0 +1,17 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+        "textures": {
+            "top": "technomage:blocks/construction_table_top",
+            "side": "technomage:blocks/construction_table_side",
+            "bottom": "technomage:blocks/construction_table_bottom",
+            "lslab_top": "technomage:blocks/construction_table_lslab_top"
+        },
+        "model": "technomage:construction_table",
+        "uvlock": true
+    },
+    "variants": {
+        "normal": [{}],
+        "inventory": [{}]
+    }
+}

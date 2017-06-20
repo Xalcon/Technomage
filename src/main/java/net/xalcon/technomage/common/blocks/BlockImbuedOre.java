@@ -28,7 +28,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.xalcon.technomage.common.CreativeTabsTechnomage;
 import net.xalcon.technomage.common.blocks.properties.EnumImbuedOre;
-import net.xalcon.technomage.common.items.ItemBlockImbuedOre;
+import net.xalcon.technomage.common.items.ItemBlockEnum;
 
 import javax.annotation.Nonnull;
 import java.lang.reflect.Field;
@@ -57,7 +57,7 @@ public class BlockImbuedOre extends BlockTM
     @Override
     public ItemBlock createItemBlock()
     {
-        return new ItemBlockImbuedOre(this);
+        return new ItemBlockEnum<>(this, EnumImbuedOre::getFromMeta);
     }
 
     @Override

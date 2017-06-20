@@ -2,14 +2,17 @@ package net.xalcon.technomage.common.blocks.properties;
 
 import net.minecraft.util.IStringSerializable;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public enum EnumImbuedOre implements IStringSerializable
 {
-    EARTH(0, 0x00FF00),
+    EARTH(0, 0x00CC00),
     FIRE(1, 0xFF0000),
-    WATER(2, 0x4444CC),
-    WIND(3, 0xAAAA44),
-    LEY(4, 0x3388CC),
-    FEL(5, 0x88FF22),
+    WATER(2, 0x44AAFF),
+    WIND(3, 0xFFFF00),
+    LEY(4, 0x6666FF),
+    FEL(5, 0x99FF44),
     DEPLETED(6, 0x999999);
 
     private int meta;

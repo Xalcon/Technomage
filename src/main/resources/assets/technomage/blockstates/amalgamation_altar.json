@@ -13,6 +13,6 @@
     },
     "variants": {
         "normal": [{}],
-        "inventory": [{ "model": "minecraft:diamond_block" }]
+        "inventory": [{ "transform": "forge:default-block" }]
     }
 }
