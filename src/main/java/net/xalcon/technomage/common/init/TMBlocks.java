@@ -23,7 +23,7 @@ import java.util.*;
 @GameRegistry.ObjectHolder(Technomage.MOD_ID)
 public class TMBlocks
 {
-    private final static Block[] blocks;
+    private static Block[] blocks;
 
     @GameRegistry.ObjectHolder(BlockBrickFurnace.internalName)
     public final static BlockBrickFurnace brickFurnace = null;
@@ -42,6 +42,12 @@ public class TMBlocks
 
     static
     {
+        MultiblockRegistry.register(new MultiblockBrickFurnace());
+    }
+
+    @SubscribeEvent
+    public static void onRegisterBlocks(RegistryEvent.Register<Block> event)
+    {
         blocks = Arrays.stream(TMBlocks.class.getFields())
             .filter(f -> f.getAnnotation(GameRegistry.ObjectHolder.class) != null)
             .filter(f -> Block.class.isAssignableFrom(f.getType()))
@@ -49,12 +55,6 @@ public class TMBlocks
             .filter(Objects::nonNull)
             .toArray(Block[]::new);
 
-        MultiblockRegistry.register(new MultiblockBrickFurnace());
-    }
-
-    @SubscribeEvent
-    public static void onRegisterBlocks(RegistryEvent.Register<Block> event)
-    {
         event.getRegistry().registerAll(blocks);
 
         Arrays.stream(blocks)

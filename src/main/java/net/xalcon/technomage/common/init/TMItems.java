@@ -22,28 +22,32 @@ import java.util.Objects;
 @GameRegistry.ObjectHolder(Technomage.MOD_ID)
 public class TMItems
 {
-    private static final Item[] items;
+    private static Item[] items;
 
     @GameRegistry.ObjectHolder(ItemTechnonomicon.INTERNAL_NAME)
     public final static ItemTechnonomicon technonomicon = new ItemTechnonomicon();
+
     @GameRegistry.ObjectHolder(ItemLeystoneWand.INTERNAL_NAME)
     public final static ItemLeystoneWand leystoneWand = new ItemLeystoneWand();
+
     @GameRegistry.ObjectHolder(ItemCursedClawWand.INTERNAL_NAME)
     public final static ItemCursedClawWand cursedClawWand = new ItemCursedClawWand();
 
     static
     {
-        items = Arrays.stream(TMItems.class.getFields())
-            .filter(f -> f.getAnnotation(GameRegistry.ObjectHolder.class) != null)
-            .filter(f -> Item.class.isAssignableFrom(f.getType()))
-            .map(ClassUtils::create)
-            .filter(Objects::nonNull)
-            .toArray(Item[]::new);
+
     }
 
     @SubscribeEvent
     public static void onRegisterItems(RegistryEvent.Register<Item> event)
     {
+        items = Arrays.stream(TMItems.class.getFields())
+            .filter(field -> field.getAnnotation(GameRegistry.ObjectHolder.class) != null)
+            .filter(field -> Item.class.isAssignableFrom(field.getType()))
+            .map(ClassUtils::create)
+            .filter(Objects::nonNull)
+            .toArray(Item[]::new);
+
         event.getRegistry().registerAll(items);
     }
 
