@@ -1,6 +1,7 @@
 package net.xalcon.technomage.client;
 
 import net.minecraftforge.client.model.obj.OBJLoader;
+import net.minecraftforge.fml.client.FMLClientHandler;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -11,6 +12,8 @@ import net.xalcon.technomage.client.renderer.block.TileEntityAlchemicalCauldronR
 import net.xalcon.technomage.client.renderer.block.TileEntityAmalgamationAltarRenderer;
 import net.xalcon.technomage.client.renderer.block.TileEntityPedestalRenderer;
 import net.xalcon.technomage.common.CommonProxy;
+import net.xalcon.technomage.common.blocks.BlockImbuedOre;
+import net.xalcon.technomage.common.init.TMBlocks;
 import net.xalcon.technomage.common.tileentities.TileEntityAlchemicalCauldron;
 import net.xalcon.technomage.common.tileentities.TileEntityAmalgamationAltar;
 import net.xalcon.technomage.common.tileentities.TileEntityPedestal;
@@ -32,5 +35,8 @@ public class ClientProxy extends CommonProxy
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityAlchemicalCauldron.class, new TileEntityAlchemicalCauldronRenderer());
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityPedestal.class, new TileEntityPedestalRenderer());
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityAmalgamationAltar.class, new TileEntityAmalgamationAltarRenderer());
+
+        FMLClientHandler.instance().getClient().getItemColors().registerItemColorHandler(BlockImbuedOre.ITEM_COLOR_HANDLER, TMBlocks.imbuedOre);
+        FMLClientHandler.instance().getClient().getBlockColors().registerBlockColorHandler(BlockImbuedOre.BLOCK_COLOR_HANDLER, TMBlocks.imbuedOre);
     }
 }

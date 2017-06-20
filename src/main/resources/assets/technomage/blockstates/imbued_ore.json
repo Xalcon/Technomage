@@ -1,0 +1,25 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+        "textures": {
+            "particle": "minecraft:blocks/stone",
+            "overlay": "technomage:blocks/imbued_ore",
+            "material": "minecraft:blocks/stone"
+        },
+        "smooth_lighting": false,
+        "model": "technomage:imbued_ore",
+        "uvlock": true
+    },
+    "variants": {
+        "type":
+        {
+            "earth": {},
+            "fire": {},
+            "water": {},
+            "wind": {},
+            "ley": {},
+            "fel": {},
+            "depleted": {}
+        }
+    }
+}

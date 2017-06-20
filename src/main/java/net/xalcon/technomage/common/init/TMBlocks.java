@@ -17,6 +17,7 @@ import net.xalcon.technomage.common.multiblocks.MultiblockBrickFurnace;
 import net.xalcon.technomage.lib.item.IItemBlockProvider;
 import net.xalcon.technomage.lib.utils.ClassUtils;
 
+import javax.annotation.Nonnull;
 import java.util.*;
 
 @Mod.EventBusSubscriber
@@ -26,19 +27,22 @@ public class TMBlocks
     private static Block[] blocks;
 
     @GameRegistry.ObjectHolder(BlockBrickFurnace.internalName)
-    public final static BlockBrickFurnace brickFurnace = null;
+    public final static BlockBrickFurnace brickFurnace = new BlockBrickFurnace();
 
     @GameRegistry.ObjectHolder(BlockAlchemicalCauldron.INTERNAL_NAME)
-    public final static BlockAlchemicalCauldron alchemicalCauldron = null;
+    public final static BlockAlchemicalCauldron alchemicalCauldron = new BlockAlchemicalCauldron();
 
     @GameRegistry.ObjectHolder(BlockPedestal.INTERNAL_NAME)
-    public final static BlockPedestal pedestal = null;
+    public final static BlockPedestal pedestal = new BlockPedestal();
 
     @GameRegistry.ObjectHolder(BlockAmalgamationAltar.INTERNAL_NAME)
-    public final static BlockAmalgamationAltar amalgamationAltar = null;
+    public final static BlockAmalgamationAltar amalgamationAltar = new BlockAmalgamationAltar();
 
     @GameRegistry.ObjectHolder(BlockConstructionTable.INTERNAL_NAME)
-    public final static BlockConstructionTable constructionTable = null;
+    public final static BlockConstructionTable constructionTable = new BlockConstructionTable();
+
+    @GameRegistry.ObjectHolder(BlockImbuedOre.INTERNAL_NAME)
+    public final static BlockImbuedOre imbuedOre = new BlockImbuedOre();
 
     static
     {

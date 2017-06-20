@@ -33,11 +33,6 @@ public class TMItems
     @GameRegistry.ObjectHolder(ItemCursedClawWand.INTERNAL_NAME)
     public final static ItemCursedClawWand cursedClawWand = new ItemCursedClawWand();
 
-    static
-    {
-
-    }
-
     @SubscribeEvent
     public static void onRegisterItems(RegistryEvent.Register<Item> event)
     {

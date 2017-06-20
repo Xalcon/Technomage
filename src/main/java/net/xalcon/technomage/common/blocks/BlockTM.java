@@ -8,9 +8,8 @@ import net.minecraft.item.ItemBlock;
 import net.minecraftforge.client.model.ModelLoader;
 import net.xalcon.technomage.Technomage;
 import net.xalcon.technomage.common.CreativeTabsTechnomage;
-import net.xalcon.technomage.common.items.ItemBlockTM;
+import net.xalcon.technomage.common.items.ItemBlockTMMeta;
 import net.xalcon.technomage.lib.item.IItemBlockProvider;
-import net.xalcon.technomage.lib.item.IItemModelRegisterHandler;
 
 import javax.annotation.Nonnull;
 
@@ -24,11 +23,10 @@ public abstract class BlockTM extends Block implements IItemBlockProvider
         this.setCreativeTab(CreativeTabsTechnomage.tabMain);
     }
 
-    @Nonnull
     @Override
     public ItemBlock createItemBlock()
     {
-        return new ItemBlockTM<>(this);
+        return new ItemBlock(this);
     }
 
     @Override
@@ -38,7 +36,7 @@ public abstract class BlockTM extends Block implements IItemBlockProvider
     }
 
     @Override
-    public void registerItemModels(@Nonnull Item item)
+    public void registerItemModels(Item item)
     {
         ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(item.getRegistryName(), "inventory"));
     }
