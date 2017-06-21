@@ -17,4 +17,23 @@ public class ClassUtils
         }
         return null;
     }
+
+    public static <T> T getOrNull(Field field)
+    {
+        return getOrNull(field, null);
+    }
+
+    @SuppressWarnings("unchecked")
+    public static <T> T getOrNull(Field field, Object from)
+    {
+        try
+        {
+            return (T) field.get(from);
+        }
+        catch (IllegalAccessException e)
+        {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

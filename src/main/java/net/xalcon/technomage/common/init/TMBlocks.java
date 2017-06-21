@@ -44,6 +44,9 @@ public class TMBlocks
     @GameRegistry.ObjectHolder(BlockImbuedOre.INTERNAL_NAME)
     public final static BlockImbuedOre imbuedOre = new BlockImbuedOre();
 
+    @GameRegistry.ObjectHolder(BlockPlant.INTERNAL_NAME)
+    public final static BlockPlant plant = new BlockPlant();
+
     static
     {
         MultiblockRegistry.register(new MultiblockBrickFurnace());
@@ -55,7 +58,8 @@ public class TMBlocks
         blocks = Arrays.stream(TMBlocks.class.getFields())
             .filter(f -> f.getAnnotation(GameRegistry.ObjectHolder.class) != null)
             .filter(f -> Block.class.isAssignableFrom(f.getType()))
-            .map(ClassUtils::create)
+            //.map(ClassUtils::create)
+            .map(ClassUtils::getOrNull)
             .filter(Objects::nonNull)
             .toArray(Block[]::new);
 

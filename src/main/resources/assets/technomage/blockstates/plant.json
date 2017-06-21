@@ -1,0 +1,13 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+        "model": "cross",
+        "uvlock": true
+    },
+    "variants": {
+        "type":
+        {
+            "incinerlily": { "textures": { "cross": "technomage:blocks/incinerlily" }, "transform": "forge:default-item" }
+        }
+    }
+}
