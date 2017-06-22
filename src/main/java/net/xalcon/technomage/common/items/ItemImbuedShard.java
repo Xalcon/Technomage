@@ -46,6 +46,4 @@ public class ItemImbuedShard extends ItemTM
     {
         return super.getUnlocalizedName(stack) + "." + EnumImbuedOre.getFromMeta(stack.getMetadata()).getName();
     }
-
-    public final static IItemColor ITEM_COLOR_HANDLER = (stack, tint) -> EnumImbuedOre.getFromMeta(stack.getMetadata()).getColor();
 }

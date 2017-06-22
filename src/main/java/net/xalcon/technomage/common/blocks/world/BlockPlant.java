@@ -1,4 +1,4 @@
-package net.xalcon.technomage.common.blocks;
+package net.xalcon.technomage.common.blocks.world;
 
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -25,6 +25,7 @@ import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.common.IShearable;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import net.xalcon.technomage.common.blocks.BlockTM;
 import net.xalcon.technomage.common.blocks.properties.EnumMagicPlantType;
 import net.xalcon.technomage.common.items.ItemBlockEnum;
 

@@ -1,4 +1,4 @@
-package net.xalcon.technomage.common.blocks;
+package net.xalcon.technomage.common.blocks.crafting;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -18,6 +18,7 @@ import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandlerItem;
+import net.xalcon.technomage.common.blocks.BlockTMTileProvider;
 import net.xalcon.technomage.common.tileentities.TileEntityAlchemicalCauldron;
 
 import javax.annotation.Nullable;

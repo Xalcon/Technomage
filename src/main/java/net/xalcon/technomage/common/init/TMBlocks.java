@@ -12,12 +12,18 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import net.xalcon.technomage.Technomage;
 import net.xalcon.technomage.api.multiblock.MultiblockRegistry;
 import net.xalcon.technomage.common.blocks.*;
+import net.xalcon.technomage.common.blocks.crafting.BlockAlchemicalCauldron;
+import net.xalcon.technomage.common.blocks.crafting.BlockAmalgamationAltar;
+import net.xalcon.technomage.common.blocks.crafting.BlockConstructionTable;
+import net.xalcon.technomage.common.blocks.crafting.BlockPedestal;
 import net.xalcon.technomage.common.blocks.multiblocks.BlockBrickFurnace;
+import net.xalcon.technomage.common.blocks.world.BlockImbuedOre;
+import net.xalcon.technomage.common.blocks.world.BlockPlant;
+import net.xalcon.technomage.common.blocks.world.BlockTMLog;
 import net.xalcon.technomage.common.multiblocks.MultiblockBrickFurnace;
 import net.xalcon.technomage.lib.item.IItemBlockProvider;
 import net.xalcon.technomage.lib.utils.ClassUtils;
 
-import javax.annotation.Nonnull;
 import java.util.*;
 
 @Mod.EventBusSubscriber
@@ -46,6 +52,9 @@ public class TMBlocks
 
     @GameRegistry.ObjectHolder(BlockPlant.INTERNAL_NAME)
     public final static BlockPlant plant = new BlockPlant();
+
+    @GameRegistry.ObjectHolder(BlockTMLog.INTERNAL_NAME)
+    public final static BlockTMLog log = new BlockTMLog();
 
     static
     {

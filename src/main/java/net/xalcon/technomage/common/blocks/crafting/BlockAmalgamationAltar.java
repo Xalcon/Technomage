@@ -1,4 +1,4 @@
-package net.xalcon.technomage.common.blocks;
+package net.xalcon.technomage.common.blocks.crafting;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -9,6 +9,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.xalcon.technomage.common.blocks.BlockTMTileProvider;
 import net.xalcon.technomage.common.init.TMItems;
 import net.xalcon.technomage.common.tileentities.TileEntityAmalgamationAltar;
 

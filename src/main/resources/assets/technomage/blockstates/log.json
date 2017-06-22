@@ -1,0 +1,26 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+        "smooth_lighting": false,
+        "model": "cube_column",
+        "uvlock": false
+    },
+    "variants": {
+        "axis=y,type=elder":     [{ "textures": { "side": "technomage:blocks/wood/log_elder", "end": "technomage:blocks/wood/log_elder_top" } }],
+        "axis=z,type=elder":     [{ "textures": { "side": "technomage:blocks/wood/log_elder", "end": "technomage:blocks/wood/log_elder_top" }, "x": 90 }],
+        "axis=x,type=elder":     [{ "textures": { "side": "technomage:blocks/wood/log_elder", "end": "technomage:blocks/wood/log_elder_top" }, "x": 90, "y": 90 }],
+        "axis=none,type=elder":  [{ "textures": {  "all": "technomage:blocks/wood/log_elder" }, "model": "cube_all" }],
+        "axis=y,type=ley":       [{ "textures": { "side": "technomage:blocks/wood/log_ley", "end": "technomage:blocks/wood/log_ley_top" } }],
+        "axis=z,type=ley":       [{ "textures": { "side": "technomage:blocks/wood/log_ley", "end": "technomage:blocks/wood/log_ley_top" }, "x": 90 }],
+        "axis=x,type=ley":       [{ "textures": { "side": "technomage:blocks/wood/log_ley", "end": "technomage:blocks/wood/log_ley_top" }, "x": 90, "y": 90 }],
+        "axis=none,type=ley":    [{ "textures": {  "all": "technomage:blocks/wood/log_ley" }, "model": "cube_all" }],
+        "axis=y,type=fel":       [{ "textures": { "side": "technomage:blocks/wood/log_fel", "end": "technomage:blocks/wood/log_fel_top" } }],
+        "axis=z,type=fel":       [{ "textures": { "side": "technomage:blocks/wood/log_fel", "end": "technomage:blocks/wood/log_fel_top" }, "x": 90 }],
+        "axis=x,type=fel":       [{ "textures": { "side": "technomage:blocks/wood/log_fel", "end": "technomage:blocks/wood/log_fel_top" }, "x": 90, "y": 90 }],
+        "axis=none,type=fel":    [{ "textures": {  "all": "technomage:blocks/wood/log_fel" }, "model": "cube_all" }],
+        "axis=y,type=bamboo":    [{ "textures": { "side": "technomage:blocks/wood/log_bamboo", "end": "technomage:blocks/wood/log_bamboo_top" } }],
+        "axis=z,type=bamboo":    [{ "textures": { "side": "technomage:blocks/wood/log_bamboo", "end": "technomage:blocks/wood/log_bamboo_top" }, "x": 90 }],
+        "axis=x,type=bamboo":    [{ "textures": { "side": "technomage:blocks/wood/log_bamboo", "end": "technomage:blocks/wood/log_bamboo_top" }, "x": 90, "y": 90 }],
+        "axis=none,type=bamboo": [{ "textures": {  "all": "technomage:blocks/wood/log_bamboo" }, "model": "cube_all" }]
+    }
+}

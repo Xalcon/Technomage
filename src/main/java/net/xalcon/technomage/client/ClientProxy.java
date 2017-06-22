@@ -1,5 +1,7 @@
 package net.xalcon.technomage.client;
 
+import net.minecraft.client.renderer.color.BlockColors;
+import net.minecraft.client.renderer.color.ItemColors;
 import net.minecraftforge.client.model.obj.OBJLoader;
 import net.minecraftforge.fml.client.FMLClientHandler;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
@@ -12,10 +14,10 @@ import net.xalcon.technomage.client.renderer.block.TileEntityAlchemicalCauldronR
 import net.xalcon.technomage.client.renderer.block.TileEntityAmalgamationAltarRenderer;
 import net.xalcon.technomage.client.renderer.block.TileEntityPedestalRenderer;
 import net.xalcon.technomage.common.CommonProxy;
-import net.xalcon.technomage.common.blocks.BlockImbuedOre;
+import net.xalcon.technomage.common.blocks.world.BlockImbuedOre;
+import net.xalcon.technomage.common.blocks.properties.EnumImbuedOre;
 import net.xalcon.technomage.common.init.TMBlocks;
 import net.xalcon.technomage.common.init.TMItems;
-import net.xalcon.technomage.common.items.ItemImbuedShard;
 import net.xalcon.technomage.common.tileentities.TileEntityAlchemicalCauldron;
 import net.xalcon.technomage.common.tileentities.TileEntityAmalgamationAltar;
 import net.xalcon.technomage.common.tileentities.TileEntityPedestal;
@@ -38,8 +40,11 @@ public class ClientProxy extends CommonProxy
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityPedestal.class, new TileEntityPedestalRenderer());
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityAmalgamationAltar.class, new TileEntityAmalgamationAltarRenderer());
 
-        FMLClientHandler.instance().getClient().getItemColors().registerItemColorHandler(ItemImbuedShard.ITEM_COLOR_HANDLER, TMItems.imbuedShard);
-        FMLClientHandler.instance().getClient().getItemColors().registerItemColorHandler(BlockImbuedOre.ITEM_COLOR_HANDLER, TMBlocks.imbuedOre);
-        FMLClientHandler.instance().getClient().getBlockColors().registerBlockColorHandler(BlockImbuedOre.BLOCK_COLOR_HANDLER, TMBlocks.imbuedOre);
+        ItemColors itemColors = FMLClientHandler.instance().getClient().getItemColors();
+        itemColors.registerItemColorHandler((stack, tint) -> EnumImbuedOre.getFromMeta(stack.getMetadata()).getColor(), TMItems.imbuedShard);
+        itemColors.registerItemColorHandler((stack, tint) -> EnumImbuedOre.getFromMeta(stack.getMetadata()).getColor(), TMBlocks.imbuedOre);
+
+        BlockColors blockColors = FMLClientHandler.instance().getClient().getBlockColors();
+        blockColors.registerBlockColorHandler((state, worldIn, pos, tintIndex) -> state.getValue(BlockImbuedOre.ORE_TYPE).getColor(), TMBlocks.imbuedOre);
     }
 }

@@ -1,4 +1,4 @@
-package net.xalcon.technomage.common.blocks;
+package net.xalcon.technomage.common.blocks.crafting;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -16,6 +16,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import net.xalcon.technomage.common.blocks.BlockTMTileProvider;
 import net.xalcon.technomage.common.tileentities.TileEntityPedestal;
 
 import javax.annotation.Nullable;

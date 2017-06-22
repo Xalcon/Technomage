@@ -1,4 +1,4 @@
-package net.xalcon.technomage.common.blocks;
+package net.xalcon.technomage.common.blocks.world;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyEnum;
@@ -27,6 +27,7 @@ import net.minecraftforge.client.model.pipeline.VertexLighterFlat;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.xalcon.technomage.common.CreativeTabsTechnomage;
+import net.xalcon.technomage.common.blocks.BlockTM;
 import net.xalcon.technomage.common.blocks.properties.EnumImbuedOre;
 import net.xalcon.technomage.common.items.ItemBlockEnum;
 
@@ -90,12 +91,6 @@ public class BlockImbuedOre extends BlockTM
     {
         return new ItemStack(this, 1, state.getValue(ORE_TYPE).getMeta());
     }
-
-    @SideOnly(Side.CLIENT)
-    public final static IBlockColor BLOCK_COLOR_HANDLER = (state, worldIn, pos, tintIndex) -> state.getValue(ORE_TYPE).getColor();
-
-    @SideOnly(Side.CLIENT)
-    public final static IItemColor ITEM_COLOR_HANDLER = (stack, tint) -> EnumImbuedOre.getFromMeta(stack.getMetadata()).getColor();
 
     @Override
     @SideOnly(Side.CLIENT)

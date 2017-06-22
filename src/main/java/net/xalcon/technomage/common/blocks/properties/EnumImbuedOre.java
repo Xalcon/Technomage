@@ -5,7 +5,7 @@ import net.minecraft.util.IStringSerializable;
 import java.util.HashMap;
 import java.util.Map;
 
-public enum EnumImbuedOre implements IStringSerializable
+public enum EnumImbuedOre implements IStringSerializable, IBlockMeta
 {
     EARTH(0, 0x00CC00),
     FIRE(1, 0xFF0000),
@@ -24,6 +24,7 @@ public enum EnumImbuedOre implements IStringSerializable
         this.color = color;
     }
 
+    @Override
     public int getMeta()
     {
         return this.meta;
