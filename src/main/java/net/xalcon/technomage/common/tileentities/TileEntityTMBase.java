@@ -38,13 +38,16 @@ public class TileEntityTMBase extends TileEntity
     public final void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt)
     {
         super.onDataPacket(net, pkt);
-        this.readNbt(pkt.getNbtCompound(), EnumSyncType.TILE_UPDATE_FULL);
+        this.readNbt(pkt.getNbtCompound(), EnumSyncType.TILE_UPDATE_PARTIAL);
     }
 
+    /**
+     * Called when the TileEntity was marked for update via World.notifyBlockUpdate()
+     */
     @Override
     public final SPacketUpdateTileEntity getUpdatePacket()
     {
-        return new SPacketUpdateTileEntity(this.getPos(), -1, this.writeNbt(new NBTTagCompound(), EnumSyncType.TILE_UPDATE_FULL));
+        return new SPacketUpdateTileEntity(this.getPos(), -1, this.writeNbt(new NBTTagCompound(), EnumSyncType.TILE_UPDATE_PARTIAL));
     }
 
     /**
@@ -55,16 +58,12 @@ public class TileEntityTMBase extends TileEntity
     public final void handleUpdateTag(NBTTagCompound tag)
     {
         super.handleUpdateTag(tag);
-        this.readNbt(tag, EnumSyncType.TILE_UPDATE_PARTIAL);
+        this.readNbt(tag, EnumSyncType.TILE_UPDATE_FULL);
     }
-
-    /**
-     * Called when the TileEntity was marked for update via World.notifyBlockUpdate()
-     */
     @Override
     public final NBTTagCompound getUpdateTag()
     {
-        return this.writeNbt(super.getUpdateTag(), EnumSyncType.TILE_UPDATE_PARTIAL);
+        return this.writeNbt(super.getUpdateTag(), EnumSyncType.TILE_UPDATE_FULL);
     }
 
     public void readNbt(NBTTagCompound nbt, EnumSyncType type)
