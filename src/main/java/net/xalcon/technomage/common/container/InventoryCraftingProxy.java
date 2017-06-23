@@ -183,9 +183,9 @@ public class InventoryCraftingProxy<T extends IItemHandler & IItemHandlerModifia
 
     @SideOnly(Side.CLIENT)
     @Override
-    public void func_194018_a(RecipeItemHelper recipeItemhelper)
+    public void fillStackedContents(RecipeItemHelper recipeItemhelper)
     {
         for (int i = 0; i < this.matrix.getSlots(); i++)
-            recipeItemhelper.func_194112_a(this.matrix.getStackInSlot(i));
+            recipeItemhelper.accountStack(this.matrix.getStackInSlot(i));
     }
 }

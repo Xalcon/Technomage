@@ -183,7 +183,7 @@ public class ContainerConstructionTable extends ContainerTM
 
             if (recipe != null && (recipe.isHidden() || !world.getGameRules().getBoolean("doLimitedCrafting") || book.containsRecipe(recipe)))
             {
-                craftResult.func_193056_a(recipe);
+                craftResult.setRecipeUsed(recipe);
                 itemstack = recipe.getCraftingResult(inventoryCrafting);
             }
 

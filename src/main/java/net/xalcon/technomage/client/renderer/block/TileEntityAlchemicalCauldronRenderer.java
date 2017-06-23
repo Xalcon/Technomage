@@ -16,7 +16,7 @@ import org.lwjgl.opengl.GL11;
 public class TileEntityAlchemicalCauldronRenderer extends TileEntitySpecialRenderer<TileEntityAlchemicalCauldron>
 {
     @Override
-    public void renderTileEntityAt(TileEntityAlchemicalCauldron te, double x, double y, double z, float partialTicks, int destroyStage, float alpha)
+    public void render(TileEntityAlchemicalCauldron te, double x, double y, double z, float partialTicks, int destroyStage, float alpha)
     {
         if(!te.hasWater) return;
         GlStateManager.translate(x, y, z);

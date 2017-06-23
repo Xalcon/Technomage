@@ -91,12 +91,12 @@ public class SlotCraftingEx<T extends IItemHandler> extends Slot
 
         this.amountCrafted = 0;
         InventoryCraftResult inventorycraftresult = this.craftingResultInventory;
-        IRecipe irecipe = inventorycraftresult.func_193055_i();
+        IRecipe irecipe = inventorycraftresult.getRecipeUsed();
 
         if (irecipe != null && !irecipe.isHidden())
         {
             this.player.unlockRecipes(Lists.newArrayList(irecipe));
-            inventorycraftresult.func_193056_a(null);
+            inventorycraftresult.setRecipeUsed(null);
         }
     }
 

@@ -13,9 +13,9 @@ import net.xalcon.technomage.common.tileentities.TileEntityPedestal;
 public class TileEntityPedestalRenderer extends TileEntitySpecialRenderer<TileEntityPedestal>
 {
     @Override
-    public void renderTileEntityAt(TileEntityPedestal te, double x, double y, double z, float partialTicks, int destroyStage, float alpha)
+    public void render(TileEntityPedestal te, double x, double y, double z, float partialTicks, int destroyStage, float alpha)
     {
-        super.renderTileEntityAt(te, x, y, z, partialTicks, destroyStage, alpha);
+        super.render(te, x, y, z, partialTicks, destroyStage, alpha);
         ItemStack itemStack = te.getItemStack();
         //ItemStack itemStack = new ItemStack(Items.PAPER);
         if(itemStack.isEmpty()) return;
