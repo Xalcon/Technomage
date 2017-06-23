@@ -1,4 +1,4 @@
-package net.xalcon.technomage.common.blocks.world;
+package net.xalcon.technomage.common.blocks.decorative;
 
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
@@ -7,6 +7,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
@@ -15,6 +16,8 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.client.model.ModelLoader;
 import net.xalcon.technomage.common.blocks.BlockTM;
 import net.xalcon.technomage.common.blocks.properties.EnumWoodType;
+import net.xalcon.technomage.common.blocks.world.BlockTMLog;
+import net.xalcon.technomage.common.items.ItemBlockEnum;
 
 public class BlockTMPlanks extends BlockTM
 {
@@ -66,6 +69,12 @@ public class BlockTMPlanks extends BlockTM
 	public int getMetaFromState(IBlockState state)
 	{
 		return state.getValue(BlockTMLog.TYPE).getMeta();
+	}
+
+	@Override
+	public ItemBlock createItemBlock()
+	{
+		return new ItemBlockEnum<>(this, EnumWoodType::getFromMeta);
 	}
 
 	@SuppressWarnings("deprecation")

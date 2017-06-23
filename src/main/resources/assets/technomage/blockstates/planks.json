@@ -6,9 +6,9 @@
         "uvlock": false
     },
     "variants": {
-        "type=elder":   [{ "textures": { "all": "technomage:blocks/wood/bord_bamboo" } }],
-        "type=ley":     [{ "textures": { "all": "technomage:blocks/wood/bord_bamboo" } }],
-        "type=fel":     [{ "textures": { "all": "technomage:blocks/wood/bord_bamboo" } }],
-        "type=bamboo":  [{ "textures": { "all": "technomage:blocks/wood/bord_bamboo" } }]
+        "type=elder":   [{ "textures": { "all": "technomage:blocks/wood/planks_elder" } }],
+        "type=ley":     [{ "textures": { "all": "technomage:blocks/wood/planks_ley" } }],
+        "type=fel":     [{ "textures": { "all": "technomage:blocks/wood/planks_fel" } }],
+        "type=bamboo":  [{ "textures": { "all": "technomage:blocks/wood/planks_bamboo" } }]
     }
 }

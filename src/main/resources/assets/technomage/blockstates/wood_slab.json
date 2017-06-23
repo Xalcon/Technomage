@@ -1,0 +1,16 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+        "uvlock": true
+    },
+    "variants": {
+        "half=bottom,type=elder":  [{ "textures": { "top": "technomage:blocks/wood/planks_elder", "bottom": "technomage:blocks/wood/planks_elder", "side": "technomage:blocks/wood/planks_elder" }, "model": "half_slab" }],
+        "half=bottom,type=ley":    [{ "textures": { "top": "technomage:blocks/wood/planks_ley", "bottom": "technomage:blocks/wood/planks_ley", "side": "technomage:blocks/wood/planks_ley" }, "model": "half_slab" }],
+        "half=bottom,type=fel":    [{ "textures": { "top": "technomage:blocks/wood/planks_fel", "bottom": "technomage:blocks/wood/planks_fel", "side": "technomage:blocks/wood/planks_fel" }, "model": "half_slab" }],
+        "half=bottom,type=bamboo": [{ "textures": { "top": "technomage:blocks/wood/planks_bamboo", "bottom": "technomage:blocks/wood/planks_bamboo", "side": "technomage:blocks/wood/planks_bamboo" }, "model": "half_slab" }],
+        "half=top,type=elder":     [{ "textures": { "top": "technomage:blocks/wood/planks_elder", "bottom": "technomage:blocks/wood/planks_elder", "side": "technomage:blocks/wood/planks_elder" }, "model": "upper_slab" }],
+        "half=top,type=ley":       [{ "textures": { "top": "technomage:blocks/wood/planks_ley", "bottom": "technomage:blocks/wood/planks_ley", "side": "technomage:blocks/wood/planks_ley" }, "model": "upper_slab" }],
+        "half=top,type=fel":       [{ "textures": { "top": "technomage:blocks/wood/planks_fel", "bottom": "technomage:blocks/wood/planks_fel", "side": "technomage:blocks/wood/planks_fel" }, "model": "upper_slab" }],
+        "half=top,type=bamboo":    [{ "textures": { "top": "technomage:blocks/wood/planks_bamboo", "bottom": "technomage:blocks/wood/planks_bamboo", "side": "technomage:blocks/wood/planks_bamboo" }, "model": "upper_slab" }]
+    }
+}

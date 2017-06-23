@@ -79,33 +79,41 @@ processResources {
 jar {
     manifest {
         attributes 'FMLAT': "${modid}_at.cfg"
+        attributes 'ContainedDeps': ["${archivesBaseName}-${version}-api.jar", "${archivesBaseName}-${version}-api2.jar"]
     }
-}
-
-// Create deobf dev jars
-task deobfJar(type: Jar) {
-    from sourceSets.main.output
-    classifier = 'deobf'
-    includeEmptyDirs = false
 }
 
 // Create API library zip
+// Warning: This jar will be reobfuscated! Its only used to package it with the universal jar
 task apiJar(type: Jar) {
-	from(sourceSets.main.output) {
+    from(sourceSets.main.output) {
         include "**/api/**"
     }
-    classifier = 'api'
+    classifier = 'obf-api'
     includeEmptyDirs = false
 }
 
-task sourcesJar(type: Jar) {
-    from sourceSets.main.allJava
-    classifier = 'sources'
-    includeEmptyDirs = false
+// task to create a jar containing all classes from the main sourceSet output and the api.jar
+// also sets up the manifest attribute 'ContainedDeps' which fml uses to extract the api jar at runtime
+task packedJar(type: Jar, dependsOn: 'reobfApiJar') {
+    manifest {
+        attributes 'FMLAT': "${modid}_at.cfg"
+        attributes 'ContainedDeps': "${archivesBaseName}-${version}-api.jar"
+    }
+    from(sourceSets.main.output) {
+        exclude('**/api/**')
+    }
+    from("${buildDir}/libs") {
+        include("*-${version}-api.jar")
+    }
+
+    classifier = 'universal'
 }
 
-artifacts {
-    archives deobfJar
-    archives apiJar
-    archives sourcesJar
+// tell gradle to reobfuscate our jars
+reobf {
+    // jar is done by default
+    // jar { }
+    apiJar { }
+    packedJar { }
 }
