@@ -4,7 +4,7 @@ import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
 import net.minecraft.tileentity.TileEntity;
 
-import java.util.Map;
+import javax.annotation.Nullable;
 
 public abstract class BlockTMTileProvider extends BlockTM implements ITileEntityProvider
 {
@@ -13,5 +13,6 @@ public abstract class BlockTMTileProvider extends BlockTM implements ITileEntity
         super(internalName, materialIn);
     }
 
-    public abstract Map<String, Class<? extends TileEntity>> getTileEntityClasses();
+    @Nullable
+    public abstract Class<? extends TileEntity> getTileEntityClass();
 }

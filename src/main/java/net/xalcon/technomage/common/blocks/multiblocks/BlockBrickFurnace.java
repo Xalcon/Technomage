@@ -15,8 +15,6 @@ import net.xalcon.technomage.Technomage;
 import net.xalcon.technomage.common.blocks.BlockTMMultiblock;
 
 import javax.annotation.Nullable;
-import java.util.Collections;
-import java.util.Map;
 
 public class BlockBrickFurnace extends BlockTMMultiblock
 {
@@ -32,9 +30,9 @@ public class BlockBrickFurnace extends BlockTMMultiblock
     }
 
     @Override
-    public Map<String, Class<? extends TileEntity>> getTileEntityClasses()
+    public Class<? extends TileEntity> getTileEntityClass()
     {
-        return Collections.emptyMap();
+        return null;
     }
 
     @Nullable

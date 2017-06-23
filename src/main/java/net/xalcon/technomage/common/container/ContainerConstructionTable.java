@@ -3,7 +3,6 @@ package net.xalcon.technomage.common.container;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.*;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
@@ -15,6 +14,8 @@ import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.items.SlotItemHandler;
 import net.xalcon.technomage.common.tileentities.TileEntityConstructionTable;
+
+import javax.annotation.Nullable;
 
 public class ContainerConstructionTable extends ContainerTM
 {
@@ -51,6 +52,7 @@ public class ContainerConstructionTable extends ContainerTM
     @Override
     public int getPlayerInventoryOffset() { return 142; }
 
+    @Nullable
     public IRecipe getCachedRecipe() { return this.cachedRecipe; }
 
     public void bindContainerSlots()

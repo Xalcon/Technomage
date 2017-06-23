@@ -14,8 +14,6 @@ import net.xalcon.technomage.common.init.TMItems;
 import net.xalcon.technomage.common.tileentities.TileEntityAmalgamationAltar;
 
 import javax.annotation.Nullable;
-import java.util.Collections;
-import java.util.Map;
 
 public class BlockAmalgamationAltar extends BlockTMTileProvider
 {
@@ -25,10 +23,11 @@ public class BlockAmalgamationAltar extends BlockTMTileProvider
         super(INTERNAL_NAME, Material.ROCK);
     }
 
+    @Nullable
     @Override
-    public Map<String, Class<? extends TileEntity>> getTileEntityClasses()
+    public Class<? extends TileEntity> getTileEntityClass()
     {
-        return Collections.singletonMap(this.getRegistryName().toString(), TileEntityAmalgamationAltar.class);
+        return TileEntityAmalgamationAltar.class;
     }
 
     @Override

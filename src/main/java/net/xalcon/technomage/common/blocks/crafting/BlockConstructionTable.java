@@ -13,8 +13,6 @@ import net.xalcon.technomage.common.blocks.BlockTMTileProvider;
 import net.xalcon.technomage.common.tileentities.TileEntityConstructionTable;
 
 import javax.annotation.Nullable;
-import java.util.Collections;
-import java.util.Map;
 
 public class BlockConstructionTable extends BlockTMTileProvider
 {
@@ -31,10 +29,11 @@ public class BlockConstructionTable extends BlockTMTileProvider
         return true;
     }
 
+    @Nullable
     @Override
-    public Map<String, Class<? extends TileEntity>> getTileEntityClasses()
+    public Class<? extends TileEntity> getTileEntityClass()
     {
-        return Collections.singletonMap(this.getRegistryName().toString(), TileEntityConstructionTable.class);
+        return TileEntityConstructionTable.class;
     }
 
     @Nullable
@@ -44,12 +43,14 @@ public class BlockConstructionTable extends BlockTMTileProvider
         return new TileEntityConstructionTable();
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public boolean isFullBlock(IBlockState state)
     {
         return false;
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public boolean isOpaqueCube(IBlockState state)
     {

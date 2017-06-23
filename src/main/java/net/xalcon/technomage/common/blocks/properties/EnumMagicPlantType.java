@@ -13,6 +13,7 @@ public enum EnumMagicPlantType implements IStringSerializable, IMetaBlock
         this.meta = meta;
     }
 
+    @Override
     public int getMeta()
     {
         return this.meta;

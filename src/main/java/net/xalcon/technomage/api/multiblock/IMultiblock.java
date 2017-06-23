@@ -2,6 +2,7 @@ package net.xalcon.technomage.api.multiblock;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
@@ -20,7 +21,8 @@ public interface IMultiblock
     default IBlockState getBlockstateFromItemStack(int index, ItemStack stack)
     {
         if(!stack.isEmpty() && stack.getItem() instanceof ItemBlock)
+            //noinspection deprecation
             return ((ItemBlock)stack.getItem()).getBlock().getStateFromMeta(stack.getMetadata());
-        return null;
+        return Blocks.AIR.getDefaultState();
     }
 }

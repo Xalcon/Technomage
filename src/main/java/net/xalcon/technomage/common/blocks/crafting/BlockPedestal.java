@@ -20,9 +20,7 @@ import net.xalcon.technomage.common.blocks.BlockTMTileProvider;
 import net.xalcon.technomage.common.tileentities.TileEntityPedestal;
 
 import javax.annotation.Nullable;
-import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
 public class BlockPedestal extends BlockTMTileProvider
 {
@@ -38,9 +36,9 @@ public class BlockPedestal extends BlockTMTileProvider
     }
 
     @Override
-    public Map<String, Class<? extends TileEntity>> getTileEntityClasses()
+    public Class<? extends TileEntity> getTileEntityClass()
     {
-        return Collections.singletonMap(this.getRegistryName().toString(), TileEntityPedestal.class);
+        return TileEntityPedestal.class;
     }
 
     @Nullable
@@ -92,6 +90,7 @@ public class BlockPedestal extends BlockTMTileProvider
         return true;
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public void addCollisionBoxToList(IBlockState state, World worldIn, BlockPos pos, AxisAlignedBB entityBox, List<AxisAlignedBB> collidingBoxes, @Nullable Entity entityIn, boolean p_185477_7_)
     {
@@ -100,6 +99,7 @@ public class BlockPedestal extends BlockTMTileProvider
         addCollisionBoxToList(pos, entityBox, collidingBoxes, TOP_SLAB);
     }
 
+    @SuppressWarnings("deprecation")
     @Nullable
     @Override
     public RayTraceResult collisionRayTrace(IBlockState blockState, World worldIn, BlockPos pos, Vec3d start, Vec3d end)
@@ -136,6 +136,7 @@ public class BlockPedestal extends BlockTMTileProvider
         return null;
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     @SideOnly(Side.CLIENT)
     public AxisAlignedBB getSelectedBoundingBox(IBlockState state, World worldIn, BlockPos pos)

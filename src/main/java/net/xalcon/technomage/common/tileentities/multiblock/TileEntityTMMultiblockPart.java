@@ -8,6 +8,8 @@ import net.minecraft.util.math.BlockPos;
 import net.xalcon.technomage.common.tileentities.EnumSyncType;
 import net.xalcon.technomage.common.tileentities.TileEntityTMBase;
 
+import javax.annotation.Nullable;
+
 public class TileEntityTMMultiblockPart<T extends TileEntityTMMultiblockPart<T>> extends TileEntityTMBase
 {
     public boolean formed = false;
@@ -39,6 +41,7 @@ public class TileEntityTMMultiblockPart<T extends TileEntityTMMultiblockPart<T>>
     }
 
     @SuppressWarnings("unchecked")
+    @Nullable
     public T getMaster()
     {
         if(this.isMaster) return (T) this;

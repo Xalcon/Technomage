@@ -1,9 +1,6 @@
 package net.xalcon.technomage.common.tileentities;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -18,8 +15,6 @@ import net.xalcon.technomage.common.crafting.Registries;
 import net.xalcon.technomage.common.crafting.amalgamation.AmalgamationRecipe;
 
 import javax.annotation.Nullable;
-import java.util.ArrayList;
-import java.util.List;
 
 public class TileEntityAmalgamationAltar extends TileEntityTMBase implements ITickable
 {

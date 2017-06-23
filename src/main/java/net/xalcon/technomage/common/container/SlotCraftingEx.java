@@ -4,7 +4,6 @@ import com.google.common.collect.Lists;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.*;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.NonNullList;
 import net.minecraftforge.common.ForgeHooks;
@@ -104,8 +103,8 @@ public class SlotCraftingEx<T extends IItemHandler> extends Slot
     public ItemStack onTake(EntityPlayer player, ItemStack stack)
     {
         this.onCrafting(stack);
-        IRecipe recipe = null;
-        NonNullList<ItemStack> remainingItems = null;
+        IRecipe recipe;
+        NonNullList<ItemStack> remainingItems;
         try
         {
             ForgeHooks.setCraftingPlayer(player);
@@ -140,12 +139,9 @@ public class SlotCraftingEx<T extends IItemHandler> extends Slot
             // to allow mass crafting things like cakes
             if(!replacementItem.isEmpty())
             {
-                if(replacementItem.isItemEqual(existingItem) || (replacementItem.isItemStackDamageable() && replacementItem.isItemDamaged()))
-                {
-                    // same item as before, keep
-                    // i.e. Hammer to craft plates (immersive engineering), magic stone to craft magic seeds (magical crops)
-                }
-                else
+                // check if the replacement item is the same as before, if not: apply replacement logic
+                // i.e. Hammer to craft plates (immersive engineering), magic stone to craft magic seeds (magical crops)
+                if(!replacementItem.isItemEqual(existingItem) || (replacementItem.isItemStackDamageable() && replacementItem.isItemDamaged()))
                 {
                     // replacement item was changed, this might be a bucket or something similar
                     ItemStack remaining = ItemHandlerHelper.insertItemStacked(this.inventory, replacementItem, false);
@@ -160,6 +156,7 @@ public class SlotCraftingEx<T extends IItemHandler> extends Slot
                         // therefor the logic afterwards will add the item to the craft matrix if addItemToInv fails
                         player.addItemStackToInventory(remaining);
                     }
+
                 }
             }
 

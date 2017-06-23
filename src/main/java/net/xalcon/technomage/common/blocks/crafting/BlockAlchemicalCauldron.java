@@ -22,9 +22,7 @@ import net.xalcon.technomage.common.blocks.BlockTMTileProvider;
 import net.xalcon.technomage.common.tileentities.TileEntityAlchemicalCauldron;
 
 import javax.annotation.Nullable;
-import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
 public class BlockAlchemicalCauldron extends BlockTMTileProvider
 {
@@ -35,10 +33,11 @@ public class BlockAlchemicalCauldron extends BlockTMTileProvider
         super(INTERNAL_NAME, Material.IRON);
     }
 
+    @Nullable
     @Override
-    public Map<String, Class<? extends TileEntity>> getTileEntityClasses()
+    public Class<? extends TileEntity> getTileEntityClass()
     {
-        return Collections.singletonMap(this.getRegistryName().toString(), TileEntityAlchemicalCauldron.class);
+        return TileEntityAlchemicalCauldron.class;
     }
 
     @Nullable
@@ -62,6 +61,7 @@ public class BlockAlchemicalCauldron extends BlockTMTileProvider
         return false;
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public void addCollisionBoxToList(IBlockState state, World worldIn, BlockPos pos, AxisAlignedBB entityBox, List<AxisAlignedBB> collidingBoxes, @Nullable Entity entityIn, boolean p_185477_7_)
     {

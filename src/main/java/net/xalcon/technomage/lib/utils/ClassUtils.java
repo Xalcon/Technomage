@@ -1,10 +1,12 @@
 package net.xalcon.technomage.lib.utils;
 
+import javax.annotation.Nullable;
 import java.lang.reflect.Field;
 
 public class ClassUtils
 {
     @SuppressWarnings("unchecked")
+    @Nullable
     public static <T> T create(Field field)
     {
         try
@@ -18,13 +20,15 @@ public class ClassUtils
         return null;
     }
 
+    @Nullable
     public static <T> T getOrNull(Field field)
     {
         return getOrNull(field, null);
     }
 
     @SuppressWarnings("unchecked")
-    public static <T> T getOrNull(Field field, Object from)
+    @Nullable
+    public static <T> T getOrNull(Field field, @Nullable Object from)
     {
         try
         {

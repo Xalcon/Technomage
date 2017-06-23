@@ -2,6 +2,7 @@ package net.xalcon.technomage.api.gui;
 
 import org.lwjgl.util.Rectangle;
 
+@SuppressWarnings("EmptyMethod")
 public interface IGuiComponent
 {
     Rectangle getBounds();

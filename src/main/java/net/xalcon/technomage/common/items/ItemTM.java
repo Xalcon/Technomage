@@ -2,6 +2,7 @@ package net.xalcon.technomage.common.items;
 
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
 import net.xalcon.technomage.Technomage;
 import net.xalcon.technomage.common.CreativeTabsTechnomage;
@@ -19,6 +20,8 @@ public class ItemTM extends Item implements IItemModelRegisterHandler
     @Override
     public void registerItemModels(Item item)
     {
-        ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(item.getRegistryName(), "inventory"));
+        ResourceLocation loc = this.getRegistryName();
+        assert loc != null;
+        ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(loc, "inventory"));
     }
 }

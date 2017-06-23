@@ -12,9 +12,9 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockRenderLayer;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.NonNullList;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
@@ -53,8 +53,10 @@ public class BlockPlant extends BlockTM implements IPlantable, IShearable
     @SideOnly(Side.CLIENT)
     public void registerItemModels(Item item)
     {
+        ResourceLocation loc = this.getRegistryName();
+        assert loc != null;
         for(EnumMagicPlantType type : EnumMagicPlantType.values())
-            ModelLoader.setCustomModelResourceLocation(item, type.getMeta(), new ModelResourceLocation(item.getRegistryName(), "type=" + type.getName()));
+            ModelLoader.setCustomModelResourceLocation(item, type.getMeta(), new ModelResourceLocation(loc, "type=" + type.getName()));
     }
 
     @Override
@@ -65,12 +67,14 @@ public class BlockPlant extends BlockTM implements IPlantable, IShearable
             .collect(Collectors.toList()));
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)
     {
         return BUSH_AABB;
     }
 
+    @SuppressWarnings("deprecation")
     @Nullable
     @Override
     public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos)
@@ -110,6 +114,7 @@ public class BlockPlant extends BlockTM implements IPlantable, IShearable
         return new BlockStateContainer(this, TYPE);
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public IBlockState getStateFromMeta(int meta)
     {

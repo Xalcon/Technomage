@@ -22,7 +22,7 @@ public class GuiTechnonomiconResearchViewer extends GuiScreen
     private final static ResourceLocation RESEARCH_TEX = new ResourceLocation(Technomage.MOD_ID, "textures/gui/technonomicon/research.png");
     private final static int INDENT = 8;
     private List<IResearchView> viewList = new ArrayList<>();
-    private GuiTechnonomiconTabList tabList = new GuiTechnonomiconTabList();
+    private GuiTechnonomiconTabList tabList = new GuiTechnonomiconTabList(this);
 
     private int winScaleFactor;
     private int guiWidth;
@@ -118,8 +118,12 @@ public class GuiTechnonomiconResearchViewer extends GuiScreen
         super.mouseClicked(mouseX, mouseY, mouseButton);
         if(this.tabList.getBounds().contains(mouseX, mouseY))
             this.tabList.onMouseClicked(mouseX, mouseY, mouseButton);
-        else if(this.tabList.getActiveView().getBounds().contains(mouseX, mouseY))
-            this.tabList.getActiveView().onMouseClicked(mouseX, mouseY, mouseButton);
+        else
+        {
+            IResearchView view = this.tabList.getActiveView();
+            if(view != null && view.getBounds().contains(mouseX, mouseY))
+                view.onMouseClicked(mouseX, mouseY, mouseButton);
+        }
     }
 
     @Override
@@ -128,8 +132,12 @@ public class GuiTechnonomiconResearchViewer extends GuiScreen
         super.mouseReleased(mouseX, mouseY, state);
         if(this.tabList.getBounds().contains(mouseX, mouseY))
             this.tabList.onMouseReleased(mouseX, mouseY, state);
-        else if(this.tabList.getActiveView().getBounds().contains(mouseX, mouseY))
-            this.tabList.getActiveView().onMouseReleased(mouseX, mouseY, state);
+        else
+        {
+            IResearchView view = this.tabList.getActiveView();
+            if(view != null && view.getBounds().contains(mouseX, mouseY))
+                view.onMouseReleased(mouseX, mouseY, state);
+        }
     }
 
     @Override
@@ -138,8 +146,12 @@ public class GuiTechnonomiconResearchViewer extends GuiScreen
         super.mouseClickMove(mouseX, mouseY, clickedMouseButton, timeSinceLastClick);
         if(this.tabList.getBounds().contains(mouseX, mouseY))
             this.tabList.onMouseDragged(mouseX, mouseY, clickedMouseButton, timeSinceLastClick);
-        else if(this.tabList.getActiveView().getBounds().contains(mouseX, mouseY))
-            this.tabList.getActiveView().onMouseDragged(mouseX, mouseY, clickedMouseButton, timeSinceLastClick);
+        else
+        {
+            IResearchView view = this.tabList.getActiveView();
+            if(view != null && view.getBounds().contains(mouseX, mouseY))
+                view.onMouseDragged(mouseX, mouseY, clickedMouseButton, timeSinceLastClick);
+        }
 
     }
 

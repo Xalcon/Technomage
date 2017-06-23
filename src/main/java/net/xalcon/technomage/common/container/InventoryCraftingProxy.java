@@ -4,9 +4,7 @@ import net.minecraft.client.util.RecipeItemHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.InventoryCrafting;
-import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.NonNullList;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextComponentTranslation;
@@ -19,8 +17,6 @@ import net.xalcon.technomage.Technomage;
 public class InventoryCraftingProxy<T extends IItemHandler & IItemHandlerModifiable>
         extends InventoryCrafting
 {
-    /** List of the stacks in the crafting matrix. */
-    //private final NonNullList<ItemStack> stackList;
     /** the width of the crafting inventory */
     private final int inventoryWidth;
     private final int inventoryHeight;
@@ -98,7 +94,7 @@ public class InventoryCraftingProxy<T extends IItemHandler & IItemHandlerModifia
     @Override
     public ITextComponent getDisplayName()
     {
-        return this.hasCustomName() ? new TextComponentString(this.getName()) : new TextComponentTranslation(this.getName(), new Object[0]);
+        return this.hasCustomName() ? new TextComponentString(this.getName()) : new TextComponentTranslation(this.getName());
     }
 
     /**

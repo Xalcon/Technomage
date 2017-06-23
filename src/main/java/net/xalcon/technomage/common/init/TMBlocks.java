@@ -2,6 +2,8 @@ package net.xalcon.technomage.common.init;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -80,8 +82,15 @@ public class TMBlocks
 
         Arrays.stream(blocks)
                 .filter(b -> b instanceof BlockTMTileProvider)
-                .forEach(block -> ((BlockTMTileProvider) block).getTileEntityClasses()
-                        .forEach((s, t) -> GameRegistry.registerTileEntity(t, s)));
+                .map(block -> (BlockTMTileProvider)block)
+                .forEach(block ->
+                {
+                    ResourceLocation loc = block.getRegistryName();
+                    assert loc != null;
+                    Class<? extends TileEntity> clazz = block.getTileEntityClass();
+                    if(clazz != null)
+                        GameRegistry.registerTileEntity(clazz, loc.toString());
+                });
     }
 
     @SubscribeEvent
@@ -90,7 +99,11 @@ public class TMBlocks
         event.getRegistry().registerAll(
                 Arrays.stream(blocks)
                     .filter(b -> b instanceof IItemBlockProvider && ((IItemBlockProvider) b).hasItemBlock())
-                    .map(block -> ((IItemBlockProvider)block).createItemBlock().setRegistryName(block.getRegistryName()))
+                    .map(block -> {
+                        ResourceLocation loc = block.getRegistryName();
+                        assert loc != null;
+                        return ((IItemBlockProvider)block).createItemBlock().setRegistryName(loc);
+                    })
                     .toArray(Item[]::new)
         );
     }

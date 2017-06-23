@@ -4,11 +4,15 @@ import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
+import net.minecraftforge.client.model.ModelLoader;
 import net.xalcon.technomage.common.blocks.BlockTM;
 import net.xalcon.technomage.common.blocks.properties.EnumWoodType;
 
@@ -24,13 +28,24 @@ public class BlockTMPlanks extends BlockTM
 	@Override
 	public int damageDropped(IBlockState state)
 	{
-		return super.damageDropped(state);
+		return state.getValue(BlockTMLog.TYPE).getMeta();
 	}
 
 	@Override
 	protected BlockStateContainer createBlockState()
 	{
 		return new BlockStateContainer(this, BlockTMLog.TYPE);
+	}
+
+	@Override
+	public void registerItemModels(Item item)
+	{
+		ResourceLocation loc = item.getRegistryName();
+		assert loc != null;
+
+		for(EnumWoodType w : EnumWoodType.values())
+			ModelLoader.setCustomModelResourceLocation(item, w.getMeta(),
+                new ModelResourceLocation(loc, "type=" + w.getName()));
 	}
 
 	@Override

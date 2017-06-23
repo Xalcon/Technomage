@@ -3,7 +3,6 @@ package net.xalcon.technomage.client.gui;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.xalcon.technomage.Technomage;
 import net.xalcon.technomage.common.container.ContainerConstructionTable;
 import net.xalcon.technomage.common.tileentities.TileEntityConstructionTable;

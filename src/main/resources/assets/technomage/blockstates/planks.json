@@ -1,0 +1,14 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+        "smooth_lighting": false,
+        "model": "cube_all",
+        "uvlock": false
+    },
+    "variants": {
+        "type=elder":   [{ "textures": { "all": "technomage:blocks/wood/bord_bamboo" } }],
+        "type=ley":     [{ "textures": { "all": "technomage:blocks/wood/bord_bamboo" } }],
+        "type=fel":     [{ "textures": { "all": "technomage:blocks/wood/bord_bamboo" } }],
+        "type=bamboo":  [{ "textures": { "all": "technomage:blocks/wood/bord_bamboo" } }]
+    }
+}

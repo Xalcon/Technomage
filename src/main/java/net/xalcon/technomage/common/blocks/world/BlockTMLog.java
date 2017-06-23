@@ -10,6 +10,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
 import net.xalcon.technomage.Technomage;
 import net.xalcon.technomage.common.CreativeTabsTechnomage;
@@ -57,9 +58,11 @@ public class BlockTMLog extends BlockLog implements IItemBlockProvider
     @Override
     public void registerItemModels(Item item)
     {
+        ResourceLocation loc = this.getRegistryName();
+        assert loc != null;
         Arrays.stream(EnumWoodType.values())
             .forEach(t -> ModelLoader.setCustomModelResourceLocation(item, t.getMeta(),
-                new ModelResourceLocation(item.getRegistryName(), "axis=y,type=" + t.getName())));
+                new ModelResourceLocation(loc, "axis=y,type=" + t.getName())));
     }
 
     @Override

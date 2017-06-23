@@ -3,6 +3,7 @@ package net.xalcon.technomage.client.gui.technonomicon;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.gui.Gui;
+import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.init.SoundEvents;
@@ -13,6 +14,7 @@ import net.xalcon.technomage.api.gui.technonomicon.IResearchView;
 import net.xalcon.technomage.lib.client.GuiHelper;
 import org.lwjgl.util.Rectangle;
 
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -22,11 +24,18 @@ public class GuiTechnonomiconTabList implements IGuiComponent
 {
     private final static ResourceLocation RESEARCH_TEX = new ResourceLocation(Technomage.MOD_ID, "textures/gui/technonomicon/research.png");
     private final static int TAB_SIZE = 18;
+    private final GuiScreen parent;
     private List<IResearchView> tabs = new ArrayList<>();
     private IResearchView activeView;
     private int left;
     private int top;
 
+    public GuiTechnonomiconTabList(GuiScreen parent)
+    {
+        this.parent = parent;
+    }
+
+    @Nullable
     public IResearchView getActiveView()
     {
         return this.activeView;
@@ -39,7 +48,7 @@ public class GuiTechnonomiconTabList implements IGuiComponent
         if(this.tabs.size() > 0)
         {
             this.activeView = this.tabs.get(0);
-            this.activeView.onShow(null);
+            this.activeView.onShow(this.parent);
         }
     }
 
@@ -103,7 +112,7 @@ public class GuiTechnonomiconTabList implements IGuiComponent
             {
                 Minecraft.getMinecraft().getSoundHandler().playSound(PositionedSoundRecord.getMasterRecord(SoundEvents.UI_BUTTON_CLICK, 1.0F));
                 this.activeView = view;
-                this.activeView.onShow(null);
+                this.activeView.onShow(this.parent);
                 return;
             }
             i++;

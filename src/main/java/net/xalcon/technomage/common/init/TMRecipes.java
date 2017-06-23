@@ -5,22 +5,16 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.xalcon.technomage.Technomage;
 import net.xalcon.technomage.common.crafting.Registries;
 import net.xalcon.technomage.common.crafting.alchemy.AlchemyRecipe;
 import net.xalcon.technomage.common.crafting.amalgamation.AmalgamationRecipe;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 
 @GameRegistry.ObjectHolder(Technomage.MOD_ID)
 @Mod.EventBusSubscriber
@@ -43,7 +37,9 @@ public class TMRecipes
         ));
 
         ItemStack output = new ItemStack(Items.DIAMOND_PICKAXE, 1, 0);
-        output.addEnchantment(Enchantment.getEnchantmentByLocation("fortune"), 5);
+        Enchantment fortuneEnchantment = Enchantment.getEnchantmentByLocation("fortune");
+        if(fortuneEnchantment != null)
+            output.addEnchantment(fortuneEnchantment, 5);
         Registries.AMALGAMATION.register(new AmalgamationRecipe(
                 new ResourceLocation(Technomage.MOD_ID, "fortune_v_diamond_pickaxe"),
                 output,

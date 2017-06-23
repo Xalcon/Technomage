@@ -7,10 +7,8 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
-import net.xalcon.technomage.common.CommonProxy;
+import net.xalcon.technomage.common.IProxy;
 import net.xalcon.technomage.common.GuiHandlerTechnomage;
-import net.xalcon.technomage.common.init.TMBlocks;
-import net.xalcon.technomage.common.init.TMItems;
 import net.xalcon.technomage.common.init.TMRecipes;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -35,7 +33,7 @@ public class Technomage
     private static Technomage instance = new Technomage();
 
     @SidedProxy(clientSide = GROUP + ".client.ClientProxy", serverSide = GROUP + ".server.ServerProxy")
-    public static CommonProxy Proxy;
+    public static IProxy Proxy;
 
     public final static Logger Log = LogManager.getLogger(MOD_ID);
 

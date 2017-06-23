@@ -3,6 +3,7 @@ package net.xalcon.technomage.api.gui.technonomicon;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.util.Rectangle;
 
+@SuppressWarnings("EmptyMethod")
 public interface IResearchViewItem
 {
     Rectangle getBounds();

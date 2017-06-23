@@ -5,9 +5,7 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
-import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.items.ItemStackHandler;
 import net.xalcon.technomage.common.tileentities.TileEntityPedestal;
 
 public class TileEntityPedestalRenderer extends TileEntitySpecialRenderer<TileEntityPedestal>
