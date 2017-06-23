@@ -20,6 +20,7 @@ import net.xalcon.technomage.common.blocks.multiblocks.BlockBrickFurnace;
 import net.xalcon.technomage.common.blocks.world.BlockImbuedOre;
 import net.xalcon.technomage.common.blocks.world.BlockPlant;
 import net.xalcon.technomage.common.blocks.world.BlockTMLog;
+import net.xalcon.technomage.common.blocks.world.BlockTMPlanks;
 import net.xalcon.technomage.common.multiblocks.MultiblockBrickFurnace;
 import net.xalcon.technomage.lib.item.IItemBlockProvider;
 import net.xalcon.technomage.lib.utils.ClassUtils;
@@ -55,6 +56,9 @@ public class TMBlocks
 
     @GameRegistry.ObjectHolder(BlockTMLog.INTERNAL_NAME)
     public final static BlockTMLog log = new BlockTMLog();
+
+    @GameRegistry.ObjectHolder(BlockTMPlanks.INTERNAL_NAME)
+    public final static BlockTMPlanks planks = new BlockTMPlanks();
 
     static
     {

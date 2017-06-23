@@ -2,10 +2,7 @@ package net.xalcon.technomage.common.blocks.properties;
 
 import net.minecraft.util.IStringSerializable;
 
-import java.util.HashMap;
-import java.util.Map;
-
-public enum EnumImbuedOre implements IStringSerializable, IBlockMeta
+public enum EnumImbuedOre implements IStringSerializable, IMetaBlock
 {
     EARTH(0, 0x00CC00),
     FIRE(1, 0xFF0000),
