@@ -1,8 +1,6 @@
 package net.xalcon.technomage.common.init;
 
-import net.minecraft.block.Block;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
-import net.minecraft.client.renderer.color.IBlockColor;
 import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
@@ -25,7 +23,6 @@ import net.xalcon.technomage.lib.item.IItemModelRegisterHandler;
 import net.xalcon.technomage.lib.utils.ClassUtils;
 
 import java.util.Arrays;
-import java.util.Objects;
 
 @Mod.EventBusSubscriber
 @GameRegistry.ObjectHolder(Technomage.MOD_ID)
@@ -61,9 +58,6 @@ public class TMItems
             {
                 Item item = ClassUtils.create(field);
                 String name = field.getAnnotation(GameRegistry.ObjectHolder.class).value();
-                if(item == null)
-                    throw new RuntimeException("Unable to create item instance for " + name);
-
                 item.setRegistryName(name);
                 item.setUnlocalizedName(Technomage.MOD_ID + "." + name);
                 item.setCreativeTab(CreativeTabsTechnomage.tabMain);

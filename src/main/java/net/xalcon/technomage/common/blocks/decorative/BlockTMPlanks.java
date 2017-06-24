@@ -15,12 +15,10 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.client.model.ModelLoader;
-import net.xalcon.technomage.common.blocks.ITechnomageTileEntityProvider;
 import net.xalcon.technomage.common.blocks.properties.TMTreeType;
 import net.xalcon.technomage.common.blocks.world.BlockTMLog;
 import net.xalcon.technomage.common.items.ItemBlockEnum;
 import net.xalcon.technomage.lib.item.IItemBlockProvider;
-import net.xalcon.technomage.lib.item.IItemModelRegisterHandler;
 
 public class BlockTMPlanks extends Block implements IItemBlockProvider
 {

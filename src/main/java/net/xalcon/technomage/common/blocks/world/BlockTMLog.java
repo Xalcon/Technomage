@@ -12,8 +12,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
-import net.xalcon.technomage.Technomage;
-import net.xalcon.technomage.common.CreativeTabsTechnomage;
 import net.xalcon.technomage.common.blocks.properties.TMTreeType;
 import net.xalcon.technomage.common.items.ItemBlockEnum;
 import net.xalcon.technomage.lib.item.IItemBlockProvider;

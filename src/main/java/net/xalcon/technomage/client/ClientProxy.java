@@ -1,9 +1,6 @@
 package net.xalcon.technomage.client;
 
-import net.minecraft.block.Block;
 import net.minecraft.client.renderer.color.BlockColors;
-import net.minecraft.client.renderer.color.IBlockColor;
-import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.client.renderer.color.ItemColors;
 import net.minecraftforge.client.model.obj.OBJLoader;
 import net.minecraftforge.common.MinecraftForge;
@@ -18,10 +15,6 @@ import net.xalcon.technomage.client.renderer.block.TileEntityAlchemicalCauldronR
 import net.xalcon.technomage.client.renderer.block.TileEntityAmalgamationAltarRenderer;
 import net.xalcon.technomage.client.renderer.block.TileEntityPedestalRenderer;
 import net.xalcon.technomage.common.IProxy;
-import net.xalcon.technomage.common.blocks.properties.TMImbuedOreType;
-import net.xalcon.technomage.common.blocks.world.BlockImbuedOre;
-import net.xalcon.technomage.common.init.TMBlocks;
-import net.xalcon.technomage.common.init.TMItems;
 import net.xalcon.technomage.common.tileentities.TileEntityAlchemicalCauldron;
 import net.xalcon.technomage.common.tileentities.TileEntityAmalgamationAltar;
 import net.xalcon.technomage.common.tileentities.TileEntityPedestal;

@@ -22,8 +22,6 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import net.xalcon.technomage.Technomage;
-import net.xalcon.technomage.common.CreativeTabsTechnomage;
 import net.xalcon.technomage.common.blocks.properties.TMTreeType;
 import net.xalcon.technomage.common.items.ItemBlockEnum;
 import net.xalcon.technomage.lib.item.IItemBlockProvider;

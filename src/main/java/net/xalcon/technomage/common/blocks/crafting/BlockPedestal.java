@@ -20,7 +20,6 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.xalcon.technomage.common.blocks.ITechnomageTileEntityProvider;
-import net.xalcon.technomage.common.tileentities.TileEntityConstructionTable;
 import net.xalcon.technomage.common.tileentities.TileEntityPedestal;
 import net.xalcon.technomage.lib.item.IItemBlockProvider;
 

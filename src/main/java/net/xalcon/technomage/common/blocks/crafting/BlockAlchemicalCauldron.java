@@ -7,8 +7,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
@@ -25,7 +23,6 @@ import net.minecraftforge.fluids.capability.IFluidHandlerItem;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.xalcon.technomage.common.blocks.ITechnomageTileEntityProvider;
 import net.xalcon.technomage.common.tileentities.TileEntityAlchemicalCauldron;
-import net.xalcon.technomage.common.tileentities.TileEntityAmalgamationAltar;
 import net.xalcon.technomage.lib.item.IItemBlockProvider;
 
 import javax.annotation.Nullable;

@@ -6,7 +6,6 @@ import net.minecraft.client.renderer.color.IBlockColor;
 import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.model.ModelLoader;
@@ -36,9 +35,9 @@ import net.xalcon.technomage.common.blocks.decorative.BlockTMPlanks;
 import net.xalcon.technomage.common.multiblocks.MultiblockBrickFurnace;
 import net.xalcon.technomage.lib.client.events.ColorRegistrationEvent;
 import net.xalcon.technomage.lib.item.IItemBlockProvider;
-import net.xalcon.technomage.lib.utils.AutoInstantiate;
 import net.xalcon.technomage.lib.utils.ClassUtils;
 
+import java.lang.reflect.Field;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -46,61 +45,65 @@ import java.util.stream.Collectors;
 @GameRegistry.ObjectHolder(Technomage.MOD_ID)
 public class TMBlocks
 {
-    @AutoInstantiate
     @GameRegistry.ObjectHolder(BlockBrickFurnace.internalName)
     private final static BlockBrickFurnace brickFurnace = null;
 
-    @AutoInstantiate
     @GameRegistry.ObjectHolder(BlockAlchemicalCauldron.INTERNAL_NAME)
     private final static BlockAlchemicalCauldron alchemicalCauldron = null;
 
-    @AutoInstantiate
     @GameRegistry.ObjectHolder(BlockPedestal.INTERNAL_NAME)
     private final static BlockPedestal pedestal = null;
 
-    @AutoInstantiate
     @GameRegistry.ObjectHolder(BlockAmalgamationAltar.INTERNAL_NAME)
     private final static BlockAmalgamationAltar amalgamationAltar = null;
 
-    @AutoInstantiate
     @GameRegistry.ObjectHolder(BlockConstructionTable.INTERNAL_NAME)
     private final static BlockConstructionTable constructionTable = null;
 
-    @AutoInstantiate
     @GameRegistry.ObjectHolder(BlockImbuedOre.INTERNAL_NAME)
     private final static BlockImbuedOre imbuedOre = null;
 
-    @AutoInstantiate
     @GameRegistry.ObjectHolder(BlockPlant.INTERNAL_NAME)
     private final static BlockPlant plant = null;
 
-    @AutoInstantiate
     @GameRegistry.ObjectHolder(BlockTMLog.INTERNAL_NAME)
     private final static BlockTMLog log = null;
 
-    @AutoInstantiate
     @GameRegistry.ObjectHolder(BlockTMPlanks.INTERNAL_NAME)
     private final static BlockTMPlanks planks = null;
 
-    @AutoInstantiate
     @GameRegistry.ObjectHolder(BlockTMWoodSlab.INTERNAL_NAME)
     private final static BlockTMWoodSlab woodSlab = null;
 
-    @GameRegistry.ObjectHolder(BlockTMWoodStair.INTERNAL_NAME_PREFIX + "elder")
+    @GameRegistry.ObjectHolder(BlockTMWoodStair.INTERNAL_NAME_ELDER)
+    @BlockTMWoodStair.InstanceParameters(TMTreeType.ELDER)
     private final static BlockTMWoodStair elderWoodStairs = null;
 
-    @GameRegistry.ObjectHolder(BlockTMWoodStair.INTERNAL_NAME_PREFIX + "ley")
+    @GameRegistry.ObjectHolder(BlockTMWoodStair.INTERNAL_NAME_LEY)
+    @BlockTMWoodStair.InstanceParameters(TMTreeType.LEY)
     private final static BlockTMWoodStair leyWoodStairs = null;
 
-    @GameRegistry.ObjectHolder(BlockTMWoodStair.INTERNAL_NAME_PREFIX + "fel")
+    @GameRegistry.ObjectHolder(BlockTMWoodStair.INTERNAL_NAME_FEL)
+    @BlockTMWoodStair.InstanceParameters(TMTreeType.FEL)
     private final static BlockTMWoodStair felWoodStairs = null;
 
-    @GameRegistry.ObjectHolder(BlockTMWoodStair.INTERNAL_NAME_PREFIX + "bamboo")
+    @GameRegistry.ObjectHolder(BlockTMWoodStair.INTERNAL_NAME_BAMBOO)
+    @BlockTMWoodStair.InstanceParameters(TMTreeType.BAMBOO)
     private final static BlockTMWoodStair bambooWoodStairs = null;
 
-    @AutoInstantiate
     @GameRegistry.ObjectHolder(BlockTMLeaves.INTERNAL_NAME)
     private final static BlockTMLeaves leaves = null;
+
+
+    //region getter Methods
+
+    @SuppressWarnings("ConstantConditions")
+    public static BlockBrickFurnace brickFurnace()
+    {
+        return brickFurnace;
+    }
+
+    //endregion
 
     static
     {
@@ -110,34 +113,21 @@ public class TMBlocks
     @SubscribeEvent
     public static void onRegisterBlocks(RegistryEvent.Register<Block> event)
     {
-        Block[] blocks = Arrays.stream(TMBlocks.class.getDeclaredFields())
-            .filter(f -> f.getAnnotation(GameRegistry.ObjectHolder.class) != null && f.getAnnotation(AutoInstantiate.class) != null)
-            .filter(f -> Block.class.isAssignableFrom(f.getType()))
-            .map(field ->
-            {
-                Block block = ClassUtils.create(field);
-                String name = field.getAnnotation(GameRegistry.ObjectHolder.class).value();
-                if(block == null)
-                    throw new RuntimeException("Unable to create item instance for " + name);
-                block.setRegistryName(name);
-                block.setUnlocalizedName(Technomage.MOD_ID + "." + name);
-                block.setCreativeTab(CreativeTabsTechnomage.tabMain);
-                return block;
-            })
-            .toArray(Block[]::new);
+        for(Field field: TMBlocks.class.getDeclaredFields())
+        {
+            if(!Block.class.isAssignableFrom(field.getType()) || field.getAnnotation(GameRegistry.ObjectHolder.class) == null)
+                continue;
 
-        event.getRegistry().registerAll(blocks);
+            Block block = ClassUtils.create(field);
+            String internalName = field.getAnnotation(GameRegistry.ObjectHolder.class).value();
+            block.setRegistryName(internalName);
+            block.setUnlocalizedName(Technomage.MOD_ID + "." + internalName);
+            block.setCreativeTab(CreativeTabsTechnomage.tabMain);
+            event.getRegistry().register(block);
 
-        BlockTMPlanks planks = (BlockTMPlanks)Arrays.stream(blocks).filter(b -> b instanceof BlockTMPlanks)
-            .findFirst().orElseThrow(() -> new RuntimeException("This shouldnt happen :x"));
-
-        for(TMTreeType type : TMTreeType.values())
-            event.getRegistry().register(new BlockTMWoodStair(type, planks));
-
-        Arrays.stream(blocks)
-                .filter(b -> b instanceof ITechnomageTileEntityProvider)
-                .map(block -> (ITechnomageTileEntityProvider)block)
-                .forEach(ITechnomageTileEntityProvider::registerTileEntities);
+            if(block instanceof ITechnomageTileEntityProvider)
+                ((ITechnomageTileEntityProvider) block).registerTileEntities();
+        }
     }
 
     @SubscribeEvent

@@ -28,8 +28,8 @@ public class MultiblockBrickFurnace implements IMultiblock
     public boolean createStructure(World world, BlockPos pos, EnumFacing facing, EntityPlayer player)
     {
         if(!this.isStructureValid(world, pos)) return false;
-        //this.setAndUpdate(world, pos, TMBlocks.brickFurnace.getPlacementState(facing, true));
-        //this.setAndUpdate(world, pos.up(), TMBlocks.brickFurnace.getPlacementState(facing, false));
+        this.setAndUpdate(world, pos, TMBlocks.brickFurnace().getPlacementState(facing, true));
+        this.setAndUpdate(world, pos.up(), TMBlocks.brickFurnace().getPlacementState(facing, false));
         world.playSound(null, pos, SoundEvents.BLOCK_METAL_PLACE, SoundCategory.BLOCKS, 1.0f, 1.0f);
         return true;
     }

@@ -13,7 +13,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.xalcon.technomage.Technomage;
 import net.xalcon.technomage.common.blocks.ITechnomageTileEntityProvider;
-import net.xalcon.technomage.common.tileentities.TileEntityAmalgamationAltar;
 import net.xalcon.technomage.common.tileentities.TileEntityConstructionTable;
 import net.xalcon.technomage.lib.item.IItemBlockProvider;
 

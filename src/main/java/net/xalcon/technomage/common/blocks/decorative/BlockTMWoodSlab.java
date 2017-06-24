@@ -15,8 +15,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import net.xalcon.technomage.Technomage;
-import net.xalcon.technomage.common.CreativeTabsTechnomage;
 import net.xalcon.technomage.common.blocks.properties.TMTreeType;
 import net.xalcon.technomage.common.blocks.world.BlockTMLog;
 import net.xalcon.technomage.common.items.ItemBlockEnum;
