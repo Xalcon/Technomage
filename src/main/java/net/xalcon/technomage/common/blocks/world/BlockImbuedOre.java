@@ -7,6 +7,8 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BlockModelRenderer;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.client.renderer.color.IBlockColor;
+import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -31,11 +33,12 @@ import net.xalcon.technomage.common.blocks.properties.TMImbuedOreType;
 import net.xalcon.technomage.common.items.ItemBlockEnum;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
-public class BlockImbuedOre extends BlockTM
+public class BlockImbuedOre extends BlockTM implements IItemColor, IBlockColor
 {
     public final static String INTERNAL_NAME = "imbued_ore";
     public final static PropertyEnum<TMImbuedOreType> ORE_TYPE = PropertyEnum.create("type", TMImbuedOreType.class);
@@ -117,6 +120,20 @@ public class BlockImbuedOre extends BlockTM
         return MinecraftForgeClient.getRenderLayer() == BlockRenderLayer.CUTOUT && index == 0
             ? 240
             : super.getPackedLightmapCoords(state, source, pos);
+    }
+
+    @Override
+    @SideOnly(Side.CLIENT)
+    public int colorMultiplier(IBlockState state, @Nullable IBlockAccess worldIn, @Nullable BlockPos pos, int tintIndex)
+    {
+        return state.getValue(BlockImbuedOre.ORE_TYPE).getColor();
+    }
+
+    @Override
+    @SideOnly(Side.CLIENT)
+    public int getColorFromItemstack(ItemStack stack, int tintIndex)
+    {
+        return TMImbuedOreType.getFromMeta(stack.getMetadata()).getColor();
     }
 
     @SideOnly(Side.CLIENT)

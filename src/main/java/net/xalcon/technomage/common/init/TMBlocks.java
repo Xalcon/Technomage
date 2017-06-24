@@ -1,6 +1,8 @@
 package net.xalcon.technomage.common.init;
 
 import net.minecraft.block.Block;
+import net.minecraft.client.renderer.color.IBlockColor;
+import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
@@ -28,6 +30,7 @@ import net.xalcon.technomage.common.blocks.world.BlockTMLeaves;
 import net.xalcon.technomage.common.blocks.world.BlockTMLog;
 import net.xalcon.technomage.common.blocks.decorative.BlockTMPlanks;
 import net.xalcon.technomage.common.multiblocks.MultiblockBrickFurnace;
+import net.xalcon.technomage.lib.client.events.ColorRegistrationEvent;
 import net.xalcon.technomage.lib.item.IItemBlockProvider;
 import net.xalcon.technomage.lib.utils.ClassUtils;
 
@@ -38,7 +41,6 @@ import java.util.*;
 public class TMBlocks
 {
     private static Block[] blocks;
-    public static Block[] getBlocks() { return blocks; }
 
     @GameRegistry.ObjectHolder(BlockBrickFurnace.internalName)
     public final static BlockBrickFurnace brickFurnace = new BlockBrickFurnace();
@@ -138,5 +140,18 @@ public class TMBlocks
         Arrays.stream(blocks)
             .filter(b -> b instanceof IItemBlockProvider && ((IItemBlockProvider) b).hasItemBlock())
             .forEach(block -> ((IItemBlockProvider) block).registerItemModels(Item.getItemFromBlock(block)));
+    }
+
+    @SideOnly(Side.CLIENT)
+    @SubscribeEvent
+    public static void onRegisterColors(ColorRegistrationEvent event)
+    {
+        for(Block block: blocks)
+        {
+            if(block instanceof IBlockColor)
+                event.getBlockColors().registerBlockColorHandler((IBlockColor)block, block);
+            if(block instanceof IItemColor)
+                event.getItemColors().registerItemColorHandler((IItemColor)block, block);
+        }
     }
 }

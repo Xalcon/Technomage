@@ -1,5 +1,8 @@
 package net.xalcon.technomage.common.init;
 
+import net.minecraft.block.Block;
+import net.minecraft.client.renderer.color.IBlockColor;
+import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.event.RegistryEvent;
@@ -13,6 +16,7 @@ import net.xalcon.technomage.common.items.ItemCursedClawWand;
 import net.xalcon.technomage.common.items.ItemImbuedShard;
 import net.xalcon.technomage.common.items.ItemLeystoneWand;
 import net.xalcon.technomage.common.items.ItemTechnonomicon;
+import net.xalcon.technomage.lib.client.events.ColorRegistrationEvent;
 import net.xalcon.technomage.lib.item.IItemModelRegisterHandler;
 import net.xalcon.technomage.lib.utils.ClassUtils;
 
@@ -57,5 +61,16 @@ public class TMItems
         Arrays.stream(items)
             .filter(item -> item instanceof IItemModelRegisterHandler)
             .forEach(item -> ((IItemModelRegisterHandler) item).registerItemModels(item));
+    }
+
+    @SideOnly(Side.CLIENT)
+    @SubscribeEvent
+    public static void onRegisterColors(ColorRegistrationEvent event)
+    {
+        for(Item item: items)
+        {
+            if(item instanceof IItemColor)
+                event.getItemColors().registerItemColorHandler((IItemColor)item, item);
+        }
     }
 }
