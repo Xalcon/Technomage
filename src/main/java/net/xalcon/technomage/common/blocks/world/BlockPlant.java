@@ -1,5 +1,6 @@
 package net.xalcon.technomage.common.blocks.world;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyEnum;
@@ -25,9 +26,9 @@ import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.common.IShearable;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import net.xalcon.technomage.common.blocks.BlockTM;
 import net.xalcon.technomage.common.blocks.properties.TMMagicPlantType;
 import net.xalcon.technomage.common.items.ItemBlockEnum;
+import net.xalcon.technomage.lib.item.IItemBlockProvider;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -36,7 +37,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
 
-public class BlockPlant extends BlockTM implements IPlantable, IShearable
+public class BlockPlant extends Block implements IItemBlockProvider, IPlantable, IShearable
 {
     public final static String INTERNAL_NAME = "plant";
 
@@ -45,7 +46,7 @@ public class BlockPlant extends BlockTM implements IPlantable, IShearable
 
     public BlockPlant()
     {
-        super(INTERNAL_NAME, Material.PLANTS);
+        super(Material.PLANTS);
         this.setSoundType(SoundType.PLANT);
     }
 
@@ -57,6 +58,12 @@ public class BlockPlant extends BlockTM implements IPlantable, IShearable
         assert loc != null;
         for(TMMagicPlantType type : TMMagicPlantType.values())
             ModelLoader.setCustomModelResourceLocation(item, type.getMeta(), new ModelResourceLocation(loc, "type=" + type.getName()));
+    }
+
+    @Override
+    public ItemBlock createItemBlock()
+    {
+        return new ItemBlockEnum<>(this, TMMagicPlantType::getFromMeta);
     }
 
     @Override
@@ -100,12 +107,6 @@ public class BlockPlant extends BlockTM implements IPlantable, IShearable
     public BlockRenderLayer getBlockLayer()
     {
         return BlockRenderLayer.CUTOUT;
-    }
-
-    @Override
-    public ItemBlock createItemBlock()
-    {
-        return new ItemBlockEnum<>(this, TMMagicPlantType::getFromMeta);
     }
 
     @Override

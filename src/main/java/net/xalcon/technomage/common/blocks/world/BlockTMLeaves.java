@@ -38,14 +38,6 @@ public class BlockTMLeaves extends BlockLeaves implements IItemBlockProvider, IB
 {
     public final static String INTERNAL_NAME = "leaves";
 
-    public BlockTMLeaves()
-    {
-        super();
-        this.setRegistryName(INTERNAL_NAME);
-        this.setUnlocalizedName(Technomage.MOD_ID + "." + INTERNAL_NAME);
-        this.setCreativeTab(CreativeTabsTechnomage.tabMain);
-    }
-
     @Override
     public void getSubBlocks(CreativeTabs itemIn, NonNullList<ItemStack> items)
     {
@@ -116,12 +108,6 @@ public class BlockTMLeaves extends BlockLeaves implements IItemBlockProvider, IB
     public ItemBlock createItemBlock()
     {
         return new ItemBlockEnum<>(this, TMTreeType::getFromMeta);
-    }
-
-    @Override
-    public boolean hasItemBlock()
-    {
-        return true;
     }
 
     // Abstract in BlockLeaves, therefore we are forced to override it. Since we dont use it, we can just return anything

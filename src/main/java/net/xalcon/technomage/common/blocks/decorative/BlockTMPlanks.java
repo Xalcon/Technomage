@@ -1,5 +1,6 @@
 package net.xalcon.technomage.common.blocks.decorative;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockStateContainer;
@@ -14,18 +15,20 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.client.model.ModelLoader;
-import net.xalcon.technomage.common.blocks.BlockTM;
+import net.xalcon.technomage.common.blocks.ITechnomageTileEntityProvider;
 import net.xalcon.technomage.common.blocks.properties.TMTreeType;
 import net.xalcon.technomage.common.blocks.world.BlockTMLog;
 import net.xalcon.technomage.common.items.ItemBlockEnum;
+import net.xalcon.technomage.lib.item.IItemBlockProvider;
+import net.xalcon.technomage.lib.item.IItemModelRegisterHandler;
 
-public class BlockTMPlanks extends BlockTM
+public class BlockTMPlanks extends Block implements IItemBlockProvider
 {
 	public final static String INTERNAL_NAME = "planks";
 
 	public BlockTMPlanks()
 	{
-		super(INTERNAL_NAME, Material.WOOD);
+		super(Material.WOOD);
 	}
 
 	@Override
@@ -38,17 +41,6 @@ public class BlockTMPlanks extends BlockTM
 	protected BlockStateContainer createBlockState()
 	{
 		return new BlockStateContainer(this, BlockTMLog.TYPE);
-	}
-
-	@Override
-	public void registerItemModels(Item item)
-	{
-		ResourceLocation loc = item.getRegistryName();
-		assert loc != null;
-
-		for(TMTreeType w : TMTreeType.values())
-			ModelLoader.setCustomModelResourceLocation(item, w.getMeta(),
-                new ModelResourceLocation(loc, "type=" + w.getName()));
 	}
 
 	@Override
@@ -75,6 +67,17 @@ public class BlockTMPlanks extends BlockTM
 	public ItemBlock createItemBlock()
 	{
 		return new ItemBlockEnum<>(this, TMTreeType::getFromMeta);
+	}
+
+	@Override
+	public void registerItemModels(Item item)
+	{
+		ResourceLocation loc = item.getRegistryName();
+		assert loc != null;
+
+		for(TMTreeType w : TMTreeType.values())
+			ModelLoader.setCustomModelResourceLocation(item, w.getMeta(),
+				new ModelResourceLocation(loc, "type=" + w.getName()));
 	}
 
 	@SuppressWarnings("deprecation")

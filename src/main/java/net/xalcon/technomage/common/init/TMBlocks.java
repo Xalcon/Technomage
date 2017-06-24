@@ -1,12 +1,15 @@
 package net.xalcon.technomage.common.init;
 
 import net.minecraft.block.Block;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.color.IBlockColor;
 import net.minecraft.client.renderer.color.IItemColor;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.ModelRegistryEvent;
+import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -15,6 +18,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.xalcon.technomage.Technomage;
 import net.xalcon.technomage.api.multiblock.MultiblockRegistry;
+import net.xalcon.technomage.common.CreativeTabsTechnomage;
 import net.xalcon.technomage.common.blocks.*;
 import net.xalcon.technomage.common.blocks.crafting.BlockAlchemicalCauldron;
 import net.xalcon.technomage.common.blocks.crafting.BlockAmalgamationAltar;
@@ -109,8 +113,17 @@ public class TMBlocks
         Block[] blocks = Arrays.stream(TMBlocks.class.getDeclaredFields())
             .filter(f -> f.getAnnotation(GameRegistry.ObjectHolder.class) != null && f.getAnnotation(AutoInstantiate.class) != null)
             .filter(f -> Block.class.isAssignableFrom(f.getType()))
-            .map(ClassUtils::create)
-            .filter(Objects::nonNull)
+            .map(field ->
+            {
+                Block block = ClassUtils.create(field);
+                String name = field.getAnnotation(GameRegistry.ObjectHolder.class).value();
+                if(block == null)
+                    throw new RuntimeException("Unable to create item instance for " + name);
+                block.setRegistryName(name);
+                block.setUnlocalizedName(Technomage.MOD_ID + "." + name);
+                block.setCreativeTab(CreativeTabsTechnomage.tabMain);
+                return block;
+            })
             .toArray(Block[]::new);
 
         event.getRegistry().registerAll(blocks);
@@ -122,16 +135,9 @@ public class TMBlocks
             event.getRegistry().register(new BlockTMWoodStair(type, planks));
 
         Arrays.stream(blocks)
-                .filter(b -> b instanceof BlockTMTileProvider)
-                .map(block -> (BlockTMTileProvider)block)
-                .forEach(block ->
-                {
-                    ResourceLocation loc = block.getRegistryName();
-                    assert loc != null;
-                    Class<? extends TileEntity> clazz = block.getTileEntityClass();
-                    if(clazz != null)
-                        GameRegistry.registerTileEntity(clazz, loc.toString());
-                });
+                .filter(b -> b instanceof ITechnomageTileEntityProvider)
+                .map(block -> (ITechnomageTileEntityProvider)block)
+                .forEach(ITechnomageTileEntityProvider::registerTileEntities);
     }
 
     @SubscribeEvent
@@ -139,7 +145,7 @@ public class TMBlocks
     {
         for (Block block : getBlocks())
         {
-            if(block instanceof IItemBlockProvider && ((IItemBlockProvider) block).hasItemBlock())
+            if(block instanceof IItemBlockProvider)
             {
                 ResourceLocation loc = block.getRegistryName();
                 assert loc != null;
@@ -154,9 +160,17 @@ public class TMBlocks
     {
         for(Block block: getBlocks())
         {
-            if(block instanceof IItemBlockProvider && ((IItemBlockProvider) block).hasItemBlock())
+            Item item = Item.getItemFromBlock(block);
+            if (item == Items.AIR) continue;
+            if(block instanceof IItemBlockProvider)
             {
                 ((IItemBlockProvider) block).registerItemModels(Item.getItemFromBlock(block));
+            }
+            else
+            {
+                ResourceLocation loc = block.getRegistryName();
+                assert loc != null;
+                ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(loc, "inventory"));
             }
         }
     }

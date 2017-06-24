@@ -1,5 +1,6 @@
 package net.xalcon.technomage.common.blocks.world;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockStateContainer;
@@ -28,9 +29,9 @@ import net.minecraftforge.client.model.pipeline.VertexLighterFlat;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.xalcon.technomage.common.CreativeTabsTechnomage;
-import net.xalcon.technomage.common.blocks.BlockTM;
 import net.xalcon.technomage.common.blocks.properties.TMImbuedOreType;
 import net.xalcon.technomage.common.items.ItemBlockEnum;
+import net.xalcon.technomage.lib.item.IItemBlockProvider;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -38,14 +39,14 @@ import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
-public class BlockImbuedOre extends BlockTM implements IItemColor, IBlockColor
+public class BlockImbuedOre extends Block implements IItemBlockProvider, IItemColor, IBlockColor
 {
     public final static String INTERNAL_NAME = "imbued_ore";
     public final static PropertyEnum<TMImbuedOreType> ORE_TYPE = PropertyEnum.create("type", TMImbuedOreType.class);
 
     public BlockImbuedOre()
     {
-        super(INTERNAL_NAME, Material.GROUND);
+        super(Material.GROUND);
     }
 
     @Override

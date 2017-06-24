@@ -29,9 +29,6 @@ public class BlockTMWoodSlab extends BlockSlab implements IItemBlockProvider
     public BlockTMWoodSlab()
     {
         super(Material.WOOD);
-        this.setRegistryName(INTERNAL_NAME);
-        this.setUnlocalizedName(Technomage.MOD_ID + "." + INTERNAL_NAME);
-        this.setCreativeTab(CreativeTabsTechnomage.tabMain);
     }
 
     @Override
@@ -103,11 +100,5 @@ public class BlockTMWoodSlab extends BlockSlab implements IItemBlockProvider
     public ItemBlock createItemBlock()
     {
         return new ItemBlockEnum<>(this, TMTreeType::getFromMeta);
-    }
-
-    @Override
-    public boolean hasItemBlock()
-    {
-        return true;
     }
 }

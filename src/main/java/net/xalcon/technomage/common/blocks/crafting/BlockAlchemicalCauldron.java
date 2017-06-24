@@ -1,15 +1,19 @@
 package net.xalcon.technomage.common.blocks.crafting;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -18,26 +22,30 @@ import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandlerItem;
-import net.xalcon.technomage.common.blocks.BlockTMTileProvider;
+import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.xalcon.technomage.common.blocks.ITechnomageTileEntityProvider;
 import net.xalcon.technomage.common.tileentities.TileEntityAlchemicalCauldron;
+import net.xalcon.technomage.common.tileentities.TileEntityAmalgamationAltar;
+import net.xalcon.technomage.lib.item.IItemBlockProvider;
 
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class BlockAlchemicalCauldron extends BlockTMTileProvider
+public class BlockAlchemicalCauldron extends Block implements ITechnomageTileEntityProvider, IItemBlockProvider
 {
     public final static String INTERNAL_NAME = "alchemical_cauldron";
 
     public BlockAlchemicalCauldron()
     {
-        super(INTERNAL_NAME, Material.IRON);
+        super(Material.IRON);
     }
 
-    @Nullable
     @Override
-    public Class<? extends TileEntity> getTileEntityClass()
+    public void registerTileEntities()
     {
-        return TileEntityAlchemicalCauldron.class;
+        ResourceLocation rl = this.getRegistryName();
+        assert rl != null;
+        GameRegistry.registerTileEntity(TileEntityAlchemicalCauldron.class, rl.toString());
     }
 
     @Nullable

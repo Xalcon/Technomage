@@ -1,33 +1,31 @@
 package net.xalcon.technomage.common.blocks.crafting;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.xalcon.technomage.common.blocks.BlockTMTileProvider;
+import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.xalcon.technomage.common.blocks.ITechnomageTileEntityProvider;
 import net.xalcon.technomage.common.init.TMItems;
 import net.xalcon.technomage.common.tileentities.TileEntityAmalgamationAltar;
+import net.xalcon.technomage.lib.item.IItemBlockProvider;
 
 import javax.annotation.Nullable;
 
-public class BlockAmalgamationAltar extends BlockTMTileProvider
+public class BlockAmalgamationAltar extends Block implements ITechnomageTileEntityProvider, IItemBlockProvider
 {
     public final static String INTERNAL_NAME = "amalgamation_altar";
     public BlockAmalgamationAltar()
     {
-        super(INTERNAL_NAME, Material.ROCK);
-    }
-
-    @Nullable
-    @Override
-    public Class<? extends TileEntity> getTileEntityClass()
-    {
-        return TileEntityAmalgamationAltar.class;
+        super(Material.ROCK);
     }
 
     @Override
@@ -75,6 +73,14 @@ public class BlockAmalgamationAltar extends BlockTMTileProvider
             }
         }
         return true;
+    }
+
+    @Override
+    public void registerTileEntities()
+    {
+        ResourceLocation rl = this.getRegistryName();
+        assert rl != null;
+        GameRegistry.registerTileEntity(TileEntityAmalgamationAltar.class, rl.toString());
     }
 
     @Nullable

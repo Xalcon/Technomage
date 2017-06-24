@@ -69,7 +69,6 @@ public class TMItems
                 item.setCreativeTab(CreativeTabsTechnomage.tabMain);
                 return item;
             })
-            .filter(Objects::nonNull)
             .toArray(Item[]::new);
 
         event.getRegistry().registerAll(items);

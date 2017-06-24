@@ -9,10 +9,13 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.xalcon.technomage.Technomage;
 import net.xalcon.technomage.common.blocks.BlockTMMultiblock;
+import net.xalcon.technomage.common.tileentities.TileEntityAmalgamationAltar;
 
 import javax.annotation.Nullable;
 
@@ -26,13 +29,15 @@ public class BlockBrickFurnace extends BlockTMMultiblock
 
     public BlockBrickFurnace()
     {
-        super(internalName, Material.ROCK);
+        super(Material.ROCK);
     }
 
     @Override
-    public Class<? extends TileEntity> getTileEntityClass()
+    public void registerTileEntities()
     {
-        return null;
+        /*ResourceLocation rl = this.getRegistryName();
+        assert rl != null;
+        GameRegistry.registerTileEntity(TileEntityAmalgamationAltar.class, rl.toString());*/
     }
 
     @Nullable

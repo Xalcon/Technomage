@@ -33,16 +33,4 @@ public class BlockTMWoodStair extends BlockStairs implements IItemBlockProvider
         assert loc != null;
         ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(loc, "facing=south,half=bottom,shape=straight"));
     }
-
-    @Override
-    public ItemBlock createItemBlock()
-    {
-        return new ItemBlock(this);
-    }
-
-    @Override
-    public boolean hasItemBlock()
-    {
-        return true;
-    }
 }

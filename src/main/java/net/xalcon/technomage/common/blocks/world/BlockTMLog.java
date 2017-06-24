@@ -28,9 +28,6 @@ public class BlockTMLog extends BlockLog implements IItemBlockProvider
 
     public BlockTMLog()
     {
-        this.setRegistryName(INTERNAL_NAME);
-        this.setUnlocalizedName(Technomage.MOD_ID + "." + INTERNAL_NAME);
-        this.setCreativeTab(CreativeTabsTechnomage.tabMain);
         this.setDefaultState(this.blockState.getBaseState().withProperty(LOG_AXIS, BlockLog.EnumAxis.Y));
         this.setHarvestLevel("axe", 0);
     }
@@ -47,12 +44,6 @@ public class BlockTMLog extends BlockLog implements IItemBlockProvider
     public ItemBlock createItemBlock()
     {
         return new ItemBlockEnum<>(this, TMTreeType::getFromMeta);
-    }
-
-    @Override
-    public boolean hasItemBlock()
-    {
-        return true;
     }
 
     @Override

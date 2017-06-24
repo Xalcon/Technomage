@@ -1,5 +1,6 @@
 package net.xalcon.technomage.common.blocks.crafting;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
@@ -9,22 +10,24 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraftforge.items.CapabilityItemHandler;
-import net.minecraftforge.items.IItemHandler;
-import net.xalcon.technomage.common.blocks.BlockTMTileProvider;
+import net.xalcon.technomage.common.blocks.ITechnomageTileEntityProvider;
+import net.xalcon.technomage.common.tileentities.TileEntityConstructionTable;
 import net.xalcon.technomage.common.tileentities.TileEntityPedestal;
+import net.xalcon.technomage.lib.item.IItemBlockProvider;
 
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class BlockPedestal extends BlockTMTileProvider
+public class BlockPedestal extends Block implements ITechnomageTileEntityProvider, IItemBlockProvider
 {
     public final static String INTERNAL_NAME = "pedestal";
     private final static AxisAlignedBB BOTTOM_SLAB = new AxisAlignedBB(0f, 0f, 0f, 1f, 4f / 16f, 1f);
@@ -34,13 +37,15 @@ public class BlockPedestal extends BlockTMTileProvider
 
     public BlockPedestal()
     {
-        super(INTERNAL_NAME, Material.ROCK);
+        super(Material.ROCK);
     }
 
     @Override
-    public Class<? extends TileEntity> getTileEntityClass()
+    public void registerTileEntities()
     {
-        return TileEntityPedestal.class;
+        ResourceLocation rl = this.getRegistryName();
+        assert rl != null;
+        GameRegistry.registerTileEntity(TileEntityPedestal.class, rl.toString());
     }
 
     @Nullable
