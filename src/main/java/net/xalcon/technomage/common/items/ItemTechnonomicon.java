@@ -1,21 +1,15 @@
 package net.xalcon.technomage.common.items;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.world.World;
 import net.xalcon.technomage.Technomage;
 
-public class ItemTechnonomicon extends ItemTM
+public class ItemTechnonomicon extends Item
 {
-    public static final String INTERNAL_NAME = "technonomicon";
-
-    public ItemTechnonomicon()
-    {
-        super(INTERNAL_NAME);
-    }
-
     @Override
     public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn)
     {

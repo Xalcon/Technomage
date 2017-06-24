@@ -12,7 +12,7 @@ public class CreativeTabsTechnomage
         @Override
         public ItemStack getTabIconItem()
         {
-            return new ItemStack(TMItems.technonomicon);
+            return new ItemStack(TMItems.technonomicon());
         }
     };
 }

@@ -54,7 +54,7 @@ public class BlockAmalgamationAltar extends BlockTMTileProvider
             TileEntityAmalgamationAltar altar = (TileEntityAmalgamationAltar) te;
             ItemStack heldItem = playerIn.getHeldItem(hand);
             ItemStack itemStack = altar.getItemStack();
-            if(heldItem.getItem() == TMItems.leystoneWand && !itemStack.isEmpty())
+            if(heldItem.getItem() == TMItems.leystoneWand() && !itemStack.isEmpty())
             {
                 // try start crafting
                 altar.startCrafting();

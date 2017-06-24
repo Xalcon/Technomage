@@ -16,6 +16,8 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.IItemHandler;
 import net.xalcon.technomage.common.blocks.BlockTMTileProvider;
 import net.xalcon.technomage.common.tileentities.TileEntityPedestal;
 
@@ -61,6 +63,8 @@ public class BlockPedestal extends BlockTMTileProvider
     {
         return false;
     }
+
+    int loops = 100000;
 
     @Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)

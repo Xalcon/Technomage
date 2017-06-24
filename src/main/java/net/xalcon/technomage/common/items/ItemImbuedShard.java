@@ -12,16 +12,14 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.xalcon.technomage.Technomage;
 import net.xalcon.technomage.common.blocks.properties.TMImbuedOreType;
+import net.xalcon.technomage.lib.item.IItemModelRegisterHandler;
 
 import java.util.Arrays;
 
-public class ItemImbuedShard extends ItemTM implements IItemColor
+public class ItemImbuedShard extends Item implements IItemColor, IItemModelRegisterHandler
 {
-    public final static String INTERNAL_NAME = "imbued_shard";
-
     public ItemImbuedShard()
     {
-        super(INTERNAL_NAME);
         this.setHasSubtypes(true);
     }
 
@@ -36,7 +34,10 @@ public class ItemImbuedShard extends ItemTM implements IItemColor
     @Override
     public void registerItemModels(Item item)
     {
-        ResourceLocation loc = new ResourceLocation(Technomage.MOD_ID, "items/" + INTERNAL_NAME);
+        ResourceLocation rl = this.getRegistryName();
+        assert rl != null;
+        // register a "blockstate" for our item to allow different models depending on the variant
+        ResourceLocation loc = new ResourceLocation(Technomage.MOD_ID, "items/" + rl.getResourcePath());
         Arrays.stream(TMImbuedOreType.values())
             .forEach(o -> ModelLoader.setCustomModelResourceLocation(this, o.getMeta(),
                 new ModelResourceLocation(loc, "type=" + o.getName())));

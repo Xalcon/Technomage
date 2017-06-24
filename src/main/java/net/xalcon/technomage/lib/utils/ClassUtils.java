@@ -11,11 +11,12 @@ public class ClassUtils
     {
         try
         {
-            return (T) field.getType().newInstance();
+            if(field.getType().getConstructor() != null)
+                return (T) field.getType().newInstance();
         }
-        catch (InstantiationException | IllegalAccessException e)
+        catch (InstantiationException | IllegalAccessException | NoSuchMethodException e)
         {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
         return null;
     }
@@ -32,11 +33,12 @@ public class ClassUtils
     {
         try
         {
+            field.setAccessible(true);
             return (T) field.get(from);
         }
-        catch (IllegalAccessException e)
+        catch (IllegalAccessException ignored)
         {
-            e.printStackTrace();
+            // PIKACHU GO!!
         }
         return null;
     }

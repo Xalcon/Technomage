@@ -1,5 +1,6 @@
 package net.xalcon.technomage.common.blocks.decorative;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockStairs;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
@@ -17,9 +18,9 @@ public class BlockTMWoodStair extends BlockStairs implements IItemBlockProvider
 {
     public static final String INTERNAL_NAME_PREFIX = "wood_stairs_";
 
-    public BlockTMWoodStair(TMTreeType woodType)
+    public BlockTMWoodStair(TMTreeType woodType, Block planks)
     {
-        super(TMBlocks.planks.getDefaultState().withProperty(BlockTMLog.TYPE, woodType));
+        super(planks.getDefaultState().withProperty(BlockTMLog.TYPE, woodType));
         this.setRegistryName(INTERNAL_NAME_PREFIX + woodType.getName());
         this.setUnlocalizedName(Technomage.MOD_ID + "." + INTERNAL_NAME_PREFIX + woodType.getName());
         this.setCreativeTab(CreativeTabsTechnomage.tabMain);

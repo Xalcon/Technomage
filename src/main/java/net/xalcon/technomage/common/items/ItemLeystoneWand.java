@@ -1,6 +1,7 @@
 package net.xalcon.technomage.common.items;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
@@ -8,14 +9,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.xalcon.technomage.api.multiblock.MultiblockRegistry;
 
-public class ItemLeystoneWand extends ItemTM
+public class ItemLeystoneWand extends Item
 {
-    public static final String INTERNAL_NAME = "leystone_wand";
-    public ItemLeystoneWand()
-    {
-        super(INTERNAL_NAME);
-    }
-
     @Override
     public EnumActionResult onItemUseFirst(EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand)
     {

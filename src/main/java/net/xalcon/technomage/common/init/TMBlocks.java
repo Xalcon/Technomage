@@ -32,60 +32,71 @@ import net.xalcon.technomage.common.blocks.decorative.BlockTMPlanks;
 import net.xalcon.technomage.common.multiblocks.MultiblockBrickFurnace;
 import net.xalcon.technomage.lib.client.events.ColorRegistrationEvent;
 import net.xalcon.technomage.lib.item.IItemBlockProvider;
+import net.xalcon.technomage.lib.utils.AutoInstantiate;
 import net.xalcon.technomage.lib.utils.ClassUtils;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Mod.EventBusSubscriber
 @GameRegistry.ObjectHolder(Technomage.MOD_ID)
 public class TMBlocks
 {
-    private static Block[] blocks;
-
+    @AutoInstantiate
     @GameRegistry.ObjectHolder(BlockBrickFurnace.internalName)
-    public final static BlockBrickFurnace brickFurnace = new BlockBrickFurnace();
+    private final static BlockBrickFurnace brickFurnace = null;
 
+    @AutoInstantiate
     @GameRegistry.ObjectHolder(BlockAlchemicalCauldron.INTERNAL_NAME)
-    public final static BlockAlchemicalCauldron alchemicalCauldron = new BlockAlchemicalCauldron();
+    private final static BlockAlchemicalCauldron alchemicalCauldron = null;
 
+    @AutoInstantiate
     @GameRegistry.ObjectHolder(BlockPedestal.INTERNAL_NAME)
-    public final static BlockPedestal pedestal = new BlockPedestal();
+    private final static BlockPedestal pedestal = null;
 
+    @AutoInstantiate
     @GameRegistry.ObjectHolder(BlockAmalgamationAltar.INTERNAL_NAME)
-    public final static BlockAmalgamationAltar amalgamationAltar = new BlockAmalgamationAltar();
+    private final static BlockAmalgamationAltar amalgamationAltar = null;
 
+    @AutoInstantiate
     @GameRegistry.ObjectHolder(BlockConstructionTable.INTERNAL_NAME)
-    public final static BlockConstructionTable constructionTable = new BlockConstructionTable();
+    private final static BlockConstructionTable constructionTable = null;
 
+    @AutoInstantiate
     @GameRegistry.ObjectHolder(BlockImbuedOre.INTERNAL_NAME)
-    public final static BlockImbuedOre imbuedOre = new BlockImbuedOre();
+    private final static BlockImbuedOre imbuedOre = null;
 
+    @AutoInstantiate
     @GameRegistry.ObjectHolder(BlockPlant.INTERNAL_NAME)
-    public final static BlockPlant plant = new BlockPlant();
+    private final static BlockPlant plant = null;
 
+    @AutoInstantiate
     @GameRegistry.ObjectHolder(BlockTMLog.INTERNAL_NAME)
-    public final static BlockTMLog log = new BlockTMLog();
+    private final static BlockTMLog log = null;
 
+    @AutoInstantiate
     @GameRegistry.ObjectHolder(BlockTMPlanks.INTERNAL_NAME)
-    public final static BlockTMPlanks planks = new BlockTMPlanks();
+    private final static BlockTMPlanks planks = null;
 
+    @AutoInstantiate
     @GameRegistry.ObjectHolder(BlockTMWoodSlab.INTERNAL_NAME)
-    public final static BlockTMWoodSlab woodSlab = new BlockTMWoodSlab();
+    private final static BlockTMWoodSlab woodSlab = null;
 
-    @GameRegistry.ObjectHolder(BlockTMWoodStair.INTERNAL_NAME_PREFIX + "_elder")
-    public final static BlockTMWoodStair elderWoodStairs = new BlockTMWoodStair(TMTreeType.ELDER);
+    @GameRegistry.ObjectHolder(BlockTMWoodStair.INTERNAL_NAME_PREFIX + "elder")
+    private final static BlockTMWoodStair elderWoodStairs = null;
 
-    @GameRegistry.ObjectHolder(BlockTMWoodStair.INTERNAL_NAME_PREFIX + "_ley")
-    public final static BlockTMWoodStair leyWoodStairs = new BlockTMWoodStair(TMTreeType.LEY);
+    @GameRegistry.ObjectHolder(BlockTMWoodStair.INTERNAL_NAME_PREFIX + "ley")
+    private final static BlockTMWoodStair leyWoodStairs = null;
 
-    @GameRegistry.ObjectHolder(BlockTMWoodStair.INTERNAL_NAME_PREFIX + "_fel")
-    public final static BlockTMWoodStair felWoodStairs = new BlockTMWoodStair(TMTreeType.FEL);
+    @GameRegistry.ObjectHolder(BlockTMWoodStair.INTERNAL_NAME_PREFIX + "fel")
+    private final static BlockTMWoodStair felWoodStairs = null;
 
-    @GameRegistry.ObjectHolder(BlockTMWoodStair.INTERNAL_NAME_PREFIX + "_bamboo")
-    public final static BlockTMWoodStair bambooWoodStairs = new BlockTMWoodStair(TMTreeType.BAMBOO);
+    @GameRegistry.ObjectHolder(BlockTMWoodStair.INTERNAL_NAME_PREFIX + "bamboo")
+    private final static BlockTMWoodStair bambooWoodStairs = null;
 
+    @AutoInstantiate
     @GameRegistry.ObjectHolder(BlockTMLeaves.INTERNAL_NAME)
-    public final static BlockTMLeaves leaves = new BlockTMLeaves();
+    private final static BlockTMLeaves leaves = null;
 
     static
     {
@@ -95,15 +106,20 @@ public class TMBlocks
     @SubscribeEvent
     public static void onRegisterBlocks(RegistryEvent.Register<Block> event)
     {
-        blocks = Arrays.stream(TMBlocks.class.getFields())
-            .filter(f -> f.getAnnotation(GameRegistry.ObjectHolder.class) != null)
+        Block[] blocks = Arrays.stream(TMBlocks.class.getDeclaredFields())
+            .filter(f -> f.getAnnotation(GameRegistry.ObjectHolder.class) != null && f.getAnnotation(AutoInstantiate.class) != null)
             .filter(f -> Block.class.isAssignableFrom(f.getType()))
-            //.map(ClassUtils::create)
-            .map(ClassUtils::getOrNull)
+            .map(ClassUtils::create)
             .filter(Objects::nonNull)
             .toArray(Block[]::new);
 
         event.getRegistry().registerAll(blocks);
+
+        BlockTMPlanks planks = (BlockTMPlanks)Arrays.stream(blocks).filter(b -> b instanceof BlockTMPlanks)
+            .findFirst().orElseThrow(() -> new RuntimeException("This shouldnt happen :x"));
+
+        for(TMTreeType type : TMTreeType.values())
+            event.getRegistry().register(new BlockTMWoodStair(type, planks));
 
         Arrays.stream(blocks)
                 .filter(b -> b instanceof BlockTMTileProvider)
@@ -121,37 +137,50 @@ public class TMBlocks
     @SubscribeEvent
     public static void onRegisterItems(RegistryEvent.Register<Item> event)
     {
-        event.getRegistry().registerAll(
-                Arrays.stream(blocks)
-                    .filter(b -> b instanceof IItemBlockProvider && ((IItemBlockProvider) b).hasItemBlock())
-                    .map(block -> {
-                        ResourceLocation loc = block.getRegistryName();
-                        assert loc != null;
-                        return ((IItemBlockProvider)block).createItemBlock().setRegistryName(loc);
-                    })
-                    .toArray(Item[]::new)
-        );
+        for (Block block : getBlocks())
+        {
+            if(block instanceof IItemBlockProvider && ((IItemBlockProvider) block).hasItemBlock())
+            {
+                ResourceLocation loc = block.getRegistryName();
+                assert loc != null;
+                event.getRegistry().register(((IItemBlockProvider)block).createItemBlock().setRegistryName(loc));
+            }
+        }
     }
 
     @SideOnly(Side.CLIENT)
     @SubscribeEvent
     public static void onRegisterModels(ModelRegistryEvent event)
     {
-        Arrays.stream(blocks)
-            .filter(b -> b instanceof IItemBlockProvider && ((IItemBlockProvider) b).hasItemBlock())
-            .forEach(block -> ((IItemBlockProvider) block).registerItemModels(Item.getItemFromBlock(block)));
+        for(Block block: getBlocks())
+        {
+            if(block instanceof IItemBlockProvider && ((IItemBlockProvider) block).hasItemBlock())
+            {
+                ((IItemBlockProvider) block).registerItemModels(Item.getItemFromBlock(block));
+            }
+        }
     }
 
     @SideOnly(Side.CLIENT)
     @SubscribeEvent
     public static void onRegisterColors(ColorRegistrationEvent event)
     {
-        for(Block block: blocks)
+        for(Block block: getBlocks())
         {
             if(block instanceof IBlockColor)
                 event.getBlockColors().registerBlockColorHandler((IBlockColor)block, block);
             if(block instanceof IItemColor)
                 event.getItemColors().registerItemColorHandler((IItemColor)block, block);
         }
+    }
+
+    private static List<Block> getBlocks()
+    {
+        return Arrays.stream(TMBlocks.class.getDeclaredFields())
+            .filter(f -> f.getAnnotation(GameRegistry.ObjectHolder.class) != null)
+            .filter(f -> Block.class.isAssignableFrom(f.getType()))
+            .map(ClassUtils::<Block>getOrNull)
+            .filter(Objects::nonNull)
+            .collect(Collectors.toList());
     }
 }
