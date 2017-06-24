@@ -8,7 +8,7 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
 import net.xalcon.technomage.Technomage;
-import net.xalcon.technomage.common.blocks.properties.EnumImbuedOre;
+import net.xalcon.technomage.common.blocks.properties.TMImbuedOreType;
 
 import java.util.Arrays;
 
@@ -26,7 +26,7 @@ public class ItemImbuedShard extends ItemTM
     public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items)
     {
         if(this.isInCreativeTab(tab))
-            Arrays.stream(EnumImbuedOre.values())
+            Arrays.stream(TMImbuedOreType.values())
                 .forEach(o -> items.add(new ItemStack(this, 1, o.getMeta())));
     }
 
@@ -34,7 +34,7 @@ public class ItemImbuedShard extends ItemTM
     public void registerItemModels(Item item)
     {
         ResourceLocation loc = new ResourceLocation(Technomage.MOD_ID, "items/" + INTERNAL_NAME);
-        Arrays.stream(EnumImbuedOre.values())
+        Arrays.stream(TMImbuedOreType.values())
             .forEach(o -> ModelLoader.setCustomModelResourceLocation(this, o.getMeta(),
                 new ModelResourceLocation(loc, "type=" + o.getName())));
 
@@ -43,6 +43,6 @@ public class ItemImbuedShard extends ItemTM
     @Override
     public String getUnlocalizedName(ItemStack stack)
     {
-        return super.getUnlocalizedName(stack) + "." + EnumImbuedOre.getFromMeta(stack.getMetadata()).getName();
+        return super.getUnlocalizedName(stack) + "." + TMImbuedOreType.getFromMeta(stack.getMetadata()).getName();
     }
 }

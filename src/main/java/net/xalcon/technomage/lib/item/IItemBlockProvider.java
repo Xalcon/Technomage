@@ -6,4 +6,5 @@ public interface IItemBlockProvider extends IItemModelRegisterHandler
 {
     ItemBlock createItemBlock();
     boolean hasItemBlock();
+
 }

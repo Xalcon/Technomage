@@ -26,7 +26,7 @@ import net.minecraftforge.common.IShearable;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.xalcon.technomage.common.blocks.BlockTM;
-import net.xalcon.technomage.common.blocks.properties.EnumMagicPlantType;
+import net.xalcon.technomage.common.blocks.properties.TMMagicPlantType;
 import net.xalcon.technomage.common.items.ItemBlockEnum;
 
 import javax.annotation.Nonnull;
@@ -41,7 +41,7 @@ public class BlockPlant extends BlockTM implements IPlantable, IShearable
     public final static String INTERNAL_NAME = "plant";
 
     protected final static AxisAlignedBB BUSH_AABB = new AxisAlignedBB(.3, .0, .3, .7, .6, .7);
-    public static PropertyEnum<EnumMagicPlantType> TYPE = PropertyEnum.create("type", EnumMagicPlantType.class);
+    public static PropertyEnum<TMMagicPlantType> TYPE = PropertyEnum.create("type", TMMagicPlantType.class);
 
     public BlockPlant()
     {
@@ -55,14 +55,14 @@ public class BlockPlant extends BlockTM implements IPlantable, IShearable
     {
         ResourceLocation loc = this.getRegistryName();
         assert loc != null;
-        for(EnumMagicPlantType type : EnumMagicPlantType.values())
+        for(TMMagicPlantType type : TMMagicPlantType.values())
             ModelLoader.setCustomModelResourceLocation(item, type.getMeta(), new ModelResourceLocation(loc, "type=" + type.getName()));
     }
 
     @Override
     public void getSubBlocks(CreativeTabs itemIn, NonNullList<ItemStack> items)
     {
-        items.addAll(Arrays.stream(EnumMagicPlantType.values())
+        items.addAll(Arrays.stream(TMMagicPlantType.values())
             .map(p -> new ItemStack(this, 1, p.getMeta()))
             .collect(Collectors.toList()));
     }
@@ -105,7 +105,7 @@ public class BlockPlant extends BlockTM implements IPlantable, IShearable
     @Override
     public ItemBlock createItemBlock()
     {
-        return new ItemBlockEnum<>(this, EnumMagicPlantType::getFromMeta);
+        return new ItemBlockEnum<>(this, TMMagicPlantType::getFromMeta);
     }
 
     @Override
@@ -118,7 +118,7 @@ public class BlockPlant extends BlockTM implements IPlantable, IShearable
     @Override
     public IBlockState getStateFromMeta(int meta)
     {
-        return this.getDefaultState().withProperty(TYPE, EnumMagicPlantType.getFromMeta(meta));
+        return this.getDefaultState().withProperty(TYPE, TMMagicPlantType.getFromMeta(meta));
     }
 
     @Override

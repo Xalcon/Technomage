@@ -1,0 +1,17 @@
+{
+
+    "forge_marker": 1,
+    "defaults": {
+        "model": "leaves",
+        "uvlock": true
+    },
+    "variants": {
+        "type":
+        {
+            "elder": { "textures": { "all": "technomage:blocks/wood/leaves_elder" } },
+            "ley": { "textures": { "all": "technomage:blocks/wood/leaves_ley" } },
+            "fel": { "textures": { "all": "technomage:blocks/wood/leaves_fel" } },
+            "bamboo": { "textures": { "all": "technomage:blocks/wood/leaves_bamboo" } }
+        }
+    }
+}

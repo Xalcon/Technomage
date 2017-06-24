@@ -2,7 +2,7 @@ package net.xalcon.technomage.common.blocks.properties;
 
 import net.minecraft.util.IStringSerializable;
 
-public enum EnumImbuedOre implements IStringSerializable, IMetaBlock
+public enum TMImbuedOreType implements IStringSerializable, IMetaBlock
 {
     EARTH(0, 0x00CC00),
     FIRE(1, 0xFF0000),
@@ -15,7 +15,7 @@ public enum EnumImbuedOre implements IStringSerializable, IMetaBlock
     private int meta;
     private int color;
 
-    EnumImbuedOre(int meta, int color)
+    TMImbuedOreType(int meta, int color)
     {
         this.meta = meta;
         this.color = color;
@@ -38,8 +38,8 @@ public enum EnumImbuedOre implements IStringSerializable, IMetaBlock
         return this.name().toLowerCase();
     }
 
-    public static EnumImbuedOre getFromMeta(int meta)
+    public static TMImbuedOreType getFromMeta(int meta)
     {
-        return EnumImbuedOre.values()[meta % EnumImbuedOre.values().length];
+        return TMImbuedOreType.values()[meta % TMImbuedOreType.values().length];
     }
 }

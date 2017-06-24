@@ -27,7 +27,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.xalcon.technomage.common.CreativeTabsTechnomage;
 import net.xalcon.technomage.common.blocks.BlockTM;
-import net.xalcon.technomage.common.blocks.properties.EnumImbuedOre;
+import net.xalcon.technomage.common.blocks.properties.TMImbuedOreType;
 import net.xalcon.technomage.common.items.ItemBlockEnum;
 
 import javax.annotation.Nonnull;
@@ -38,7 +38,7 @@ import java.util.stream.Collectors;
 public class BlockImbuedOre extends BlockTM
 {
     public final static String INTERNAL_NAME = "imbued_ore";
-    public final static PropertyEnum<EnumImbuedOre> ORE_TYPE = PropertyEnum.create("type", EnumImbuedOre.class);
+    public final static PropertyEnum<TMImbuedOreType> ORE_TYPE = PropertyEnum.create("type", TMImbuedOreType.class);
 
     public BlockImbuedOre()
     {
@@ -49,7 +49,7 @@ public class BlockImbuedOre extends BlockTM
     public void getSubBlocks(CreativeTabs creativeTab, NonNullList<ItemStack> items)
     {
         if(creativeTab != CreativeTabsTechnomage.tabMain) return;
-        items.addAll(Arrays.stream(EnumImbuedOre.values())
+        items.addAll(Arrays.stream(TMImbuedOreType.values())
             .map(type -> new ItemStack(this, 1, type.getMeta()))
             .collect(Collectors.toList()));
     }
@@ -57,7 +57,7 @@ public class BlockImbuedOre extends BlockTM
     @Override
     public ItemBlock createItemBlock()
     {
-        return new ItemBlockEnum<>(this, EnumImbuedOre::getFromMeta);
+        return new ItemBlockEnum<>(this, TMImbuedOreType::getFromMeta);
     }
 
     @Override
@@ -65,7 +65,7 @@ public class BlockImbuedOre extends BlockTM
     {
         ResourceLocation loc = this.getRegistryName();
         assert loc != null;
-        for(EnumImbuedOre type : EnumImbuedOre.values())
+        for(TMImbuedOreType type : TMImbuedOreType.values())
             ModelLoader.setCustomModelResourceLocation(item, type.getMeta(), new ModelResourceLocation(loc, "type=" + type.getName()));
     }
 
@@ -79,7 +79,7 @@ public class BlockImbuedOre extends BlockTM
     @Override
     public IBlockState getStateFromMeta(int meta)
     {
-        return this.getDefaultState().withProperty(ORE_TYPE, EnumImbuedOre.getFromMeta(meta));
+        return this.getDefaultState().withProperty(ORE_TYPE, TMImbuedOreType.getFromMeta(meta));
     }
 
     @Override

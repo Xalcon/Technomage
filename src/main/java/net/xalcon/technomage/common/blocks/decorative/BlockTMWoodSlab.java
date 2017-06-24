@@ -1,6 +1,5 @@
 package net.xalcon.technomage.common.blocks.decorative;
 
-import net.minecraft.block.BlockPlanks;
 import net.minecraft.block.BlockSlab;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
@@ -18,11 +17,10 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.xalcon.technomage.Technomage;
 import net.xalcon.technomage.common.CreativeTabsTechnomage;
-import net.xalcon.technomage.common.blocks.properties.EnumWoodType;
+import net.xalcon.technomage.common.blocks.properties.TMTreeType;
 import net.xalcon.technomage.common.blocks.world.BlockTMLog;
 import net.xalcon.technomage.common.items.ItemBlockEnum;
 import net.xalcon.technomage.lib.item.IItemBlockProvider;
-import net.xalcon.technomage.lib.item.IItemModelRegisterHandler;
 
 public class BlockTMWoodSlab extends BlockSlab implements IItemBlockProvider
 {
@@ -40,7 +38,7 @@ public class BlockTMWoodSlab extends BlockSlab implements IItemBlockProvider
     @SideOnly(Side.CLIENT)
     public void getSubBlocks(CreativeTabs itemIn, NonNullList<ItemStack> items)
     {
-        for (EnumWoodType type : EnumWoodType.values())
+        for (TMTreeType type : TMTreeType.values())
         {
             items.add(new ItemStack(this, 1, type.getMeta()));
         }
@@ -49,7 +47,7 @@ public class BlockTMWoodSlab extends BlockSlab implements IItemBlockProvider
     @Override
     public String getUnlocalizedName(int meta)
     {
-        return this.getUnlocalizedName() + "." + EnumWoodType.getFromMeta(meta & 0b0111).getName();
+        return this.getUnlocalizedName() + "." + TMTreeType.getFromMeta(meta & 0b0111).getName();
     }
 
     @Override
@@ -67,7 +65,7 @@ public class BlockTMWoodSlab extends BlockSlab implements IItemBlockProvider
     @Override
     public Comparable<?> getTypeForItem(ItemStack stack)
     {
-        return EnumWoodType.getFromMeta(stack.getMetadata() & 0b0111);
+        return TMTreeType.getFromMeta(stack.getMetadata() & 0b0111);
     }
 
     @Override
@@ -81,7 +79,7 @@ public class BlockTMWoodSlab extends BlockSlab implements IItemBlockProvider
     public IBlockState getStateFromMeta(int meta)
     {
         return this.getDefaultState()
-            .withProperty(BlockTMLog.TYPE, EnumWoodType.getFromMeta(meta & 0b0111))
+            .withProperty(BlockTMLog.TYPE, TMTreeType.getFromMeta(meta & 0b0111))
             .withProperty(HALF, (meta & 0b1000) == 0 ? EnumBlockHalf.BOTTOM : EnumBlockHalf.TOP);
     }
 
@@ -96,7 +94,7 @@ public class BlockTMWoodSlab extends BlockSlab implements IItemBlockProvider
     {
         ResourceLocation loc = item.getRegistryName();
         assert loc != null;
-        for(EnumWoodType type : EnumWoodType.values())
+        for(TMTreeType type : TMTreeType.values())
             ModelLoader.setCustomModelResourceLocation(item, type.getMeta(), new ModelResourceLocation(loc, "half=bottom,type=" + type.getName()));
 
     }
@@ -104,7 +102,7 @@ public class BlockTMWoodSlab extends BlockSlab implements IItemBlockProvider
     @Override
     public ItemBlock createItemBlock()
     {
-        return new ItemBlockEnum<>(this, EnumWoodType::getFromMeta);
+        return new ItemBlockEnum<>(this, TMTreeType::getFromMeta);
     }
 
     @Override

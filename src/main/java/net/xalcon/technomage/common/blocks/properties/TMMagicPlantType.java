@@ -2,13 +2,13 @@ package net.xalcon.technomage.common.blocks.properties;
 
 import net.minecraft.util.IStringSerializable;
 
-public enum EnumMagicPlantType implements IStringSerializable, IMetaBlock
+public enum TMMagicPlantType implements IStringSerializable, IMetaBlock
 {
     INCINERLILY(0);
 
     private int meta;
 
-    EnumMagicPlantType(int meta)
+    TMMagicPlantType(int meta)
     {
         this.meta = meta;
     }
@@ -25,7 +25,7 @@ public enum EnumMagicPlantType implements IStringSerializable, IMetaBlock
         return this.name().toLowerCase();
     }
 
-    public static EnumMagicPlantType getFromMeta(int meta)
+    public static TMMagicPlantType getFromMeta(int meta)
     {
         return values()[meta % values().length];
     }

@@ -15,7 +15,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.client.model.ModelLoader;
 import net.xalcon.technomage.common.blocks.BlockTM;
-import net.xalcon.technomage.common.blocks.properties.EnumWoodType;
+import net.xalcon.technomage.common.blocks.properties.TMTreeType;
 import net.xalcon.technomage.common.blocks.world.BlockTMLog;
 import net.xalcon.technomage.common.items.ItemBlockEnum;
 
@@ -46,7 +46,7 @@ public class BlockTMPlanks extends BlockTM
 		ResourceLocation loc = item.getRegistryName();
 		assert loc != null;
 
-		for(EnumWoodType w : EnumWoodType.values())
+		for(TMTreeType w : TMTreeType.values())
 			ModelLoader.setCustomModelResourceLocation(item, w.getMeta(),
                 new ModelResourceLocation(loc, "type=" + w.getName()));
 	}
@@ -54,7 +54,7 @@ public class BlockTMPlanks extends BlockTM
 	@Override
 	public void getSubBlocks(CreativeTabs itemIn, NonNullList<ItemStack> items)
 	{
-		for(EnumWoodType w : EnumWoodType.values())
+		for(TMTreeType w : TMTreeType.values())
 			items.add(new ItemStack(this, 1, w.getMeta()));
 	}
 
@@ -62,7 +62,7 @@ public class BlockTMPlanks extends BlockTM
 	@Override
 	public IBlockState getStateFromMeta(int meta)
 	{
-		return this.getDefaultState().withProperty(BlockTMLog.TYPE, EnumWoodType.getFromMeta(meta));
+		return this.getDefaultState().withProperty(BlockTMLog.TYPE, TMTreeType.getFromMeta(meta));
 	}
 
 	@Override
@@ -74,7 +74,7 @@ public class BlockTMPlanks extends BlockTM
 	@Override
 	public ItemBlock createItemBlock()
 	{
-		return new ItemBlockEnum<>(this, EnumWoodType::getFromMeta);
+		return new ItemBlockEnum<>(this, TMTreeType::getFromMeta);
 	}
 
 	@SuppressWarnings("deprecation")

@@ -1,7 +1,6 @@
 package net.xalcon.technomage.common.init;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockStairs;
 import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
@@ -22,9 +21,10 @@ import net.xalcon.technomage.common.blocks.crafting.BlockPedestal;
 import net.xalcon.technomage.common.blocks.decorative.BlockTMWoodSlab;
 import net.xalcon.technomage.common.blocks.decorative.BlockTMWoodStair;
 import net.xalcon.technomage.common.blocks.multiblocks.BlockBrickFurnace;
-import net.xalcon.technomage.common.blocks.properties.EnumWoodType;
+import net.xalcon.technomage.common.blocks.properties.TMTreeType;
 import net.xalcon.technomage.common.blocks.world.BlockImbuedOre;
 import net.xalcon.technomage.common.blocks.world.BlockPlant;
+import net.xalcon.technomage.common.blocks.world.BlockTMLeaves;
 import net.xalcon.technomage.common.blocks.world.BlockTMLog;
 import net.xalcon.technomage.common.blocks.decorative.BlockTMPlanks;
 import net.xalcon.technomage.common.multiblocks.MultiblockBrickFurnace;
@@ -38,6 +38,7 @@ import java.util.*;
 public class TMBlocks
 {
     private static Block[] blocks;
+    public static Block[] getBlocks() { return blocks; }
 
     @GameRegistry.ObjectHolder(BlockBrickFurnace.internalName)
     public final static BlockBrickFurnace brickFurnace = new BlockBrickFurnace();
@@ -70,16 +71,19 @@ public class TMBlocks
     public final static BlockTMWoodSlab woodSlab = new BlockTMWoodSlab();
 
     @GameRegistry.ObjectHolder(BlockTMWoodStair.INTERNAL_NAME_PREFIX + "_elder")
-    public final static BlockTMWoodStair elderWoodStairs = new BlockTMWoodStair(EnumWoodType.ELDER);
+    public final static BlockTMWoodStair elderWoodStairs = new BlockTMWoodStair(TMTreeType.ELDER);
 
     @GameRegistry.ObjectHolder(BlockTMWoodStair.INTERNAL_NAME_PREFIX + "_ley")
-    public final static BlockTMWoodStair leyWoodStairs = new BlockTMWoodStair(EnumWoodType.LEY);
+    public final static BlockTMWoodStair leyWoodStairs = new BlockTMWoodStair(TMTreeType.LEY);
 
     @GameRegistry.ObjectHolder(BlockTMWoodStair.INTERNAL_NAME_PREFIX + "_fel")
-    public final static BlockTMWoodStair felWoodStairs = new BlockTMWoodStair(EnumWoodType.FEL);
+    public final static BlockTMWoodStair felWoodStairs = new BlockTMWoodStair(TMTreeType.FEL);
 
     @GameRegistry.ObjectHolder(BlockTMWoodStair.INTERNAL_NAME_PREFIX + "_bamboo")
-    public final static BlockTMWoodStair bambooWoodStairs = new BlockTMWoodStair(EnumWoodType.BAMBOO);
+    public final static BlockTMWoodStair bambooWoodStairs = new BlockTMWoodStair(TMTreeType.BAMBOO);
+
+    @GameRegistry.ObjectHolder(BlockTMLeaves.INTERNAL_NAME)
+    public final static BlockTMLeaves leaves = new BlockTMLeaves();
 
     static
     {

@@ -14,7 +14,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
 import net.xalcon.technomage.Technomage;
 import net.xalcon.technomage.common.CreativeTabsTechnomage;
-import net.xalcon.technomage.common.blocks.properties.EnumWoodType;
+import net.xalcon.technomage.common.blocks.properties.TMTreeType;
 import net.xalcon.technomage.common.items.ItemBlockEnum;
 import net.xalcon.technomage.lib.item.IItemBlockProvider;
 
@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
 public class BlockTMLog extends BlockLog implements IItemBlockProvider
 {
     public final static String INTERNAL_NAME = "log";
-    public final static PropertyEnum<EnumWoodType> TYPE = PropertyEnum.create("type", EnumWoodType.class);
+    public final static PropertyEnum<TMTreeType> TYPE = PropertyEnum.create("type", TMTreeType.class);
 
     public BlockTMLog()
     {
@@ -38,7 +38,7 @@ public class BlockTMLog extends BlockLog implements IItemBlockProvider
     @Override
     public void getSubBlocks(CreativeTabs itemIn, NonNullList<ItemStack> items)
     {
-        items.addAll(Arrays.stream(EnumWoodType.values())
+        items.addAll(Arrays.stream(TMTreeType.values())
             .map(w -> new ItemStack(this, 1, w.getMeta()))
             .collect(Collectors.toList()));
     }
@@ -46,7 +46,7 @@ public class BlockTMLog extends BlockLog implements IItemBlockProvider
     @Override
     public ItemBlock createItemBlock()
     {
-        return new ItemBlockEnum<>(this, EnumWoodType::getFromMeta);
+        return new ItemBlockEnum<>(this, TMTreeType::getFromMeta);
     }
 
     @Override
@@ -60,7 +60,7 @@ public class BlockTMLog extends BlockLog implements IItemBlockProvider
     {
         ResourceLocation loc = this.getRegistryName();
         assert loc != null;
-        Arrays.stream(EnumWoodType.values())
+        Arrays.stream(TMTreeType.values())
             .forEach(t -> ModelLoader.setCustomModelResourceLocation(item, t.getMeta(),
                 new ModelResourceLocation(loc, "axis=y,type=" + t.getName())));
     }
@@ -79,7 +79,7 @@ public class BlockTMLog extends BlockLog implements IItemBlockProvider
     {
         return this.getDefaultState()
             .withProperty(LOG_AXIS, BlockLog.EnumAxis.values()[meta >> 2])
-            .withProperty(TYPE, EnumWoodType.getFromMeta(meta & 0b0011));
+            .withProperty(TYPE, TMTreeType.getFromMeta(meta & 0b0011));
     }
 
     /**
