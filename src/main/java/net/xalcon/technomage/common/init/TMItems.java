@@ -14,10 +14,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.xalcon.technomage.Technomage;
 import net.xalcon.technomage.common.CreativeTabsTechnomage;
-import net.xalcon.technomage.common.items.ItemCursedClawWand;
-import net.xalcon.technomage.common.items.ItemImbuedShard;
-import net.xalcon.technomage.common.items.ItemLeystoneWand;
-import net.xalcon.technomage.common.items.ItemTechnonomicon;
+import net.xalcon.technomage.common.items.*;
 import net.xalcon.technomage.lib.client.events.ColorRegistrationEvent;
 import net.xalcon.technomage.lib.item.IItemModelRegisterHandler;
 import net.xalcon.technomage.lib.utils.ClassUtils;
@@ -42,11 +39,26 @@ public class TMItems
     @GameRegistry.ObjectHolder("imbued_shard")
     private final static ItemImbuedShard imbuedShard = null;
 
+    @GameRegistry.ObjectHolder("sword")
+    private final static ItemSword sword = null;
+
+    @GameRegistry.ObjectHolder("farstep_feather")
+    private final static ItemFarstepFeather farstepFeather = null;
+
+    @GameRegistry.ObjectHolder("boomerang")
+    private final static ItemBoomerang boomerang = null;
+
     @SuppressWarnings("ConstantConditions")
     public static ItemLeystoneWand leystoneWand() { return leystoneWand; }
 
     @SuppressWarnings("ConstantConditions")
     public static ItemTechnonomicon technonomicon() { return technonomicon; }
+
+    @SuppressWarnings("ConstantConditions")
+    public static ItemBoomerang boomerang()
+    {
+        return boomerang;
+    }
 
     @SubscribeEvent
     public static void onRegisterItems(RegistryEvent.Register<Item> event)

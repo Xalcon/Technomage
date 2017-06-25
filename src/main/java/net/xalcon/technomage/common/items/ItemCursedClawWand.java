@@ -5,6 +5,8 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityEvokerFangs;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
@@ -35,6 +37,23 @@ public class ItemCursedClawWand extends Item
         }
 
         return super.onItemUse(player, world, pos, hand, facing, hitX, hitY, hitZ);
+    }
+
+    @Override
+    public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn)
+    {
+        /*Vec3d lookAt = playerIn.getLookVec();
+        double d0 = playerIn.posY;
+        double d1 = playerIn.posY + 1.0D;
+        float f = (float)MathHelper.atan2(lookAt.z, lookAt.x);
+
+        for (int l = 0; l < 16; ++l)
+        {
+            double d2 = 1.25D * (double)(l + 1);
+            int j = 1 * l;
+            this.spawnFangs(playerIn.posX + (double)MathHelper.cos(f) * d2, playerIn.posZ + (double)MathHelper.sin(f) * d2, d0, d1, f, j, worldIn, playerIn);
+        }*/
+        return super.onItemRightClick(worldIn, playerIn, handIn);
     }
 
     private void spawnFangs(double x, double z, double y_min, double y_max, float angle, int timeUntilAttack, World world, EntityLivingBase caster)
