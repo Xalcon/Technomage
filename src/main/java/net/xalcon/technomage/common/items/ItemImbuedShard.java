@@ -38,10 +38,10 @@ public class ItemImbuedShard extends Item implements IItemColor, IItemModelRegis
         assert rl != null;
         // register a "blockstate" for our item to allow different models depending on the variant
         ResourceLocation loc = new ResourceLocation(Technomage.MOD_ID, "items/" + rl.getResourcePath());
-        Arrays.stream(TMImbuedOreType.values())
-            .forEach(o -> ModelLoader.setCustomModelResourceLocation(this, o.getMeta(),
-                new ModelResourceLocation(loc, "type=" + o.getName())));
-
+        for(TMImbuedOreType ore : TMImbuedOreType.values())
+        {
+            ModelLoader.setCustomModelResourceLocation(this, ore.getMeta(), new ModelResourceLocation(loc, "type=" + ore.getName());
+        }
     }
 
     @Override
