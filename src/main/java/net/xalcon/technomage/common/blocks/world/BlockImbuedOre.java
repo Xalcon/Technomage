@@ -39,7 +39,7 @@ import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
-public class BlockImbuedOre extends Block implements IItemBlockProvider/*, IItemColor, IBlockColor*/
+public class BlockImbuedOre extends Block implements IItemBlockProvider
 {
     public final static String INTERNAL_NAME = "imbued_ore";
     public final static PropertyEnum<TMImbuedOreType> ORE_TYPE = PropertyEnum.create("type", TMImbuedOreType.class);
@@ -122,20 +122,6 @@ public class BlockImbuedOre extends Block implements IItemBlockProvider/*, IItem
             ? 240
             : super.getPackedLightmapCoords(state, source, pos);
     }
-
-    /*@Override
-    @SideOnly(Side.CLIENT)
-    public int colorMultiplier(IBlockState state, @Nullable IBlockAccess worldIn, @Nullable BlockPos pos, int tintIndex)
-    {
-        return state.getValue(BlockImbuedOre.ORE_TYPE).getColor();
-    }
-
-    @Override
-    @SideOnly(Side.CLIENT)
-    public int getColorFromItemstack(ItemStack stack, int tintIndex)
-    {
-        return TMImbuedOreType.getFromMeta(stack.getMetadata()).getColor();
-    }*/
 
     @SideOnly(Side.CLIENT)
     private static class TintIndexGetter

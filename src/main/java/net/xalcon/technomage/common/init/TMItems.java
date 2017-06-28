@@ -13,6 +13,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.xalcon.technomage.Technomage;
+import net.xalcon.technomage.client.colors.ImbuedOreColor;
 import net.xalcon.technomage.common.CreativeTabsTechnomage;
 import net.xalcon.technomage.common.items.*;
 import net.xalcon.technomage.lib.client.events.ColorRegistrationEvent;
@@ -99,14 +100,10 @@ public class TMItems
         }
     }
 
-    /*@SideOnly(Side.CLIENT)
+    @SideOnly(Side.CLIENT)
     @SubscribeEvent
     public static void onRegisterColors(ColorRegistrationEvent event)
     {
-        for(Item item: items)
-        {
-            if(item instanceof IItemColor)
-                event.getItemColors().registerItemColorHandler((IItemColor)item, item);
-        }
-    }*/
+        event.getItemColors().registerItemColorHandler(ImbuedOreColor.INSTANCE, imbuedShard);
+    }
 }

@@ -17,6 +17,8 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.xalcon.technomage.Technomage;
 import net.xalcon.technomage.api.multiblock.MultiblockRegistry;
+import net.xalcon.technomage.client.colors.ImbuedOreColor;
+import net.xalcon.technomage.client.colors.LeavesColor;
 import net.xalcon.technomage.common.CreativeTabsTechnomage;
 import net.xalcon.technomage.common.blocks.*;
 import net.xalcon.technomage.common.blocks.crafting.BlockAlchemicalCauldron;
@@ -165,18 +167,16 @@ public class TMBlocks
         }
     }
 
-    /*@SideOnly(Side.CLIENT)
+    @SideOnly(Side.CLIENT)
     @SubscribeEvent
     public static void onRegisterColors(ColorRegistrationEvent event)
     {
-        for(Block block: getBlocks())
-        {
-            if(block instanceof IBlockColor)
-                event.getBlockColors().registerBlockColorHandler((IBlockColor)block, block);
-            if(block instanceof IItemColor)
-                event.getItemColors().registerItemColorHandler((IItemColor)block, block);
-        }
-    }*/
+        event.getItemColors().registerItemColorHandler(LeavesColor.INSTANCE, leaves);
+        event.getBlockColors().registerBlockColorHandler(LeavesColor.INSTANCE, leaves);
+
+        event.getItemColors().registerItemColorHandler(ImbuedOreColor.INSTANCE, imbuedOre);
+        event.getBlockColors().registerBlockColorHandler(ImbuedOreColor.INSTANCE, imbuedOre);
+    }
 
     private static List<Block> getBlocks()
     {

@@ -32,7 +32,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class BlockTMLeaves extends BlockLeaves implements IItemBlockProvider/*, IBlockColor, IItemColor*/
+public class BlockTMLeaves extends BlockLeaves implements IItemBlockProvider
 {
     public final static String INTERNAL_NAME = "leaves";
 
@@ -135,18 +135,4 @@ public class BlockTMLeaves extends BlockLeaves implements IItemBlockProvider/*, 
     {
         return Blocks.LEAVES.shouldSideBeRendered(state, world, pos, side);
     }
-
-    /*@Override
-    @SideOnly(Side.CLIENT)
-    public int colorMultiplier(IBlockState state, @Nullable IBlockAccess worldIn, @Nullable BlockPos pos, int tintIndex)
-    {
-        return tintIndex == 0 ? state.getValue(BlockTMLog.TYPE).getLeafColor() : -1;
-    }
-
-    @Override
-    @SideOnly(Side.CLIENT)
-    public int getColorFromItemstack(ItemStack stack, int tintIndex)
-    {
-        return tintIndex == 0 ? TMTreeType.getFromMeta(stack.getMetadata()).getLeafColor() : -1;
-    }*/
 }

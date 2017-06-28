@@ -16,7 +16,7 @@ import net.xalcon.technomage.lib.item.IItemModelRegisterHandler;
 
 import java.util.Arrays;
 
-public class ItemImbuedShard extends Item implements IItemColor, IItemModelRegisterHandler
+public class ItemImbuedShard extends Item implements IItemModelRegisterHandler
 {
     public ItemImbuedShard()
     {
@@ -40,7 +40,7 @@ public class ItemImbuedShard extends Item implements IItemColor, IItemModelRegis
         ResourceLocation loc = new ResourceLocation(Technomage.MOD_ID, "items/" + rl.getResourcePath());
         for(TMImbuedOreType ore : TMImbuedOreType.values())
         {
-            ModelLoader.setCustomModelResourceLocation(this, ore.getMeta(), new ModelResourceLocation(loc, "type=" + ore.getName());
+            ModelLoader.setCustomModelResourceLocation(this, ore.getMeta(), new ModelResourceLocation(loc, "type=" + ore.getName()));
         }
     }
 
@@ -48,12 +48,5 @@ public class ItemImbuedShard extends Item implements IItemColor, IItemModelRegis
     public String getUnlocalizedName(ItemStack stack)
     {
         return super.getUnlocalizedName(stack) + "." + TMImbuedOreType.getFromMeta(stack.getMetadata()).getName();
-    }
-
-    @Override
-    @SideOnly(Side.CLIENT)
-    public int getColorFromItemstack(ItemStack stack, int tintIndex)
-    {
-        return TMImbuedOreType.getFromMeta(stack.getMetadata()).getColor();
     }
 }
