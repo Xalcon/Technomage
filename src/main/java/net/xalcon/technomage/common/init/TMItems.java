@@ -99,7 +99,7 @@ public class TMItems
         }
     }
 
-    @SideOnly(Side.CLIENT)
+    /*@SideOnly(Side.CLIENT)
     @SubscribeEvent
     public static void onRegisterColors(ColorRegistrationEvent event)
     {
@@ -108,5 +108,5 @@ public class TMItems
             if(item instanceof IItemColor)
                 event.getItemColors().registerItemColorHandler((IItemColor)item, item);
         }
-    }
+    }*/
 }

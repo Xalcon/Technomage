@@ -7,6 +7,7 @@ import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.EntityEntry;
+import net.minecraftforge.fml.common.registry.EntityRegistry;
 import net.xalcon.technomage.Technomage;
 import net.xalcon.technomage.client.renderer.entity.EntityBoomerangRenderer;
 import net.xalcon.technomage.common.entities.EntityBoomerang;
@@ -17,9 +18,8 @@ public class TMEntities
     @SubscribeEvent
     public static void onEntityRegister(RegistryEvent.Register<EntityEntry> event)
     {
-        EntityEntry entry = new EntityEntry(EntityBoomerang.class, "boomerang");
-        entry.setRegistryName("boomerang");
-        event.getRegistry().register(entry);
+        EntityRegistry.registerModEntity(new ResourceLocation(Technomage.MOD_ID, "boomerang"),
+            EntityBoomerang.class, "boomerang", 0, Technomage.getInstance(), 64, 1, true);
     }
 
     @SubscribeEvent

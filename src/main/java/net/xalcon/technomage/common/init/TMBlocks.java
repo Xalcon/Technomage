@@ -165,7 +165,7 @@ public class TMBlocks
         }
     }
 
-    @SideOnly(Side.CLIENT)
+    /*@SideOnly(Side.CLIENT)
     @SubscribeEvent
     public static void onRegisterColors(ColorRegistrationEvent event)
     {
@@ -176,7 +176,7 @@ public class TMBlocks
             if(block instanceof IItemColor)
                 event.getItemColors().registerItemColorHandler((IItemColor)block, block);
         }
-    }
+    }*/
 
     private static List<Block> getBlocks()
     {

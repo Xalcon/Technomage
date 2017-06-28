@@ -35,7 +35,7 @@ public class EntityBoomerangRenderer extends Render<EntityBoomerang>
     public void doRender(EntityBoomerang entity, double x, double y, double z, float entityYaw, float partialTicks)
     {
         GlStateManager.pushMatrix();
-        GlStateManager.translate((float)x, (float)y, (float)z);
+        GlStateManager.translate((float)x, (float)y + .2f, (float)z);
         GlStateManager.enableRescaleNormal();
         //GlStateManager.rotate(-this.renderManager.playerViewY, 0.0F, 1.0F, 0.0F);
         //GlStateManager.rotate((float)(this.renderManager.options.thirdPersonView == 2 ? -1 : 1) * this.renderManager.playerViewX, 1.0F, 0.0F, 0.0F);

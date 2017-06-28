@@ -1,10 +1,12 @@
 package net.xalcon.technomage.common.items;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.projectile.EntitySnowball;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.world.World;
@@ -24,14 +26,16 @@ public class ItemBoomerang extends Item
     {
         worldIn.playSound(null, playerIn.posX, playerIn.posY, playerIn.posZ, SoundEvents.ENTITY_SNOWBALL_THROW, SoundCategory.NEUTRAL, 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
 
-        if(worldIn.isRemote)
+        if(!worldIn.isRemote)
         {
             EntityBoomerang boomerang = new EntityBoomerang(worldIn, playerIn);
-            boomerang.setHeadingFromThrower(playerIn, playerIn.rotationPitch, playerIn.rotationYaw, 0.0F, 1.0F, 0.0F);
-            //boomerang.setNoGravity(true);
+            boomerang.setHeadingFromThrower(playerIn, playerIn.rotationPitch, playerIn.rotationYaw, 0.0F, 1.5F, 0.0F);
+            boomerang.setNoGravity(true);
+
+            playerIn.getCooldownTracker().setCooldown(this, 10 * 20);
 
             worldIn.spawnEntity(boomerang);
         }
-        return super.onItemRightClick(worldIn, playerIn, handIn);
+        return new ActionResult<>(EnumActionResult.SUCCESS, playerIn.getHeldItem(handIn));
     }
 }
