@@ -98,70 +98,16 @@ public class BlockImbuedOre extends Block implements IItemBlockProvider
         return new ItemStack(this, 1, state.getValue(ORE_TYPE).getMeta());
     }
 
+    /**
+     * Queries if this block should render in a given layer.
+     * ISmartBlockModel can use {@link MinecraftForgeClient#getRenderLayer()} to alter their model based on layer.
+     *
+     * @param state
+     * @param layer
+     */
     @Override
-    @SideOnly(Side.CLIENT)
-    public int getLightValue(IBlockState state, IBlockAccess world, BlockPos pos)
-    {
-        return (MinecraftForgeClient.getRenderLayer() == BlockRenderLayer.CUTOUT) ? 1 : 0;
-    }
-
-    @Override
-    @SideOnly(Side.CLIENT)
     public boolean canRenderInLayer(IBlockState state, BlockRenderLayer layer)
     {
-        return layer == BlockRenderLayer.CUTOUT;
-    }
-
-    @SuppressWarnings("deprecation")
-    @Override
-    @SideOnly(Side.CLIENT)
-    public int getPackedLightmapCoords(IBlockState state, IBlockAccess source, BlockPos pos)
-    {
-        int index = TintIndexGetter.getCurrent();
-        return MinecraftForgeClient.getRenderLayer() == BlockRenderLayer.CUTOUT && index == 0
-            ? 240
-            : super.getPackedLightmapCoords(state, source, pos);
-    }
-
-    @SideOnly(Side.CLIENT)
-    private static class TintIndexGetter
-    {
-        private static Field lighterField;
-        private static Field tintField;
-
-        public static int getCurrent()
-        {
-            if(lighterField == null) init();
-            BlockModelRenderer renderer = Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelRenderer();
-            try
-            {
-                @SuppressWarnings("unchecked")
-                VertexLighterFlat lighterFlat = ((ThreadLocal<VertexLighterFlat>) lighterField.get(renderer)).get();
-                return (int) tintField.get(lighterFlat);
-            } catch (IllegalAccessException e)
-            {
-                e.printStackTrace();
-            }
-            return -1;
-        }
-
-        private static void init()
-        {
-            BlockModelRenderer renderer = Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelRenderer();
-            if(renderer instanceof ForgeBlockModelRenderer)
-            {
-                try
-                {
-                    lighterField = ForgeBlockModelRenderer.class.getDeclaredField("lighterFlat");
-                    lighterField.setAccessible(true);
-                    tintField = VertexLighterFlat.class.getDeclaredField("tint");
-                    tintField.setAccessible(true);
-
-                } catch (NoSuchFieldException e)
-                {
-                    e.printStackTrace();
-                }
-            }
-        }
+        return layer != BlockRenderLayer.TRANSLUCENT;
     }
 }

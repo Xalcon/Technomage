@@ -6,9 +6,7 @@
             "overlay": "technomage:blocks/imbued_ore",
             "material": "minecraft:blocks/stone"
         },
-        "smooth_lighting": false,
-        "model": "technomage:imbued_ore",
-        "uvlock": true
+        "model": "technomage:imbued_ore"
     },
     "variants": {
         "type":

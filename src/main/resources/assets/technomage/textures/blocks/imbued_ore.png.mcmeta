@@ -1,5 +1,14 @@
 {
   "animation": {
     "frametime": 2
-  }
+  },
+  "ctm": {
+      "ctm_version": 1,
+      "type": "NORMAL",
+      "layer": "CUTOUT_MIPPED",
+      "textures": [],
+      "extra": {
+        "light": 15
+      }
+    }
 }

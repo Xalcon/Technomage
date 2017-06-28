@@ -23,13 +23,13 @@ public class ImbuedOreColor implements IItemColor, IBlockColor
     @SideOnly(Side.CLIENT)
     public int getColorFromItemstack(ItemStack stack, int tintIndex)
     {
-        return TMImbuedOreType.getFromMeta(stack.getMetadata()).getColor();
+        return tintIndex == 1 ? TMImbuedOreType.getFromMeta(stack.getMetadata()).getColor() : -1;
     }
 
     @Override
     @SideOnly(Side.CLIENT)
     public int colorMultiplier(IBlockState state, @Nullable IBlockAccess worldIn, @Nullable BlockPos pos, int tintIndex)
     {
-        return state.getValue(BlockImbuedOre.ORE_TYPE).getColor();
+        return tintIndex == 1 ? state.getValue(BlockImbuedOre.ORE_TYPE).getColor() : -1;
     }
 }
