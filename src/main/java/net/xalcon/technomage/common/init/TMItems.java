@@ -1,7 +1,6 @@
 package net.xalcon.technomage.common.init;
 
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
-import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.ModelRegistryEvent;
@@ -13,7 +12,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.xalcon.technomage.Technomage;
-import net.xalcon.technomage.client.colors.ImbuedOreColor;
+import net.xalcon.technomage.client.colors.ImbuedShardColor;
 import net.xalcon.technomage.common.CreativeTabsTechnomage;
 import net.xalcon.technomage.common.items.*;
 import net.xalcon.technomage.lib.client.events.ColorRegistrationEvent;
@@ -104,6 +103,6 @@ public class TMItems
     @SubscribeEvent
     public static void onRegisterColors(ColorRegistrationEvent event)
     {
-        event.getItemColors().registerItemColorHandler(ImbuedOreColor.INSTANCE, imbuedShard);
+        event.getItemColors().registerItemColorHandler(ImbuedShardColor.INSTANCE, imbuedShard);
     }
 }

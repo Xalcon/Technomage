@@ -23,13 +23,13 @@ public class LeavesColor implements IBlockColor, IItemColor
     @SideOnly(Side.CLIENT)
     public int colorMultiplier(IBlockState state, @Nullable IBlockAccess worldIn, @Nullable BlockPos pos, int tintIndex)
     {
-        return tintIndex == 1 ? state.getValue(BlockTMLog.TYPE).getLeafColor() : -1;
+        return tintIndex == 0 ? state.getValue(BlockTMLog.TYPE).getLeafColor() : -1;
     }
 
     @Override
     @SideOnly(Side.CLIENT)
     public int getColorFromItemstack(ItemStack stack, int tintIndex)
     {
-        return tintIndex == 1 ? TMTreeType.getFromMeta(stack.getMetadata()).getLeafColor() : -1;
+        return tintIndex == 0 ? TMTreeType.getFromMeta(stack.getMetadata()).getLeafColor() : -1;
     }
 }

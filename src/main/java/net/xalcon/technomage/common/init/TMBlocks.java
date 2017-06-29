@@ -2,8 +2,6 @@ package net.xalcon.technomage.common.init;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
-import net.minecraft.client.renderer.color.IBlockColor;
-import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
@@ -20,11 +18,12 @@ import net.xalcon.technomage.api.multiblock.MultiblockRegistry;
 import net.xalcon.technomage.client.colors.ImbuedOreColor;
 import net.xalcon.technomage.client.colors.LeavesColor;
 import net.xalcon.technomage.common.CreativeTabsTechnomage;
-import net.xalcon.technomage.common.blocks.*;
+import net.xalcon.technomage.common.blocks.ITechnomageTileEntityProvider;
 import net.xalcon.technomage.common.blocks.crafting.BlockAlchemicalCauldron;
 import net.xalcon.technomage.common.blocks.crafting.BlockAmalgamationAltar;
 import net.xalcon.technomage.common.blocks.crafting.BlockConstructionTable;
 import net.xalcon.technomage.common.blocks.crafting.BlockPedestal;
+import net.xalcon.technomage.common.blocks.decorative.BlockTMPlanks;
 import net.xalcon.technomage.common.blocks.decorative.BlockTMWoodSlab;
 import net.xalcon.technomage.common.blocks.decorative.BlockTMWoodStair;
 import net.xalcon.technomage.common.blocks.multiblocks.BlockBrickFurnace;
@@ -33,14 +32,15 @@ import net.xalcon.technomage.common.blocks.world.BlockImbuedOre;
 import net.xalcon.technomage.common.blocks.world.BlockPlant;
 import net.xalcon.technomage.common.blocks.world.BlockTMLeaves;
 import net.xalcon.technomage.common.blocks.world.BlockTMLog;
-import net.xalcon.technomage.common.blocks.decorative.BlockTMPlanks;
 import net.xalcon.technomage.common.multiblocks.MultiblockBrickFurnace;
 import net.xalcon.technomage.lib.client.events.ColorRegistrationEvent;
 import net.xalcon.technomage.lib.item.IItemBlockProvider;
 import net.xalcon.technomage.lib.utils.ClassUtils;
 
 import java.lang.reflect.Field;
-import java.util.*;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Mod.EventBusSubscriber

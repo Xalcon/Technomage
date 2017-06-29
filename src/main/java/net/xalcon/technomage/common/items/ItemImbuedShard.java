@@ -1,15 +1,12 @@
 package net.xalcon.technomage.common.items;
 
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
-import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 import net.xalcon.technomage.Technomage;
 import net.xalcon.technomage.common.blocks.properties.TMImbuedOreType;
 import net.xalcon.technomage.lib.item.IItemModelRegisterHandler;

@@ -1,18 +1,17 @@
 package net.xalcon.technomage.common.items;
 
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.projectile.EntitySnowball;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.SoundCategory;
+import net.minecraft.util.*;
 import net.minecraft.world.World;
+import net.minecraftforge.client.model.ModelLoader;
 import net.xalcon.technomage.common.entities.EntityBoomerang;
+import net.xalcon.technomage.lib.item.IItemModelRegisterHandler;
 
-public class ItemBoomerang extends Item
+public class ItemBoomerang extends Item implements IItemModelRegisterHandler
 {
     /**
      * Called when the equipped item is right clicked.
@@ -37,5 +36,13 @@ public class ItemBoomerang extends Item
             worldIn.spawnEntity(boomerang);
         }
         return new ActionResult<>(EnumActionResult.SUCCESS, playerIn.getHeldItem(handIn));
+    }
+
+    @Override
+    public void registerItemModels(Item item)
+    {
+        ResourceLocation rl = item.getRegistryName();
+        assert rl != null;
+        ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(rl, "inventory"));
     }
 }
