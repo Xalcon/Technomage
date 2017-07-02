@@ -15,6 +15,8 @@ import net.xalcon.technomage.Technomage;
 import net.xalcon.technomage.client.colors.ImbuedShardColor;
 import net.xalcon.technomage.common.CreativeTabsTechnomage;
 import net.xalcon.technomage.common.items.*;
+import net.xalcon.technomage.common.items.tools.ItemPickaxe;
+import net.xalcon.technomage.common.items.tools.ItemSword;
 import net.xalcon.technomage.lib.client.events.ColorRegistrationEvent;
 import net.xalcon.technomage.lib.item.IItemModelRegisterHandler;
 import net.xalcon.technomage.lib.utils.ClassUtils;
@@ -47,6 +49,13 @@ public class TMItems
 
     @GameRegistry.ObjectHolder("boomerang")
     private final static ItemBoomerang boomerang = null;
+
+    @GameRegistry.ObjectHolder(ItemIngot.INTERNAL_NAME)
+    private final static ItemIngot ingot = null;
+
+    @GameRegistry.ObjectHolder("arkanium_pickaxe")
+    @ItemPickaxe.InstanceParameters(TMMaterial.ARKANIUM)
+    private final static ItemPickaxe arkaniumPickaxe = null;
 
     @SuppressWarnings("ConstantConditions")
     public static ItemLeystoneWand leystoneWand() { return leystoneWand; }
@@ -105,4 +114,5 @@ public class TMItems
     {
         event.getItemColors().registerItemColorHandler(ImbuedShardColor.INSTANCE, imbuedShard);
     }
+
 }

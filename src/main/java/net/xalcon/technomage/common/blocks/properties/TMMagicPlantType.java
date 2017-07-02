@@ -2,7 +2,7 @@ package net.xalcon.technomage.common.blocks.properties;
 
 import net.minecraft.util.IStringSerializable;
 
-public enum TMMagicPlantType implements IStringSerializable, IMetaBlock
+public enum TMMagicPlantType implements IStringSerializable, IMetaData
 {
     INCINERLILY(0);
 

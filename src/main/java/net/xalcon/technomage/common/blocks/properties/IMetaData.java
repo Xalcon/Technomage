@@ -1,6 +1,6 @@
 package net.xalcon.technomage.common.blocks.properties;
 
-public interface IMetaBlock
+public interface IMetaData
 {
     int getMeta();
 }

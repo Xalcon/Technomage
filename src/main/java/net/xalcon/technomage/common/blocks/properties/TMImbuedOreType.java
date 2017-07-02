@@ -2,7 +2,7 @@ package net.xalcon.technomage.common.blocks.properties;
 
 import net.minecraft.util.IStringSerializable;
 
-public enum TMImbuedOreType implements IStringSerializable, IMetaBlock
+public enum TMImbuedOreType implements IStringSerializable, IMetaData
 {
     EARTH(0, 0x00CC00),
     FIRE(1, 0xFF0000),

@@ -3,7 +3,7 @@ package net.xalcon.technomage.common.blocks.properties;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.util.IStringSerializable;
 
-public enum TMTreeType implements IStringSerializable, IMetaBlock
+public enum TMTreeType implements IStringSerializable, IMetaData
 {
     ELDER(0,MapColor.WOOD, 0xFF33AA22),
     LEY(1, MapColor.CLOTH, 0xFF0066AA),

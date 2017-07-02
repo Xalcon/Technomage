@@ -2,13 +2,12 @@ package net.xalcon.technomage;
 
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
-import net.minecraftforge.fml.common.event.FMLConstructionEvent;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.event.*;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.xalcon.technomage.common.GuiHandlerTechnomage;
 import net.xalcon.technomage.common.IProxy;
+import net.xalcon.technomage.common.commands.CommandTechnomage;
+import net.xalcon.technomage.common.init.TMDimensions;
 import net.xalcon.technomage.common.init.TMRecipes;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -43,8 +42,15 @@ public class Technomage
     }
 
     @Mod.EventHandler
+    public static void onServerStarting(FMLServerStartingEvent event)
+    {
+        event.registerServerCommand(new CommandTechnomage());
+    }
+
+    @Mod.EventHandler
     public static void onPreInit(FMLPreInitializationEvent event)
     {
+        TMDimensions.init();
         Proxy.preInit(event);
         NetworkRegistry.INSTANCE.registerGuiHandler(instance, new GuiHandlerTechnomage());
     }

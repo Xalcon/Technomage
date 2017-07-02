@@ -1,4 +1,4 @@
-package net.xalcon.technomage.common.items;
+package net.xalcon.technomage.common.items.tools;
 
 import com.google.common.collect.Multimap;
 import net.minecraft.entity.SharedMonsterAttributes;
