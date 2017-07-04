@@ -28,6 +28,7 @@ public class BlockTMWoodStair extends BlockStairs implements IItemBlockProvider
     private BlockTMWoodStair(TMTreeType woodType)
     {
         super(getPlanksBlockState(woodType));
+        this.useNeighborBrightness = true;
     }
 
     @Override

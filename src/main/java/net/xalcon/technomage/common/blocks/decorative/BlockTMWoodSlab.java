@@ -27,6 +27,7 @@ public class BlockTMWoodSlab extends BlockSlab implements IItemBlockProvider
     public BlockTMWoodSlab()
     {
         super(Material.WOOD);
+        this.useNeighborBrightness = true;
     }
 
     @Override
