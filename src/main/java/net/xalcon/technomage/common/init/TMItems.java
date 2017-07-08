@@ -15,6 +15,7 @@ import net.xalcon.technomage.Technomage;
 import net.xalcon.technomage.client.colors.ImbuedShardColor;
 import net.xalcon.technomage.common.CreativeTabsTechnomage;
 import net.xalcon.technomage.common.items.*;
+import net.xalcon.technomage.common.items.tools.ItemLeylightBow;
 import net.xalcon.technomage.common.items.tools.ItemPickaxe;
 import net.xalcon.technomage.common.items.tools.ItemSword;
 import net.xalcon.technomage.lib.client.events.ColorRegistrationEvent;
@@ -57,6 +58,9 @@ public class TMItems
     @ItemPickaxe.InstanceParameters(TMMaterial.ARKANIUM)
     private final static ItemPickaxe arkaniumPickaxe = null;
 
+    @GameRegistry.ObjectHolder("leylight_bow")
+    private final static ItemLeylightBow leylightBow = null;
+
     @SuppressWarnings("ConstantConditions")
     public static ItemLeystoneWand leystoneWand() { return leystoneWand; }
 
@@ -68,6 +72,9 @@ public class TMItems
     {
         return boomerang;
     }
+
+    @SuppressWarnings("ConstantConditions")
+    public static ItemLeylightBow leylightBow() { return leylightBow; }
 
     @SubscribeEvent
     public static void onRegisterItems(RegistryEvent.Register<Item> event)

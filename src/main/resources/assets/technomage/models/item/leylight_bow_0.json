@@ -1,0 +1,6 @@
+{
+    "parent": "technomage:item/leylight_bow",
+    "textures": {
+        "layer0": "technomage:items/leylight_bow_0"
+    }
+}
