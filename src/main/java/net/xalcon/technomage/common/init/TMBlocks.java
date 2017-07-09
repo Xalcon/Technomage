@@ -28,6 +28,7 @@ import net.xalcon.technomage.common.blocks.decorative.BlockTMWoodSlab;
 import net.xalcon.technomage.common.blocks.decorative.BlockTMWoodStair;
 import net.xalcon.technomage.common.blocks.multiblocks.BlockBrickFurnace;
 import net.xalcon.technomage.common.blocks.properties.TMTreeType;
+import net.xalcon.technomage.common.blocks.transport.BlockOrbMount;
 import net.xalcon.technomage.common.blocks.world.BlockImbuedOre;
 import net.xalcon.technomage.common.blocks.world.BlockPlant;
 import net.xalcon.technomage.common.blocks.world.BlockTMLeaves;
@@ -96,6 +97,8 @@ public class TMBlocks
     @GameRegistry.ObjectHolder(BlockTMLeaves.INTERNAL_NAME)
     private final static BlockTMLeaves leaves = null;
 
+    @GameRegistry.ObjectHolder(BlockOrbMount.INTERNAL_NAME)
+    private final static BlockOrbMount orbMount = null;
 
     //region getter Methods
 

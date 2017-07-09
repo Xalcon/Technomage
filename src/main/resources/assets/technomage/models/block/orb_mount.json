@@ -1,0 +1,169 @@
+{
+	"parent": "block/block",
+	"__comment": "Designed by Xalcon with Cubik Studio - https://cubik.studio",
+	"textures": {
+		"particle": "technomage:blocks/orb_mount",
+		"orb_mount": "technomage:blocks/orb_mount"
+	},
+	"elements": [ 	 
+		{
+			"__comment": "arm_west_0",
+			"from": [ 4, 5, 7 ],
+			"to": [ 6, 6, 9 ],
+			"faces": {
+				"down": { "uv": [ 8, 4, 10, 6 ], "texture": "#orb_mount" },
+				"up": { "uv": [ 8, 4, 10, 6 ], "texture": "#orb_mount" },
+				"north": { "uv": [ 8, 7, 10, 8 ], "texture": "#orb_mount" },
+				"south": { "uv": [ 8, 7, 10, 8 ], "texture": "#orb_mount" }
+			}
+		},
+		{
+			"__comment": "arm_west_1",
+			"from": [ 3, 5, 7 ],
+			"to": [ 4, 10, 9 ],
+			"faces": {
+				"down": { "uv": [ 12, 6, 13, 8 ], "texture": "#orb_mount" },
+				"up": { "uv": [ 12, 6, 13, 8 ], "texture": "#orb_mount" },
+				"north": { "uv": [ 13, 3, 14, 8 ], "texture": "#orb_mount" },
+				"south": { "uv": [ 13, 3, 14, 8 ], "texture": "#orb_mount" },
+				"west": { "uv": [ 14, 3, 16, 8 ], "texture": "#orb_mount" },
+				"east": { "uv": [ 10, 4, 12, 9 ], "texture": "#orb_mount" }
+			}
+		},
+		{
+			"__comment": "stand",
+			"from": [ 5, 0, 5 ],
+			"to": [ 11, 1, 11 ],
+			"faces": {
+				"down": { "uv": [ 0, 0, 6, 6 ], "texture": "#orb_mount", "cullface": "down" },
+				"up": { "uv": [ 0, 0, 6, 6 ], "texture": "#orb_mount" },
+				"north": { "uv": [ 0, 6, 6, 7 ], "texture": "#orb_mount" },
+				"south": { "uv": [ 0, 6, 6, 7 ], "texture": "#orb_mount" },
+				"west": { "uv": [ 0, 6, 6, 7 ], "texture": "#orb_mount" },
+				"east": { "uv": [ 0, 6, 6, 7 ], "texture": "#orb_mount" }
+			}
+		},
+		{
+			"__comment": "orb",
+			"from": [ 5, 7, 5 ],
+			"to": [ 11, 13, 11 ],
+			"faces": {
+				"down": { "uv": [ 0, 8, 6, 14 ], "texture": "#orb_mount" },
+				"up": { "uv": [ 0, 8, 6, 14 ], "texture": "#orb_mount" },
+				"north": { "uv": [ 0, 8, 6, 14 ], "texture": "#orb_mount" },
+				"south": { "uv": [ 0, 8, 6, 14 ], "texture": "#orb_mount" },
+				"west": { "uv": [ 0, 8, 6, 14 ], "texture": "#orb_mount" },
+				"east": { "uv": [ 0, 8, 6, 14 ], "texture": "#orb_mount" }
+			}
+		},
+		{
+			"__comment": "center_block",
+			"from": [ 6, 4, 6 ],
+			"to": [ 10, 6, 10 ],
+			"faces": {
+				"down": { "uv": [ 8, 0, 12, 4 ], "texture": "#orb_mount" },
+				"up": { "uv": [ 8, 0, 12, 4 ], "texture": "#orb_mount" },
+				"north": { "uv": [ 12, 0, 16, 2 ], "texture": "#orb_mount" },
+				"south": { "uv": [ 12, 0, 16, 2 ], "texture": "#orb_mount" },
+				"west": { "uv": [ 12, 0, 16, 2 ], "texture": "#orb_mount" },
+				"east": { "uv": [ 12, 0, 16, 2 ], "texture": "#orb_mount" }
+			}
+		},
+		{
+			"__comment": "center_pillar",
+			"from": [ 7, 1, 7 ],
+			"to": [ 9, 4, 9 ],
+			"faces": {
+				"north": { "uv": [ 6, 0, 8, 3 ], "texture": "#orb_mount" },
+				"south": { "uv": [ 6, 0, 8, 3 ], "texture": "#orb_mount" },
+				"west": { "uv": [ 6, 0, 8, 3 ], "texture": "#orb_mount" },
+				"east": { "uv": [ 6, 0, 8, 3 ], "texture": "#orb_mount" }
+			}
+		},
+		{
+			"__comment": "arm_north_1",
+			"from": [ 7, 5, 3 ],
+			"to": [ 9, 10, 4 ],
+			"faces": {
+				"down": { "uv": [ 12, 2, 14, 3 ], "texture": "#orb_mount" },
+				"up": { "uv": [ 12, 2, 14, 3 ], "texture": "#orb_mount" },
+				"north": { "uv": [ 14, 3, 16, 8 ], "texture": "#orb_mount" },
+				"south": { "uv": [ 10, 4, 12, 9 ], "texture": "#orb_mount" },
+				"west": { "uv": [ 13, 3, 14, 8 ], "texture": "#orb_mount" },
+				"east": { "uv": [ 13, 3, 14, 8 ], "texture": "#orb_mount" }
+			}
+		},
+		{
+			"__comment": "arm_north_0",
+			"from": [ 7, 5, 4 ],
+			"to": [ 9, 6, 6 ],
+			"faces": {
+				"down": { "uv": [ 8, 4, 10, 6 ], "texture": "#orb_mount" },
+				"up": { "uv": [ 8, 4, 10, 6 ], "texture": "#orb_mount" },
+				"west": { "uv": [ 8, 7, 10, 8 ], "texture": "#orb_mount" },
+				"east": { "uv": [ 8, 7, 10, 8 ], "texture": "#orb_mount" }
+			}
+		},
+		{
+			"__comment": "arm_south_0",
+			"from": [ 7, 5, 10 ],
+			"to": [ 9, 6, 12 ],
+			"faces": {
+				"down": { "uv": [ 8, 4, 10, 6 ], "texture": "#orb_mount" },
+				"up": { "uv": [ 8, 4, 10, 6 ], "texture": "#orb_mount" },
+				"west": { "uv": [ 8, 7, 10, 8 ], "texture": "#orb_mount" },
+				"east": { "uv": [ 8, 7, 10, 8 ], "texture": "#orb_mount" }
+			}
+		},
+		{
+			"__comment": "arm_south_1",
+			"from": [ 7, 5, 12 ],
+			"to": [ 9, 10, 13 ],
+			"faces": {
+				"down": { "uv": [ 12, 2, 14, 3 ], "texture": "#orb_mount" },
+				"up": { "uv": [ 12, 2, 14, 3 ], "texture": "#orb_mount" },
+				"north": { "uv": [ 10, 4, 12, 9 ], "texture": "#orb_mount" },
+				"south": { "uv": [ 14, 3, 16, 8 ], "texture": "#orb_mount" },
+				"west": { "uv": [ 13, 3, 14, 8 ], "texture": "#orb_mount" },
+				"east": { "uv": [ 13, 3, 14, 8 ], "texture": "#orb_mount" }
+			}
+		},
+		{
+			"__comment": "arm_east_0",
+			"from": [ 10, 5, 7 ],
+			"to": [ 12, 6, 9 ],
+			"faces": {
+				"down": { "uv": [ 8, 4, 10, 6 ], "texture": "#orb_mount" },
+				"up": { "uv": [ 8, 4, 10, 6 ], "texture": "#orb_mount" },
+				"north": { "uv": [ 8, 7, 10, 8 ], "texture": "#orb_mount" },
+				"south": { "uv": [ 8, 7, 10, 8 ], "texture": "#orb_mount" }
+			}
+		},
+		{
+			"__comment": "arm_east_1",
+			"from": [ 12, 5, 7 ],
+			"to": [ 13, 10, 9 ],
+			"faces": {
+				"down": { "uv": [ 12, 6, 13, 8 ], "texture": "#orb_mount" },
+				"up": { "uv": [ 12, 6, 13, 8 ], "texture": "#orb_mount" },
+				"north": { "uv": [ 13, 3, 14, 8 ], "texture": "#orb_mount" },
+				"south": { "uv": [ 13, 3, 14, 8 ], "texture": "#orb_mount" },
+				"west": { "uv": [ 10, 4, 12, 9 ], "texture": "#orb_mount" },
+				"east": { "uv": [ 14, 3, 16, 8 ], "texture": "#orb_mount" }
+			}
+		},
+		{
+			"__comment": "arm_east_1",
+			"from": [ 12, 5, 7 ],
+			"to": [ 13, 10, 9 ],
+			"faces": {
+				"down": { "uv": [ 12, 6, 13, 8 ], "texture": "#orb_mount" },
+				"up": { "uv": [ 12, 6, 13, 8 ], "texture": "#orb_mount" },
+				"north": { "uv": [ 13, 3, 14, 8 ], "texture": "#orb_mount" },
+				"south": { "uv": [ 13, 3, 14, 8 ], "texture": "#orb_mount" },
+				"west": { "uv": [ 10, 4, 12, 9 ], "texture": "#orb_mount" },
+				"east": { "uv": [ 14, 3, 16, 8 ], "texture": "#orb_mount" }
+			}
+		}
+	]
+}
