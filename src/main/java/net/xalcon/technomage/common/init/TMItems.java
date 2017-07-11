@@ -61,6 +61,9 @@ public class TMItems
     @GameRegistry.ObjectHolder("leylight_bow")
     private final static ItemLeylightBow leylightBow = null;
 
+    @GameRegistry.ObjectHolder(ItemTranslocationOrb.INTERNAL_NAME)
+    private final static ItemTranslocationOrb translocationOrb = null;
+
     @SuppressWarnings("ConstantConditions")
     public static ItemLeystoneWand leystoneWand() { return leystoneWand; }
 
