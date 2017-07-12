@@ -33,17 +33,7 @@ public class ItemTranslocationOrb extends Item implements IItemModelRegisterHand
 
         if(stack.hasTagCompound())
         {
-            //playerIn.sendStatusMessage(new TextComponentTranslation(this.getUnlocalizedName() + ".already_bound"), true);
-            if(worldIn.isRemote) return new ActionResult<>(EnumActionResult.PASS, playerIn.getHeldItem(handIn));
-            NBTTagCompound nbt = stack.getTagCompound();
-            int dim = nbt.getInteger("dim");
-            int x = nbt.getInteger("x");
-            int y = nbt.getInteger("y");
-            int z = nbt.getInteger("z");
-            EntityPlayerMP playerMP = (EntityPlayerMP)playerIn;
-            if(dim != worldIn.provider.getDimension())
-                FMLClientHandler.instance().getServer().getPlayerList().transferPlayerToDimension(playerMP, dim, new TeleportDungeonDim(playerMP.getServerWorld()));
-            playerIn.setPositionAndUpdate(x + 0.5f, y + 0.5f, z + 0.5f);
+            playerIn.sendStatusMessage(new TextComponentTranslation(this.getUnlocalizedName() + ".already_bound"), true);
             return new ActionResult<>(EnumActionResult.FAIL, playerIn.getHeldItem(handIn));
         }
 
@@ -60,6 +50,21 @@ public class ItemTranslocationOrb extends Item implements IItemModelRegisterHand
         stack.setTagInfo("z", new NBTTagInt(playerPos.getZ()));
 
         return super.onItemRightClick(worldIn, playerIn, handIn);
+    }
+
+    public void doTeleport(World worldIn, EntityPlayer playerIn, ItemStack stack)
+    {
+        if(worldIn.isRemote) return;
+        NBTTagCompound nbt = stack.getTagCompound();
+        if(nbt == null) return;
+        int dim = nbt.getInteger("dim");
+        int x = nbt.getInteger("x");
+        int y = nbt.getInteger("y");
+        int z = nbt.getInteger("z");
+        EntityPlayerMP playerMP = (EntityPlayerMP)playerIn;
+        if(dim != worldIn.provider.getDimension())
+            FMLClientHandler.instance().getServer().getPlayerList().transferPlayerToDimension(playerMP, dim, new TeleportDungeonDim(playerMP.getServerWorld()));
+        playerIn.setPositionAndUpdate(x + 0.5f, y + 0.5f, z + 0.5f);
     }
 
     @Override

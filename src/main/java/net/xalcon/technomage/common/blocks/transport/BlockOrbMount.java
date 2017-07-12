@@ -8,6 +8,7 @@ import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
@@ -15,12 +16,16 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.xalcon.technomage.common.blocks.ITechnomageTileEntityProvider;
+import net.xalcon.technomage.common.items.ItemTranslocationOrb;
 import net.xalcon.technomage.common.tileentities.TileEntityOrbMount;
+import net.xalcon.technomage.lib.WorldHelper;
 import net.xalcon.technomage.lib.item.IItemBlockProvider;
 
 import javax.annotation.Nullable;
 
-public class BlockOrbMount extends Block implements IItemBlockProvider
+public class BlockOrbMount extends Block implements IItemBlockProvider, ITechnomageTileEntityProvider
 {
     public final static PropertyEnum<EnumFacing> FACING = PropertyEnum.create("facing", EnumFacing.class);
     public final static PropertyBool HAS_ORB = PropertyBool.create("has_orb");
@@ -53,14 +58,21 @@ public class BlockOrbMount extends Block implements IItemBlockProvider
     public IBlockState getStateFromMeta(int meta)
     {
         return this.getDefaultState()
-                .withProperty(FACING, EnumFacing.getFront(meta & 0b0111))
-                .withProperty(HAS_ORB, (meta & 0b1000) > 0);
+                .withProperty(FACING, EnumFacing.getFront(meta & 0b0111));
     }
 
     @Override
     public int getMetaFromState(IBlockState state)
     {
-        return (state.getValue(FACING).getIndex() & 0b0111) | (state.getValue(HAS_ORB) ? 0b1000 : 0);
+        return (state.getValue(FACING).getIndex() & 0b0111);
+    }
+
+    @SuppressWarnings("deprecation")
+    @Override
+    public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos)
+    {
+        TileEntityOrbMount te = WorldHelper.getTileEntitySafe(worldIn, pos, TileEntityOrbMount.class);
+        return state.withProperty(HAS_ORB, te != null && !te.getOrbItemStack().isEmpty());
     }
 
     @Override
@@ -79,7 +91,33 @@ public class BlockOrbMount extends Block implements IItemBlockProvider
     @Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
     {
-        worldIn.setBlockState(pos, state.withProperty(HAS_ORB, !state.getValue(HAS_ORB)));
+        System.out.println("onBlockActivated!");
+        TileEntityOrbMount te = WorldHelper.getTileEntitySafe(worldIn, pos, TileEntityOrbMount.class);
+        if(te != null)
+        {
+            ItemStack orb = te.getOrbItemStack();
+            if(orb.isEmpty())
+            {
+                ItemStack heldItem = playerIn.getHeldItem(hand);
+                if(heldItem.getItem() instanceof ItemTranslocationOrb && heldItem.hasTagCompound())
+                {
+                    te.setOrbItemStack(heldItem.splitStack(1));
+                    worldIn.notifyBlockUpdate(pos, state, state, 3);
+                }
+            }
+            else if(playerIn.isSneaking())
+            {
+                if(playerIn.getHeldItem(hand).isEmpty())
+                {
+                    playerIn.addItemStackToInventory(orb.splitStack(1));
+                    worldIn.notifyBlockUpdate(pos, state, state, 3);
+                }
+            }
+            else if(orb.getItem() instanceof ItemTranslocationOrb)
+            {
+                ((ItemTranslocationOrb) orb.getItem()).doTeleport(worldIn, playerIn, orb);
+            }
+        }
         return true;
     }
 
@@ -103,9 +141,15 @@ public class BlockOrbMount extends Block implements IItemBlockProvider
         return true;
     }
 
+    @Override
+    public void registerTileEntities()
+    {
+        GameRegistry.registerTileEntity(TileEntityOrbMount.class, this.getRegistryName().toString());
+    }
+
     @Nullable
     @Override
-    public TileEntity createTileEntity(World world, IBlockState state)
+    public TileEntity createNewTileEntity(World worldIn, int meta)
     {
         return new TileEntityOrbMount();
     }

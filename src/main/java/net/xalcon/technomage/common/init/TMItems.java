@@ -79,6 +79,12 @@ public class TMItems
     @SuppressWarnings("ConstantConditions")
     public static ItemLeylightBow leylightBow() { return leylightBow; }
 
+    @SuppressWarnings("ConstantConditions")
+    public static ItemTranslocationOrb translocationOrb()
+    {
+        return translocationOrb;
+    }
+
     @SubscribeEvent
     public static void onRegisterItems(RegistryEvent.Register<Item> event)
     {
