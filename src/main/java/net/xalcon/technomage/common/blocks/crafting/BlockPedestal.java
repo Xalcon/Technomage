@@ -10,23 +10,22 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import net.xalcon.technomage.common.blocks.ITechnomageTileEntityProvider;
 import net.xalcon.technomage.common.tileentities.TileEntityPedestal;
 import net.xalcon.technomage.lib.item.IItemBlockProvider;
+import net.xalcon.technomage.lib.tiles.HasTileEntity;
 
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class BlockPedestal extends Block implements ITechnomageTileEntityProvider, IItemBlockProvider
+@HasTileEntity(teClass = TileEntityPedestal.class)
+public class BlockPedestal extends Block implements IItemBlockProvider
 {
     public final static String INTERNAL_NAME = "pedestal";
     private final static AxisAlignedBB BOTTOM_SLAB = new AxisAlignedBB(0f, 0f, 0f, 1f, 4f / 16f, 1f);
@@ -37,21 +36,6 @@ public class BlockPedestal extends Block implements ITechnomageTileEntityProvide
     public BlockPedestal()
     {
         super(Material.ROCK);
-    }
-
-    @Override
-    public void registerTileEntities()
-    {
-        ResourceLocation rl = this.getRegistryName();
-        assert rl != null;
-        GameRegistry.registerTileEntity(TileEntityPedestal.class, rl.toString());
-    }
-
-    @Nullable
-    @Override
-    public TileEntity createNewTileEntity(World worldIn, int meta)
-    {
-        return new TileEntityPedestal();
     }
 
     @Override
@@ -155,5 +139,18 @@ public class BlockPedestal extends Block implements ITechnomageTileEntityProvide
             return super.getSelectedBoundingBox(state, worldIn, pos);
         }
         return BOXES[trace.subHit].offset(pos);
+    }
+
+    @Override
+    public boolean hasTileEntity(IBlockState state)
+    {
+        return true;
+    }
+
+    @Nullable
+    @Override
+    public TileEntity createTileEntity(World world, IBlockState state)
+    {
+        return new TileEntityPedestal();
     }
 }

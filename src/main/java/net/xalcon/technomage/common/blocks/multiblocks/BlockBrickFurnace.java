@@ -13,9 +13,12 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.xalcon.technomage.Technomage;
 import net.xalcon.technomage.common.blocks.BlockTMMultiblock;
+import net.xalcon.technomage.common.tileentities.multiblock.TileEntityBrickFurnace;
+import net.xalcon.technomage.lib.tiles.HasTileEntity;
 
 import javax.annotation.Nullable;
 
+@HasTileEntity(teClass = TileEntityBrickFurnace.class)
 public class BlockBrickFurnace extends BlockTMMultiblock
 {
     public static PropertyEnum<EnumFacing> FACING = PropertyEnum.create("facing", EnumFacing.class, EnumFacing.HORIZONTALS);
@@ -27,21 +30,6 @@ public class BlockBrickFurnace extends BlockTMMultiblock
     public BlockBrickFurnace()
     {
         super(Material.ROCK);
-    }
-
-    @Override
-    public void registerTileEntities()
-    {
-        /*ResourceLocation rl = this.getRegistryName();
-        assert rl != null;
-        GameRegistry.registerTileEntity(TileEntityAmalgamationAltar.class, rl.toString());*/
-    }
-
-    @Nullable
-    @Override
-    public TileEntity createNewTileEntity(World worldIn, int meta)
-    {
-        return null;
     }
 
     @Override
@@ -78,5 +66,12 @@ public class BlockBrickFurnace extends BlockTMMultiblock
     {
         playerIn.openGui(Technomage.getInstance(), 1, worldIn, pos.getX(), pos.getY(), pos.getZ());
         return true;
+    }
+
+    @Nullable
+    @Override
+    public TileEntity createTileEntity(World world, IBlockState state)
+    {
+        return new TileEntityBrickFurnace();
     }
 }

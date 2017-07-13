@@ -8,18 +8,17 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.xalcon.technomage.common.blocks.ITechnomageTileEntityProvider;
 import net.xalcon.technomage.common.init.TMItems;
 import net.xalcon.technomage.common.tileentities.TileEntityAmalgamationAltar;
 import net.xalcon.technomage.lib.item.IItemBlockProvider;
+import net.xalcon.technomage.lib.tiles.HasTileEntity;
 
 import javax.annotation.Nullable;
 
-public class BlockAmalgamationAltar extends Block implements ITechnomageTileEntityProvider, IItemBlockProvider
+@HasTileEntity(teClass = TileEntityAmalgamationAltar.class)
+public class BlockAmalgamationAltar extends Block implements IItemBlockProvider
 {
     public final static String INTERNAL_NAME = "amalgamation_altar";
     public BlockAmalgamationAltar()
@@ -75,16 +74,14 @@ public class BlockAmalgamationAltar extends Block implements ITechnomageTileEnti
     }
 
     @Override
-    public void registerTileEntities()
+    public boolean hasTileEntity(IBlockState state)
     {
-        ResourceLocation rl = this.getRegistryName();
-        assert rl != null;
-        GameRegistry.registerTileEntity(TileEntityAmalgamationAltar.class, rl.toString());
+        return true;
     }
 
     @Nullable
     @Override
-    public TileEntity createNewTileEntity(World worldIn, int meta)
+    public TileEntity createTileEntity(World world, IBlockState state)
     {
         return new TileEntityAmalgamationAltar();
     }

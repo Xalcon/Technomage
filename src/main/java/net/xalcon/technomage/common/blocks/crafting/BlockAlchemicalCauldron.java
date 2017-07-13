@@ -11,7 +11,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -20,15 +19,15 @@ import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandlerItem;
-import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.xalcon.technomage.common.blocks.ITechnomageTileEntityProvider;
 import net.xalcon.technomage.common.tileentities.TileEntityAlchemicalCauldron;
 import net.xalcon.technomage.lib.item.IItemBlockProvider;
+import net.xalcon.technomage.lib.tiles.HasTileEntity;
 
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class BlockAlchemicalCauldron extends Block implements ITechnomageTileEntityProvider, IItemBlockProvider
+@HasTileEntity(teClass = TileEntityAlchemicalCauldron.class)
+public class BlockAlchemicalCauldron extends Block implements IItemBlockProvider
 {
     public final static String INTERNAL_NAME = "alchemical_cauldron";
 
@@ -38,16 +37,14 @@ public class BlockAlchemicalCauldron extends Block implements ITechnomageTileEnt
     }
 
     @Override
-    public void registerTileEntities()
+    public boolean hasTileEntity(IBlockState state)
     {
-        ResourceLocation rl = this.getRegistryName();
-        assert rl != null;
-        GameRegistry.registerTileEntity(TileEntityAlchemicalCauldron.class, rl.toString());
+        return true;
     }
 
     @Nullable
     @Override
-    public TileEntity createNewTileEntity(World worldIn, int meta)
+    public TileEntity createTileEntity(World world, IBlockState state)
     {
         return new TileEntityAlchemicalCauldron();
     }

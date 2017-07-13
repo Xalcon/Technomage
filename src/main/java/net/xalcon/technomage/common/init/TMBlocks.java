@@ -18,7 +18,6 @@ import net.xalcon.technomage.api.multiblock.MultiblockRegistry;
 import net.xalcon.technomage.client.colors.ImbuedOreColor;
 import net.xalcon.technomage.client.colors.LeavesColor;
 import net.xalcon.technomage.common.CreativeTabsTechnomage;
-import net.xalcon.technomage.common.blocks.ITechnomageTileEntityProvider;
 import net.xalcon.technomage.common.blocks.crafting.BlockAlchemicalCauldron;
 import net.xalcon.technomage.common.blocks.crafting.BlockAmalgamationAltar;
 import net.xalcon.technomage.common.blocks.crafting.BlockConstructionTable;
@@ -36,6 +35,8 @@ import net.xalcon.technomage.common.blocks.world.BlockTMLog;
 import net.xalcon.technomage.common.multiblocks.MultiblockBrickFurnace;
 import net.xalcon.technomage.lib.client.events.ColorRegistrationEvent;
 import net.xalcon.technomage.lib.item.IItemBlockProvider;
+import net.xalcon.technomage.lib.tiles.HasTileEntities;
+import net.xalcon.technomage.lib.tiles.HasTileEntity;
 import net.xalcon.technomage.lib.utils.ClassUtils;
 
 import java.lang.reflect.Field;
@@ -130,8 +131,14 @@ public class TMBlocks
             block.setCreativeTab(CreativeTabsTechnomage.tabMain);
             event.getRegistry().register(block);
 
-            if(block instanceof ITechnomageTileEntityProvider)
-                ((ITechnomageTileEntityProvider) block).registerTileEntities();
+            HasTileEntity tile = block.getClass().getDeclaredAnnotation(HasTileEntity.class);
+            if(tile != null)
+            {
+                ResourceLocation rl = block.getRegistryName();
+                assert rl != null;
+                String teName = tile.name().isEmpty() ? rl.toString() : tile.name();
+                GameRegistry.registerTileEntity(tile.teClass(), teName);
+            }
         }
     }
 

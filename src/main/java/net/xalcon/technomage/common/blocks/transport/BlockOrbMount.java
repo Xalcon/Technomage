@@ -16,16 +16,16 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.xalcon.technomage.common.blocks.ITechnomageTileEntityProvider;
 import net.xalcon.technomage.common.items.ItemTranslocationOrb;
 import net.xalcon.technomage.common.tileentities.TileEntityOrbMount;
 import net.xalcon.technomage.lib.WorldHelper;
 import net.xalcon.technomage.lib.item.IItemBlockProvider;
+import net.xalcon.technomage.lib.tiles.HasTileEntity;
 
 import javax.annotation.Nullable;
 
-public class BlockOrbMount extends Block implements IItemBlockProvider, ITechnomageTileEntityProvider
+@HasTileEntity(teClass = TileEntityOrbMount.class)
+public class BlockOrbMount extends Block implements IItemBlockProvider
 {
     public final static PropertyEnum<EnumFacing> FACING = PropertyEnum.create("facing", EnumFacing.class);
     public final static PropertyBool HAS_ORB = PropertyBool.create("has_orb");
@@ -140,15 +140,9 @@ public class BlockOrbMount extends Block implements IItemBlockProvider, ITechnom
         return true;
     }
 
-    @Override
-    public void registerTileEntities()
-    {
-        GameRegistry.registerTileEntity(TileEntityOrbMount.class, this.getRegistryName().toString());
-    }
-
     @Nullable
     @Override
-    public TileEntity createNewTileEntity(World worldIn, int meta)
+    public TileEntity createTileEntity(World world, IBlockState state)
     {
         return new TileEntityOrbMount();
     }
