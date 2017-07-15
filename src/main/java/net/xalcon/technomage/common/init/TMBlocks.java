@@ -25,6 +25,8 @@ import net.xalcon.technomage.common.blocks.crafting.BlockPedestal;
 import net.xalcon.technomage.common.blocks.decorative.BlockTMPlanks;
 import net.xalcon.technomage.common.blocks.decorative.BlockTMWoodSlab;
 import net.xalcon.technomage.common.blocks.decorative.BlockTMWoodStair;
+import net.xalcon.technomage.common.blocks.devices.BlockLeylightBore;
+import net.xalcon.technomage.common.blocks.devices.BlockLeylightBoreBase;
 import net.xalcon.technomage.common.blocks.multiblocks.BlockBrickFurnace;
 import net.xalcon.technomage.common.blocks.properties.TMTreeType;
 import net.xalcon.technomage.common.blocks.transport.BlockOrbMount;
@@ -101,12 +103,24 @@ public class TMBlocks
     @GameRegistry.ObjectHolder(BlockOrbMount.INTERNAL_NAME)
     private final static BlockOrbMount orbMount = null;
 
+    @GameRegistry.ObjectHolder(BlockLeylightBoreBase.INTERNAL_NAME)
+    private final static BlockLeylightBoreBase leylightBoreBase = null;
+
+    @GameRegistry.ObjectHolder(BlockLeylightBore.INTERNAL_NAME)
+    private final static BlockLeylightBore leylightBore = null;
+
     //region getter Methods
 
     @SuppressWarnings("ConstantConditions")
     public static BlockBrickFurnace brickFurnace()
     {
         return brickFurnace;
+    }
+
+    @SuppressWarnings("ConstantConditions")
+    public static Block leylightBoreBase()
+    {
+        return leylightBoreBase;
     }
 
     //endregion
