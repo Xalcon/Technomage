@@ -1,0 +1,17 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "textures": {
+      "manabore_base_top": "technomage:blocks/manabore_base_top",
+      "manabore_base_bottom": "technomage:blocks/manabore_base_bottom",
+      "manabore_base_sides": "technomage:blocks/manabore_base_sides",
+      "manabore_base_pipe": "technomage:blocks/manabore_base_pipe"
+    },
+    "model": "technomage:manabore_bore_base",
+    "uvlock": true
+  },
+  "variants": {
+    "normal": [{}],
+    "inventory": [{}]
+  }
+}
