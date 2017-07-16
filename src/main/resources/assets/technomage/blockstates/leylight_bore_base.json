@@ -8,10 +8,17 @@
       "manabore_base_pipe": "technomage:blocks/manabore_base_pipe"
     },
     "model": "technomage:manabore_bore_base",
-    "uvlock": true
+    "uvlock": false
   },
   "variants": {
-    "normal": [{}],
+    "facing=south,upsidedown=false": { "y": 0 },
+    "facing=north,upsidedown=false": { "y": 180 },
+    "facing=east,upsidedown=false": { "y": 270 },
+    "facing=west,upsidedown=false": { "y": 90 },
+    "facing=south,upsidedown=true": { "y": 180, "x": 180 },
+    "facing=north,upsidedown=true": { "y": 0, "x": 180 },
+    "facing=east,upsidedown=true": { "y": 90, "x": 180 },
+    "facing=west,upsidedown=true": { "y": 270, "x": 180 },
     "inventory": [{}]
   }
 }
