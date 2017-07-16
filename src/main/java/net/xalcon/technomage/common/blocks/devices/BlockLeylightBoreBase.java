@@ -75,6 +75,6 @@ public class BlockLeylightBoreBase extends Block implements IItemBlockProvider
     @Override
     public boolean canRenderInLayer(IBlockState state, BlockRenderLayer layer)
     {
-        return layer == BlockRenderLayer.CUTOUT;
+        return layer == BlockRenderLayer.TRANSLUCENT;
     }
 }
