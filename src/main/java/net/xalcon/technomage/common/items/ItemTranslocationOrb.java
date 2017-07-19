@@ -1,6 +1,5 @@
 package net.xalcon.technomage.common.items;
 
-import net.minecraft.block.BlockPortal;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.EntityPlayer;
@@ -9,13 +8,13 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagInt;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.client.FMLClientHandler;
 import net.xalcon.technomage.common.world.TeleportDungeonDim;
 import net.xalcon.technomage.lib.item.IItemModelRegisterHandler;
 
@@ -62,8 +61,9 @@ public class ItemTranslocationOrb extends Item implements IItemModelRegisterHand
         int y = nbt.getInteger("y");
         int z = nbt.getInteger("z");
         EntityPlayerMP playerMP = (EntityPlayerMP)playerIn;
-        if(dim != worldIn.provider.getDimension())
-            FMLClientHandler.instance().getServer().getPlayerList().transferPlayerToDimension(playerMP, dim, new TeleportDungeonDim(playerMP.getServerWorld()));
+        MinecraftServer server = playerMP.getServer();
+        if(server != null && dim != worldIn.provider.getDimension())
+            server.getPlayerList().transferPlayerToDimension(playerMP, dim, new TeleportDungeonDim(playerMP.getServerWorld()));
         playerIn.setPositionAndUpdate(x + 0.5f, y + 0.5f, z + 0.5f);
     }
 
