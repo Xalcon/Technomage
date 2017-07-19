@@ -37,7 +37,6 @@ import net.xalcon.technomage.common.blocks.world.BlockTMLog;
 import net.xalcon.technomage.common.multiblocks.MultiblockBrickFurnace;
 import net.xalcon.technomage.lib.client.events.ColorRegistrationEvent;
 import net.xalcon.technomage.lib.item.IItemBlockProvider;
-import net.xalcon.technomage.lib.tiles.HasTileEntities;
 import net.xalcon.technomage.lib.tiles.HasTileEntity;
 import net.xalcon.technomage.lib.utils.ClassUtils;
 

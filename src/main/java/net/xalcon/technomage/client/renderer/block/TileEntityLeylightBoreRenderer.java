@@ -1,6 +1,5 @@
 package net.xalcon.technomage.client.renderer.block;
 
-import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.xalcon.technomage.common.tileentities.TileEntityLeylightBore;
 

@@ -35,6 +35,7 @@ public class BlockLeylightBore extends Block implements IItemBlockProvider
                 || ((state = worldIn.getBlockState(pos.up())).getBlock() == TMBlocks.leylightBoreBase() && state.getValue(BlockLeylightBoreBase.UPSIDEDOWN));
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public EnumBlockRenderType getRenderType(IBlockState state)
     {

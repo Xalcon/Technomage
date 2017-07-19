@@ -12,7 +12,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.stats.StatList;
 import net.minecraft.util.*;
 import net.minecraft.world.World;
-import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.event.ForgeEventFactory;
 import net.xalcon.technomage.common.init.TMItems;
 
