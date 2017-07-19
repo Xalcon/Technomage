@@ -2,11 +2,11 @@
   "forge_marker": 1,
   "defaults":
   {
-    "model": "block"
+    "model": "technomage:bore.obj"
   },
   "variants":
   {
     "normal": [{}],
-    "inventory": [{}]
+    "inventory": [{ "transform": "forge:default-block" }]
   }
 }
