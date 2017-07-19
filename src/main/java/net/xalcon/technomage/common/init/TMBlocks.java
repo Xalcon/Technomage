@@ -122,6 +122,12 @@ public class TMBlocks
         return leylightBoreBase;
     }
 
+    @SuppressWarnings("ConstantConditions")
+    public static BlockLeylightBore leylightBore()
+    {
+        return leylightBore;
+    }
+
     //endregion
 
     static

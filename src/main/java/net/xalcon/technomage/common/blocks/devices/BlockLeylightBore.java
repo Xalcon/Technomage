@@ -6,6 +6,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -39,7 +40,7 @@ public class BlockLeylightBore extends Block implements IItemBlockProvider
     @Override
     public EnumBlockRenderType getRenderType(IBlockState state)
     {
-        return EnumBlockRenderType.MODEL;
+        return EnumBlockRenderType.ENTITYBLOCK_ANIMATED;
     }
 
     @Override
@@ -61,5 +62,18 @@ public class BlockLeylightBore extends Block implements IItemBlockProvider
     {
         super.addInformation(stack, player, tooltip, advanced);
         tooltip.add(I18n.format(this.getUnlocalizedName() + ".usage"));
+    }
+
+    @Override
+    public boolean hasTileEntity(IBlockState state)
+    {
+        return true;
+    }
+
+    @Nullable
+    @Override
+    public TileEntity createTileEntity(World world, IBlockState state)
+    {
+        return new TileEntityLeylightBore();
     }
 }
