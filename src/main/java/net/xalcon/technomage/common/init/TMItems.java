@@ -64,6 +64,9 @@ public class TMItems
     @GameRegistry.ObjectHolder(ItemTranslocationOrb.INTERNAL_NAME)
     private final static ItemTranslocationOrb translocationOrb = null;
 
+    @GameRegistry.ObjectHolder("debug_item")
+    private final static DebugItem debugItem = null;
+
     @SuppressWarnings("ConstantConditions")
     public static ItemLeystoneWand leystoneWand() { return leystoneWand; }
 

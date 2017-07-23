@@ -26,10 +26,10 @@ public class SingleGroupModelState implements IModelState
             {
                 if(this.group.equals(it.next()))
                 {
-                    return Optional.of(TRSRTransformation.identity());
+                    return Optional.empty();
                 }
             }
         }
-        return Optional.empty();
+        return Optional.of(TRSRTransformation.identity());
     }
 }

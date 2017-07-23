@@ -8,6 +8,8 @@
   "variants":
   {
     "normal": [{}],
+    "render_te=false": [{}],
+    "render_te=true": [{}],
     "inventory": { "transform": "forge:default-block" }
   }
 }

@@ -1,36 +1,25 @@
 package net.xalcon.technomage.client.renderer.block;
 
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.renderer.vertex.VertexFormat;
-import net.minecraft.client.renderer.vertex.VertexFormatElement;
-import net.minecraft.init.Blocks;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.WeightedRandom;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
-import net.minecraftforge.client.model.IModel;
-import net.minecraftforge.client.model.ModelLoader;
-import net.minecraftforge.client.model.ModelLoaderRegistry;
-import net.minecraftforge.client.model.obj.OBJModel;
-import net.minecraftforge.client.model.pipeline.IVertexConsumer;
-import net.minecraftforge.client.model.pipeline.UnpackedBakedQuad;
-import net.minecraftforge.client.model.pipeline.VertexBufferConsumer;
-import net.minecraftforge.client.model.pipeline.VertexLighterFlat;
-import net.minecraftforge.common.model.TRSRTransformation;
+import net.minecraft.util.math.MathHelper;
+import net.minecraftforge.common.property.IExtendedBlockState;
+import net.minecraftforge.common.property.Properties;
+import net.xalcon.technomage.Technomage;
+import net.xalcon.technomage.common.blocks.devices.BlockLeylightBore;
 import net.xalcon.technomage.common.init.TMBlocks;
+import net.xalcon.technomage.common.items.DebugItem;
 import net.xalcon.technomage.common.tileentities.TileEntityLeylightBore;
 import org.lwjgl.opengl.GL11;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.List;
 
@@ -38,67 +27,137 @@ public class TileEntityLeylightBoreRenderer extends TileEntitySpecialRenderer<Ti
 {
     @SuppressWarnings("ConstantConditions")
     private final static ModelResourceLocation MODEL = new ModelResourceLocation(TMBlocks.leylightBore().getRegistryName(), "normal");
-    private static List<BakedQuad> quads;
+    private final static ResourceLocation LASER_TEX = new ResourceLocation(Technomage.MOD_ID, "textures/fx/laser_fx.png");
+    private static List<BakedQuad> baseQuads;
+    private static List<BakedQuad> coreQuads;
+    private static List<BakedQuad> ringBackQuads;
+    private static List<BakedQuad> ringCenterQuads;
+    private static List<BakedQuad> ringFrontQuads;
+    private static List<BakedQuad> focusCrystalQuads;
 
-    private static TextureAtlasSprite getTexture(ResourceLocation location)
+    public TileEntityLeylightBoreRenderer()
     {
-        return Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(location.toString());
+        final BlockRendererDispatcher blockRenderer = Minecraft.getMinecraft().getBlockRendererDispatcher();
+        IExtendedBlockState state = (IExtendedBlockState) TMBlocks.leylightBore().getDefaultState();
+        IBakedModel model = blockRenderer.getModelForState(state);
+        baseQuads = model.getQuads(state.withProperty(Properties.AnimationProperty, new SingleGroupModelState("BoreBase")), null, 0);
+        coreQuads = model.getQuads(state.withProperty(Properties.AnimationProperty, new SingleGroupModelState("BoreCore")), null, 0);
+        ringBackQuads = model.getQuads(state.withProperty(Properties.AnimationProperty, new SingleGroupModelState("RingBack")), null, 0);
+        ringCenterQuads = model.getQuads(state.withProperty(Properties.AnimationProperty, new SingleGroupModelState("RingCenter")), null, 0);
+        ringFrontQuads = model.getQuads(state.withProperty(Properties.AnimationProperty, new SingleGroupModelState("RingFront")), null, 0);
+        focusCrystalQuads = model.getQuads(state.withProperty(Properties.AnimationProperty, new SingleGroupModelState("FocusCrystal")), null, 0);
+    }
+
+    @Override
+    public boolean isGlobalRenderer(TileEntityLeylightBore te)
+    {
+        return true;
     }
 
     @Override
     public void render(TileEntityLeylightBore tile, double x, double y, double z, float partialTicks, int destroyStage, float alpha)
     {
+        if(!tile.getWorld().getBlockState(tile.getPos()).getValue(BlockLeylightBore.RENDER_TE)) return;
+
         final BlockRendererDispatcher blockRenderer = Minecraft.getMinecraft().getBlockRendererDispatcher();
-        IBlockState state = tile.getWorld().getBlockState(tile.getPos());
-        quads = blockRenderer.getModelForState(state).getQuads(state, null, 0);
-
-        IBakedModel model = blockRenderer.getModelForState(tile.getWorld().getBlockState(tile.getPos()));
-
         Tessellator tessellator = Tessellator.getInstance();
         GlStateManager.pushMatrix();
         GlStateManager.translate(x, y, z);
-        RenderHelper.disableStandardItemLighting();
         GlStateManager.color(1, 1, 1, 1);
-        GlStateManager.enableLighting();
+
+        RenderHelper.disableStandardItemLighting();
+        GlStateManager.disableLighting();
+        GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+        GlStateManager.enableBlend();
+        GlStateManager.disableCull();
+
         Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
         BufferBuilder worldRenderer = tessellator.getBuffer();
-        worldRenderer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_COLOR_NORMAL);
-        //worldRenderer.setTranslation(-tile.getPos().getX(), -tile.getPos().getY(), -tile.getPos().getZ());
 
-        //renderModelTESRFast(quads, worldRenderer, tile.getWorld(), tile.getPos());
-        Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelRenderer().renderModel(tile.getWorld(), model, state, tile.getPos(), worldRenderer, true);
-        worldRenderer.setTranslation(0, 0, 0);
+        float pitch = 0;
+        float yaw = 0;
+
+        if(DebugItem.pos != null)
+        {
+            BlockPos target = DebugItem.pos;
+
+            double d0 = tile.getPos().getX() - target.getX();
+            double d1 = tile.getPos().getY() - target.getY();
+            double d2 = tile.getPos().getZ() - target.getZ();
+            double d3 = (double) MathHelper.sqrt(d0 * d0 + d2 * d2);
+            pitch = -(float)(-(MathHelper.atan2(d1, d3) * (180D / Math.PI))) + 90f;
+            yaw = -(float)(MathHelper.atan2(d2, d0) * (180D / Math.PI)) - 90.0F;
+        }
+
+        GlStateManager.translate(0.5, 0.5, 0.5);
+        GlStateManager.rotate(yaw, 0, 1, 0);
+        GlStateManager.translate(-0.5, -0.5, -0.5);
+
+        worldRenderer.begin(GL11.GL_QUADS, baseQuads.get(0).getFormat());
+        renderModelTESRFast(baseQuads, worldRenderer);
         tessellator.draw();
+
+        GlStateManager.translate(0.5, 0.5, 0.5);
+        GlStateManager.rotate(pitch, 1, 0, 0);
+        GlStateManager.translate(-0.5, -0.5, -0.5);
+
+        worldRenderer.begin(GL11.GL_QUADS, baseQuads.get(0).getFormat());
+        renderModelTESRFast(coreQuads, worldRenderer);
+        renderModelTESRFast(ringBackQuads, worldRenderer);
+        renderModelTESRFast(ringCenterQuads, worldRenderer);
+        renderModelTESRFast(ringFrontQuads, worldRenderer);
+        renderModelTESRFast(focusCrystalQuads, worldRenderer);
+        tessellator.draw();
+        renderLaser(16f);
+
         GlStateManager.popMatrix();
         RenderHelper.enableStandardItemLighting();
         GlStateManager.disableBlend();
         GlStateManager.enableCull();
     }
 
-    public static void renderModelTESRFast(List<BakedQuad> quads, BufferBuilder renderer, World world, BlockPos pos)
-        {
-        int brightness = world.getCombinedLight(pos, 0);
-        int l1 = (brightness >> 0x10) & 0xFFFF;
-        int l2 = brightness & 0xFFFF;
-        for (BakedQuad quad : quads)
-            {
-            int[] vData = quad.getVertexData();
-            VertexFormat format = quad.getFormat();
-            int size = format.getIntegerSize();
-            int uv = format.getUvOffsetById(0)/4;
-            for (int i = 0; i < 4; ++i)
-        {
-                renderer
-                        .pos(Float.intBitsToFloat(vData[size*i]),
-                                Float.intBitsToFloat(vData[size*i+1]),
-                                Float.intBitsToFloat(vData[size*i+2]))
-                        .tex(Float.intBitsToFloat(vData[size*i+uv]), Float.intBitsToFloat(vData[size*i+uv+1]))
-                        .color(255, 0, 0, 255)
-                        .normal(((vData[size*i+6] >> 0) & 0xFF) / 127f, ((vData[size*i+6] >> 8) & 0xFF) / 127f, ((vData[size*i+6] >> 16) & 0xFF) / 127f)
-                        //.lightmap(l1, l2)
-                        .endVertex();
-                }
+    private void renderLaser(float length)
+    {
+        float f = -(System.currentTimeMillis() % 300) / 300f;
+        GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE);
+        GlStateManager.alphaFunc(GL11.GL_GREATER, .1f);
+        GlStateManager.enableAlpha();
+        Minecraft.getMinecraft().renderEngine.bindTexture(LASER_TEX);
+        Tessellator tessellator = Tessellator.getInstance();
+        GlStateManager.color(1f, 0f, .3f);
+        BufferBuilder worldRenderer = tessellator.getBuffer();
+        worldRenderer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
+        worldRenderer.pos(-.5, 0.5, 0.5).tex(f, 0).endVertex();
+        worldRenderer.pos(-.5, length, 0.5).tex(length + f, 0).endVertex();
+        worldRenderer.pos(1.5, length, 0.5).tex(length + f, 1).endVertex();
+        worldRenderer.pos(1.5, 0.5, 0.5).tex(f, 1).endVertex();
 
+        worldRenderer.pos(0.5, 0.5, -.5).tex(f, 0).endVertex();
+        worldRenderer.pos(0.5, length, -.5).tex(length + f, 0).endVertex();
+        worldRenderer.pos(0.5, length, 1.5).tex(length + f, 1).endVertex();
+        worldRenderer.pos(0.5, 0.5, 1.5).tex(f, 1).endVertex();
+        tessellator.draw();
+    }
+
+    public static void renderModelTESRFast(List<BakedQuad> quads, BufferBuilder builder)
+    {
+        final int QUAD_VERTEXCOUNT = 4;
+        for (BakedQuad quad : quads)
+        {
+            VertexFormat format = quad.getFormat();
+            int[] vData = quad.getVertexData();
+            int size = format.getIntegerSize();
+            int uv = format.getUvOffsetById(0) / QUAD_VERTEXCOUNT;
+            int n = format.getNormalOffset() / QUAD_VERTEXCOUNT;
+            for (int i = 0; i < 4; ++i)
+            {
+                builder.pos(Float.intBitsToFloat(vData[size * i]), Float.intBitsToFloat(vData[size * i + 1]), Float.intBitsToFloat(vData[size * i + 2]))
+                       .color(255, 255, 255, 255)
+                       .tex(Float.intBitsToFloat(vData[size * i + uv]), Float.intBitsToFloat(vData[size * i + uv + 1]))
+                       .normal(((vData[size * i + n]) & 0xFF) / 127f, ((vData[size * i + n] >> 8) & 0xFF) / 127f, ((vData[size * i + n] >> 16) & 0xFF) / 127f)
+                       .endVertex();
             }
+
         }
+    }
 }
