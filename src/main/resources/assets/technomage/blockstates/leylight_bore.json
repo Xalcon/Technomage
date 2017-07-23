@@ -2,7 +2,8 @@
   "forge_marker": 1,
   "defaults":
   {
-    "model": "technomage:bore.obj"
+    "model": "technomage:bore.obj",
+    "custom": { "flip-v": true }
   },
   "variants":
   {

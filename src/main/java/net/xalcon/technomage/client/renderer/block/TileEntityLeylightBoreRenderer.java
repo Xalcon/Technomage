@@ -42,6 +42,7 @@ public class TileEntityLeylightBoreRenderer extends TileEntitySpecialRenderer<Ti
     @Override
     public void render(TileEntityLeylightBore te, double x, double y, double z, float partialTicks, int destroyStage, float alpha)
     {
+        if(true) return;
         IModel model = ModelLoaderRegistry.getModelOrMissing(MODEL);
 
         IBakedModel bakedModel = model.bake(TRSRTransformation.identity(), DefaultVertexFormats.BLOCK, ModelLoader.defaultTextureGetter());
@@ -54,7 +55,7 @@ public class TileEntityLeylightBoreRenderer extends TileEntitySpecialRenderer<Ti
         builder.begin(GL11.GL_QUADS, DefaultVertexFormats.BLOCK);
         builder.setTranslation(-0.5, -1.5, -0.5);
 
-        throw new NotImplementedException();
+        //throw new NotImplementedException();
         VertexLighterFlat lighter = null; // TODO: Grab the vertex lighters from the ForgeBlockModelRenderer (and maybe some other places)
 
         lighter.setParent(new VertexBufferConsumer(builder));
