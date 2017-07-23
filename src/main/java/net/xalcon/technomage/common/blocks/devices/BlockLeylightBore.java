@@ -9,6 +9,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.xalcon.technomage.common.init.TMBlocks;
 import net.xalcon.technomage.common.tileentities.TileEntityLeylightBore;
@@ -55,6 +56,12 @@ public class BlockLeylightBore extends Block implements IItemBlockProvider
     public boolean isFullCube(IBlockState state)
     {
         return false;
+    }
+
+    @Override
+    public int getLightOpacity(IBlockState state, IBlockAccess world, BlockPos pos)
+    {
+        return 0;
     }
 
     @Override
