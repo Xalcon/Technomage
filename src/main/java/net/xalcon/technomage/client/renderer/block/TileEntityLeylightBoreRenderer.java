@@ -10,14 +10,11 @@ import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.renderer.vertex.VertexFormat;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.common.property.IExtendedBlockState;
 import net.minecraftforge.common.property.Properties;
 import net.xalcon.technomage.Technomage;
 import net.xalcon.technomage.common.blocks.devices.BlockLeylightBore;
 import net.xalcon.technomage.common.init.TMBlocks;
-import net.xalcon.technomage.common.items.DebugItem;
 import net.xalcon.technomage.common.tileentities.TileEntityLeylightBore;
 import org.lwjgl.opengl.GL11;
 
@@ -74,23 +71,19 @@ public class TileEntityLeylightBoreRenderer extends TileEntitySpecialRenderer<Ti
         Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
         BufferBuilder worldRenderer = tessellator.getBuffer();
 
-        float pitch = 0;
-        float yaw = 0;
-
-        if(DebugItem.pos != null)
+        if(tile.directionProgress > 0)
         {
-            BlockPos target = DebugItem.pos;
-
-            double d0 = tile.getPos().getX() - target.getX();
-            double d1 = tile.getPos().getY() - target.getY();
-            double d2 = tile.getPos().getZ() - target.getZ();
-            double d3 = (double) MathHelper.sqrt(d0 * d0 + d2 * d2);
-            pitch = -(float)(-(MathHelper.atan2(d1, d3) * (180D / Math.PI))) + 90f;
-            yaw = -(float)(MathHelper.atan2(d2, d0) * (180D / Math.PI)) - 90.0F;
+            tile.curPitch = tile.targetPitch - (tile.targetPitch - tile.startPitch) * (tile.directionProgress - partialTicks * .05f);
+            tile.curYaw = tile.targetYaw - (tile.targetYaw - tile.startYaw) * (tile.directionProgress - partialTicks * .05f);
+        }
+        else
+        {
+            tile.curPitch = tile.targetPitch;
+            tile.curYaw = tile.targetYaw;
         }
 
         GlStateManager.translate(0.5, 0.5, 0.5);
-        GlStateManager.rotate(yaw, 0, 1, 0);
+        GlStateManager.rotate(tile.curYaw, 0, 1, 0);
         GlStateManager.translate(-0.5, -0.5, -0.5);
 
         worldRenderer.begin(GL11.GL_QUADS, baseQuads.get(0).getFormat());
@@ -98,7 +91,7 @@ public class TileEntityLeylightBoreRenderer extends TileEntitySpecialRenderer<Ti
         tessellator.draw();
 
         GlStateManager.translate(0.5, 0.5, 0.5);
-        GlStateManager.rotate(pitch, 1, 0, 0);
+        GlStateManager.rotate(tile.curPitch, 1, 0, 0);
         GlStateManager.translate(-0.5, -0.5, -0.5);
 
         worldRenderer.begin(GL11.GL_QUADS, baseQuads.get(0).getFormat());

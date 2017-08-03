@@ -15,6 +15,7 @@ import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec2f;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.property.ExtendedBlockState;
@@ -24,6 +25,7 @@ import net.minecraftforge.common.property.Properties;
 import net.xalcon.technomage.client.renderer.block.SingleGroupModelState;
 import net.xalcon.technomage.common.init.TMBlocks;
 import net.xalcon.technomage.common.tileentities.TileEntityLeylightBore;
+import net.xalcon.technomage.lib.WorldHelper;
 import net.xalcon.technomage.lib.item.IItemBlockProvider;
 import net.xalcon.technomage.lib.tiles.HasTileEntity;
 
@@ -39,6 +41,7 @@ public class BlockLeylightBore extends Block implements IItemBlockProvider
     public BlockLeylightBore()
     {
         super(Material.WOOD);
+        this.setDefaultState(this.getDefaultState().withProperty(RENDER_TE, true));
     }
 
     @Override
@@ -70,7 +73,27 @@ public class BlockLeylightBore extends Block implements IItemBlockProvider
     @Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
     {
-        worldIn.setBlockState(pos, state.withProperty(RENDER_TE, !state.getValue(RENDER_TE)));
+        //worldIn.setBlockState(pos, state.withProperty(RENDER_TE, !state.getValue(RENDER_TE)));
+        if(!state.getValue(RENDER_TE))
+        {
+            worldIn.setBlockState(pos, state.withProperty(RENDER_TE, !state.getValue(RENDER_TE)));
+            return true;
+        }
+
+        TileEntityLeylightBore te = WorldHelper.getTileEntitySafe(worldIn, pos, TileEntityLeylightBore.class);
+        if(te != null)
+        {
+            if(te.direction != facing)
+            {
+                te.direction = facing;
+                te.startPitch = te.curPitch;
+                te.startYaw = te.curYaw;
+                Vec2f newTarget = TileEntityLeylightBore.ROTATIONS[facing.getIndex()];
+                te.targetPitch = newTarget.x;
+                te.targetYaw = newTarget.y;
+                te.directionProgress = 1;
+            }
+        }
         return true;
     }
 
